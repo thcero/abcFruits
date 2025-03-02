@@ -1,0 +1,118 @@
+{
+  "fruitList": [
+    {
+      "name": "apple",
+      "richIn": ["VitC", "Fiber", "Potassium"],
+      "nativeTo": ["Kazakhstan", "China"],
+      "id": "b3f78d93-42bf-4464-a9e2-bee5bc70e9dc"
+    },
+    {
+      "name": "orange",
+      "richIn": ["VitC", "Fiber", "Folate"],
+      "nativeTo": ["China", "India"],
+      "id": "19b23727-29d1-44d4-a41d-82aefd07f163"
+    },
+    {
+      "name": "lemon",
+      "richIn": ["VitC", "Fiber", "Vitamin B6"],
+      "nativeTo": ["India", "China"],
+      "id": "bbb48c15-b74f-4b91-bcfe-149fbe4912b2"
+    },
+    {
+      "name": "kiwi",
+      "richIn": ["VitC", "VitK", "Fiber"],
+      "nativeTo": ["China"],
+      "id": "29c6a2c1-e5cd-42ed-bee5-62fde6c189ef"
+    },
+    {
+      "name": "grapes-green",
+      "richIn": ["VitC", "VitK", "Antioxidants"],
+      "nativeTo": ["Armenia", "Georgia", "Azerbaijan "],
+      "id": "b45cf661-43f7-47e6-92d6-4872db8f949b"
+    },
+    {
+      "name": "pear",
+      "richIn": ["Fiber", "VitC", "Vitamin K"],
+      "nativeTo": ["China", "Asia"],
+      "id": "d7b8bdaf-972e-4e2d-8a97-dbb8646ca92b"
+    },
+    {
+      "name": "watermelon",
+      "richIn": ["VitC", "VitA", "Antioxidants"],
+      "nativeTo": ["WestAfrica"],
+      "id": "50d0fe0c-0561-4f69-ba02-93fead88a91d"
+    },
+    {
+      "name": "coconut",
+      "richIn": ["Manganese", "Fiber", "Copper"],
+      "nativeTo": ["India", "Indonesia", "Philippines"],
+      "id": "3dcbb597-5ed7-4d4c-b8c9-0b72ea2d8fa4"
+    },
+    {
+      "name": "strawberry",
+      "richIn": ["VitC", "Manganese", "Folate"],
+      "nativeTo": ["Chile", "USA", "Canada", "France"],
+      "id": "84953ca2-75a7-44eb-8730-2a971f93aaea"
+    },
+    {
+      "name": "peach",
+      "richIn": ["VitC", "VitA", "Fiber"],
+      "nativeTo": ["China", "South Asia"],
+      "id": "4dca37c6-0176-4fb2-9aa3-b655474eb0b6"
+    },
+    {
+      "name": "cherry",
+      "richIn": ["VitC", "Potassium", "Fiber"],
+      "nativeTo": ["Europe", "Western Asia"],
+      "id": "92d7cc12-3ab8-4e15-9859-25131a70868e"
+    },
+    {
+      "name": "banana",
+      "richIn": ["Potassium", "VitB6", "VitC"],
+      "nativeTo": ["Southeast Asia", "PapuaNewGuinea"],
+      "id": "d287a14f-6788-4ab8-8a3d-f51b31bcc681"
+    },
+    {
+      "name": "pineapple",
+      "richIn": ["VitC", "Manganese", "VitB6"],
+      "nativeTo": ["Brazil", "Argentina", "Paraguay"],
+      "id": "7dcc454d-3b30-400e-bf1a-d4e907baaadc"
+    },
+    {
+      "name": "pomegranate",
+      "richIn": ["VitC", "VitK", "Folate"],
+      "nativeTo": ["Iran", "India"],
+      "id": "dbc4528d-287f-41b0-aa75-28a69d4cde20"
+    },
+    {
+      "name": "grapes-red",
+      "richIn": ["VitC", "VitK", "Antioxidants"],
+      "nativeTo": ["Near East"],
+      "id": "cab378b1-a20a-4b5d-925f-e9dc5c56d9f8"
+    },
+    {
+      "name": "raspberry",
+      "richIn": ["VitC", "Fiber", "Manganese"],
+      "nativeTo": ["Turkey", "USA", "Canada"],
+      "id": "561f2730-133d-4dd0-803d-75459248ee16"
+    },
+    {
+      "name": "avocado",
+      "richIn": ["Healthy fats", "Fiber", "Potassium"],
+      "nativeTo": ["Mexico"],
+      "id": "6390d40b-390f-4f07-a701-2701a627557d"
+    },
+    {
+      "name": "cashew",
+      "richIn": ["Magnesium", "Copper", "Zinc"],
+      "nativeTo": ["Brazil"],
+      "id": "3064048e-a23a-4f4f-afe6-95cda7239e92"
+    },
+    {
+      "name": "blueberry",
+      "richIn": ["VitC", "VitK", "Manganese"],
+      "nativeTo": ["USA", "Canada"],
+      "id": "d1554116-a727-4861-a49c-4ca48bba03e2"
+    }
+  ]
+}
