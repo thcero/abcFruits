@@ -1,12 +1,11 @@
+import { SafeAreaView } from "react-native-safe-area-context";
 import { StyleSheet, View, TouchableOpacity } from "react-native";
-import CustomText from "./helperComponents/CustomText";
 import theme from "../theme";
-import TopMenu from "./TopMenu";
+import CustomText from "./helperComponents/CustomText";
 
-export default function ProfScreen({ navigation }) {
+export const ProfScreen = ({ navigation }) => {
   return (
-    <View style={[theme.container]}>
-      <TopMenu navigation={navigation} />
+    <SafeAreaView style={[theme.container]}>
       <CustomText>ProfScreen</CustomText>
       <TouchableOpacity onPress={() => navigation.navigate("AlterInfo")}>
         <CustomText fontSize="subheading">AlterInfo</CustomText>
@@ -17,6 +16,6 @@ export default function ProfScreen({ navigation }) {
       <TouchableOpacity onPress={() => navigation.navigate("FruityFriend")}>
         <CustomText fontSize="subheading">FruityFriend</CustomText>
       </TouchableOpacity>
-    </View>
+    </SafeAreaView>
   );
-}
+};

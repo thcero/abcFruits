@@ -1,16 +1,15 @@
-import { View, SafeAreaView } from "react-native";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View } from "react-native";
 import { useEffect, useState } from "react";
-import "react-native-gesture-handler";
-import CustomText from "./helperComponents/CustomText";
-import theme from "../theme";
-import AbcFruitsList from "./AbcFruitsList";
-import TopMenu from "./TopMenu";
 import fruitData from "../fruitsList.json";
+import theme from "../theme";
+import CustomText from "./helperComponents/CustomText";
+import { AbcFruitsList } from "./AbcFruitsList";
 
 const fruitsList = fruitData.fruitList;
 fruitsList.sort((a, b) => a.name.localeCompare(b.name));
 
-export default function MainScreen({ navigation }) {
+export const MainScreen = ({ navigation }) => {
   // checks if it's undefined without throwing an error, if it is, returns an empty array
   // const currentLetters = route.params?.currentLetters ?? [];
   const [currentLetters, setCurrentLetters] = useState([]);
@@ -28,7 +27,6 @@ export default function MainScreen({ navigation }) {
     <SafeAreaView
       style={[theme.container, { backgroundColor: theme.colors.secGreen }]}
     >
-      <TopMenu navigation={navigation} />
       <View
         style={{
           flexDirection: "row",
@@ -55,4 +53,4 @@ export default function MainScreen({ navigation }) {
       <AbcFruitsList currentLetters={currentLetters} fruitsList={fruitsList} />
     </SafeAreaView>
   );
-}
+};

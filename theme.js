@@ -1,3 +1,7 @@
+import { Dimensions } from "react-native";
+const SCREEN_WIDTH = Dimensions.get("window").width;
+const SCREEN_HEIGHT = Dimensions.get("window").height;
+
 const theme = {
   colors: {
     textPrimary: "#1d2026",
@@ -12,7 +16,7 @@ const theme = {
     light: "#f5f4ff",
   },
   fontSizes: {
-    small: 5,
+    small: 16,
     body: 22,
     subheading: 18,
     heading: 28,
@@ -40,10 +44,16 @@ const theme = {
   borderRadius: {
     round: 10,
   },
+  widths: {
+    screen: SCREEN_WIDTH,
+  },
+  heights: {
+    screen: SCREEN_HEIGHT,
+  },
   container: {
     flex: 1,
-    alignItems: "flex-start",
-    justifyContent: "flex-start",
+    alignItems: "center",
+    justifyContent: "spaced-evenly",
   },
   content: {
     justifyContent: "spaceAround",

@@ -5,15 +5,12 @@ import {
   Image,
   TouchableOpacity,
 } from "react-native";
-import CustomText from "./helperComponents/CustomText";
-import theme from "../theme";
-import { Dimensions } from "react-native";
-import fruitIconImgSources from "../assets/fruitIconImgSources";
 import { useNavigation } from "@react-navigation/native";
+import fruitIconImgSources from "../assets/fruitIconImgSources";
+import theme from "../theme";
+import CustomText from "./helperComponents/CustomText";
 
-const SCREEN_WIDTH = Dimensions.get("window").width;
-
-export default function AbcFruitsList({ currentLetters, fruitsList }) {
+export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
   const navigation = useNavigation();
   const alphabetRow = ({ letter }) => {};
 
@@ -22,7 +19,7 @@ export default function AbcFruitsList({ currentLetters, fruitsList }) {
       {/* change this to a flatlist for efficiency and write on the report */}
       <ScrollView
         contentContainerStyle={theme.content}
-        showsVerticalScrollIndicator={true}
+        style={styles.fruitList}
       >
         {currentLetters.map((letter, index) => (
           <View style={styles.alphabetRow} key={index}>
@@ -38,20 +35,29 @@ export default function AbcFruitsList({ currentLetters, fruitsList }) {
               <CustomText>Hi</CustomText>
             ) : (
               fruitsList
-                .filter((fruit) => fruit.name.toUpperCase().startsWith(letter))
-                .map((fFruit, fIndex) => (
+                .filter((lFruit) =>
+                  lFruit.name.toUpperCase().startsWith(letter)
+                )
+                .map((fruit, fIndex) => (
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("FruitScreen", { fFruit })
+                      navigation.navigate("FruitScreen", { fruit })
                     }
                     style={{ padding: theme.paddings.paddingStd }}
                     key={fIndex}
                   >
                     <Image
                       key={fIndex}
-                      source={fruitIconImgSources[fFruit.name]}
+                      source={fruitIconImgSources[fruit.name]}
                       style={styles.smallFruitIcon}
                     />
+                    <CustomText
+                      style={styles.addIcon}
+                      color="textSecondary"
+                      fontSize="subheading"
+                    >
+                      ➕
+                    </CustomText>
                   </TouchableOpacity>
                 ))
             )}
@@ -60,9 +66,12 @@ export default function AbcFruitsList({ currentLetters, fruitsList }) {
       </ScrollView>
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
+  fruitList: {
+    height: theme.heights.screen * 2.3,
+  },
   alphabetRow: {
     flexDirection: "row",
     alignItems: "center",
@@ -72,7 +81,7 @@ const styles = StyleSheet.create({
     borderColor: theme.colors.light,
     borderRadius: theme.borderRadius.round,
     borderStyle: "dotted",
-    width: SCREEN_WIDTH * 0.95,
+    width: theme.widths.screen * 0.95,
     backgroundColor: theme.colors.light,
   },
   alphabetLetter: {
@@ -86,5 +95,9 @@ const styles = StyleSheet.create({
     borderWidth: theme.borderWidths.borderStd,
     borderColor: theme.colors.secGreen,
     borderRadius: theme.borderRadius.round,
+  },
+  addIcon: {
+    position: "absolute",
+    right: 0,
   },
 });

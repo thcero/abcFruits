@@ -15,6 +15,7 @@ export default function CustomText({
     color === "textSecondary" && styles.colorTextSecondary,
     color === "primary" && styles.colorPrimary,
     fontSize === "subheading" && styles.fontSizeSubheading,
+    fontSize === "small" && styles.fontSizeSmall,
     fontSize === "heading" && styles.fontSizeHeading,
     fontSize === "huge" && styles.fontSizeHuge,
     fontWeight === "bold" && styles.bold,
@@ -41,6 +42,7 @@ const styles = StyleSheet.create({
   colorPrimary: {
     color: theme.colors.primBlue,
   },
+  fontSizeSmall: { fontSize: theme.fontSizes.small },
   fontSizeSubheading: {
     fontSize: theme.fontSizes.subheading,
   },
