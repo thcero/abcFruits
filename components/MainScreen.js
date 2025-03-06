@@ -6,13 +6,14 @@ import theme from "../theme";
 import CustomText from "./helperComponents/CustomText";
 import { AbcFruitsList } from "./AbcFruitsList";
 
-const fruitsList = fruitData.fruitList;
+const fruitsList = fruitData;
 fruitsList.sort((a, b) => a.name.localeCompare(b.name));
 
 export const MainScreen = ({ navigation }) => {
   // checks if it's undefined without throwing an error, if it is, returns an empty array
   // const currentLetters = route.params?.currentLetters ?? [];
   const [currentLetters, setCurrentLetters] = useState([]);
+
   useEffect(() => {
     // create array of initial letters of available fruits with no repetition
     let initialLetters = [];
@@ -21,7 +22,6 @@ export const MainScreen = ({ navigation }) => {
     });
     initialLetters = [...new Set(initialLetters)];
     setCurrentLetters(initialLetters);
-    // console.log(currentLetters);
   }, []);
   return (
     <SafeAreaView
@@ -31,7 +31,7 @@ export const MainScreen = ({ navigation }) => {
         style={{
           flexDirection: "row",
           alignItems: "baseline",
-          padding: theme.paddings.paddingLarge,
+          padding: theme.paddings.large,
         }}
       >
         <CustomText

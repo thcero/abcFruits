@@ -1,0 +1,11 @@
+{
+  "username": "John Doe",
+  "email": "john_doe@someSever.com",
+  "picture": "someURI",
+  "age": "43",
+  "gender": "M",
+  "country": "England",
+  "favouriteFruits": ["apple", "orange", "blueberries", "avocado", "pear"],
+  "fruitsEatenToday": ["apple", "orange", "blueberries"],
+  "friends": [1, 2, 3, 4]
+}

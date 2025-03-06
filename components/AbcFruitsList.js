@@ -26,7 +26,7 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
             <CustomText
               fontSize="huge"
               fontWeight="bold"
-              padding="paddingStd"
+              padding="std"
               style={styles.alphabetLetter}
             >
               {letter}
@@ -43,7 +43,7 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
                     onPress={() =>
                       navigation.navigate("FruitScreen", { fruit })
                     }
-                    style={{ padding: theme.paddings.paddingStd }}
+                    style={{ padding: theme.paddings.std }}
                     key={fIndex}
                   >
                     <Image
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
   alphabetRow: {
     flexDirection: "row",
     alignItems: "center",
-    padding: theme.paddings.paddingStd,
-    margin: theme.margins.marginLarge,
-    borderWidth: theme.borderWidths.borderLarge,
+    padding: theme.paddings.std,
+    margin: theme.margins.large,
+    borderWidth: theme.borderWidths.large,
     borderColor: theme.colors.light,
     borderRadius: theme.borderRadius.round,
     borderStyle: "dotted",
@@ -86,13 +86,13 @@ const styles = StyleSheet.create({
   },
   alphabetLetter: {
     color: theme.colors.textPrimary,
-    marginLeft: theme.margins.marginStd,
-    marginRight: theme.margins.marginLarge,
+    marginLeft: theme.margins.std,
+    marginRight: theme.margins.large,
   },
   smallFruitIcon: {
     width: 58,
     height: 58,
-    borderWidth: theme.borderWidths.borderStd,
+    borderWidth: theme.borderWidths.std,
     borderColor: theme.colors.secGreen,
     borderRadius: theme.borderRadius.round,
   },

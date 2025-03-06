@@ -1,4 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
+import { useAuth } from "./helperComponents/AuthContextProvider";
 import { useState, useEffect } from "react";
 import {
   View,
@@ -34,7 +35,12 @@ export const FruitScreen = ({ navigation, route }) => {
           </View>
           <TouchableOpacity
             style={styles.addBtn}
-            onPress={() => addFruit(fruit)}
+            onPress={() => {
+              addFruit(fruit);
+            }}
+            // onPress={() => {
+            //   user ? addFruit(fruit) : navigation.navigate("GoogleLogin");
+            // }}
           >
             <CustomText>➕</CustomText>
             <CustomText>(to basket)</CustomText>
@@ -100,22 +106,22 @@ export const FruitScreen = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   alphabetLetter: {
     color: theme.colors.textPrimary,
-    marginLeft: theme.margins.marginStd,
-    marginRight: theme.margins.marginLarge,
+    marginLeft: theme.margins.std,
+    marginRight: theme.margins.large,
   },
   smallFruitIcon: {
     width: 58,
     height: 58,
-    borderWidth: theme.borderWidths.borderStd,
+    borderWidth: theme.borderWidths.std,
     borderColor: theme.colors.secGreen,
     borderRadius: theme.borderRadius.round,
   },
   fruitBox: {
     flexDirection: "column",
     alignItems: "center",
-    padding: theme.paddings.paddingStd,
-    margin: theme.margins.marginStd,
-    borderWidth: theme.borderWidths.borderLarge,
+    padding: theme.paddings.std,
+    margin: theme.margins.std,
+    borderWidth: theme.borderWidths.large,
     borderColor: theme.colors.light,
     borderRadius: theme.borderRadius.round,
     borderStyle: "dotted",
@@ -129,7 +135,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",
-    padding: theme.paddings.paddingStd,
+    padding: theme.paddings.std,
   },
   addBtn: {
     flexDirection: "column",
@@ -147,6 +153,6 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     justifyContent: "space-around",
     alignItems: "center",
-    padding: theme.paddings.paddingStd,
+    padding: theme.paddings.std,
   },
 });

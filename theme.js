@@ -30,16 +30,16 @@ const theme = {
     bold: "900",
   },
   paddings: {
-    paddingStd: 8,
-    paddingLarge: 16,
+    std: 8,
+    large: 16,
   },
   margins: {
-    marginStd: 5,
-    marginLarge: 10,
+    std: 5,
+    large: 10,
   },
   borderWidths: {
-    borderStd: 1,
-    borderLarge: 3,
+    std: 1,
+    large: 3,
   },
   borderRadius: {
     round: 10,

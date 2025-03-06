@@ -6,6 +6,12 @@ export const BaskContext = createContext();
 
 export const BaskProvider = ({ children }) => {
   const [items, setItems] = useState([]);
+  // const [show, setShow] = useState(true);
+
+  // const controlBaskView = (show) => {
+  //   setShow(() => show);
+  //   console.log("from bask provider", show);
+  // };
 
   // this is a common pattern of updating an state arrays based on its object props
   // uses functional approach to ensure state is updated properly based on the previous state

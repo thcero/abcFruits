@@ -23,7 +23,7 @@ export const TopMenu = () => {
         </CustomText>
       </TouchableOpacity>
       {/* if user is logged in */}
-      <TouchableOpacity onPress={() => navigation.navigate("RegForm")}>
+      <TouchableOpacity onPress={() => navigation.navigate("ProfScreen")}>
         <CustomText fontSize="heading">👱‍♂️</CustomText>
       </TouchableOpacity>
       {/* if user is logged out */}
@@ -43,7 +43,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingVertical: 0.7 * Constants.statusBarHeight,
-    paddingHorizontal: theme.paddings.paddingLarge,
-    backgroundColor: theme.colors.light,
+    paddingHorizontal: theme.paddings.large,
+    backgroundColor: "lightgrey",
   },
 });

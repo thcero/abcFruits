@@ -223,35 +223,35 @@ export const RegForm = ({ navigation }) => {
 
 const styles = StyleSheet.create({
   formContainer: {
-    padding: theme.paddings.paddingLarge,
+    padding: theme.paddings.large,
     justifyContent: "space-evenly",
-    marginBottom: theme.margins.marginLarge * 5,
+    marginBottom: theme.margins.large * 5,
   },
   formField: {
     alignSelf: "flex-start",
   },
   smallFormField: {
-    marginRight: theme.margins.marginLarge * 4,
+    marginRight: theme.margins.large * 4,
   },
   title: {
     alignSelf: "flex-start",
     fontSize: theme.fontSizes.heading,
     fontWeight: theme.weights.bold,
-    marginBottom: theme.margins.marginStd,
+    marginBottom: theme.margins.std,
   },
   subtitle: {
     alignSelf: "flex-end",
     maxWidth: theme.widths.screen / 2,
-    margin: theme.margins.marginLarge,
+    margin: theme.margins.large,
   },
   label: {
     fontWeight: theme.weights.bold,
   },
   inputField: {
-    borderWidth: theme.borderWidths.borderStd,
+    borderWidth: theme.borderWidths.std,
     borderColor: "#ccc",
     borderRadius: theme.borderRadius.round,
-    padding: theme.paddings.paddingStd,
+    padding: theme.paddings.std,
   },
   normalInput: { width: theme.widths.screen * 0.86 },
   smallInput: { width: theme.widths.screen * 0.28 },
@@ -268,16 +268,16 @@ const styles = StyleSheet.create({
   picFunc: {
     maxWidth: 150,
     alignItems: "center",
-    padding: theme.paddings.paddingStd,
-    marginTop: theme.margins.marginLarge,
+    padding: theme.paddings.std,
+    marginTop: theme.margins.large,
   },
   buttonContainer: { alignSelf: "flex-end" },
   errorText: {
     color: "red",
-    marginBottom: theme.margins.marginStd,
+    marginBottom: theme.margins.std,
   },
   dropBox: {
-    borderWidth: theme.borderWidths.borderStd,
+    borderWidth: theme.borderWidths.std,
     borderColor: "#ccc",
     borderRadius: theme.borderRadius.round,
   },

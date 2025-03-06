@@ -2,6 +2,7 @@ import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import countryCodesList from "./countryCodesList.json";
 import * as FileSystem from "expo-file-system";
+import fruitData from "./fruitsList.json";
 
 // export const getCountryFlag = async (countryCode) => {
 //   try {

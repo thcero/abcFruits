@@ -1,5 +1,6 @@
 export * from "./AbcFruitsList";
 export * from "./AlterInfo";
+export * from "./FriendProfScreen";
 export * from "./FruitScreen";
 export * from "./FruityFriend";
 export * from "./MainScreen";

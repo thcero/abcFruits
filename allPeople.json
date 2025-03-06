@@ -1,0 +1,46 @@
+[
+  {
+    "username": "Mariazinha",
+    "email": "john_doe@someSever.com",
+    "picture": "someURI",
+    "age": "43",
+    "gender": "M",
+    "country": "England",
+    "favouriteFruits": ["apple", "orange", "lemon", "kiwi", "watermelon"],
+    "fruitsEatenToday": ["apple", "orange", "lemon", "kiwi", "watermelon"],
+    "id": 1
+  },
+  {
+    "username": "Daniel",
+    "email": "john_doe@someSever.com",
+    "picture": "someURI",
+    "age": "43",
+    "gender": "M",
+    "country": "England",
+    "favouriteFruits": ["apple", "Orange", "Blueberries", "Avocado", "Pear"],
+    "fruitsEatenToday": ["apple", "orange", "avocado"],
+    "id": 2
+  },
+  {
+    "username": "Joao",
+    "email": "john_doe@someSever.com",
+    "picture": "someURI",
+    "age": "43",
+    "gender": "M",
+    "country": "England",
+    "favouriteFruits": ["apple", "Orange", "Blueberries", "Avocado", "Pear"],
+    "fruitsEatenToday": ["apple", "orange", "pear"],
+    "id": 3
+  },
+  {
+    "username": "Marina",
+    "email": "john_doe@someSever.com",
+    "picture": "someURI",
+    "age": "43",
+    "gender": "M",
+    "country": "England",
+    "favouriteFruits": ["apple", "Orange", "Blueberries", "Avocado", "Pear"],
+    "fruitsEatenToday": ["apple", "orange", "avocado"],
+    "id": 4
+  }
+]
