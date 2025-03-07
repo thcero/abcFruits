@@ -14,7 +14,8 @@ import { useBasket } from "./basketFunctionality/BaskProvider";
 import fruitData from "../fruitsList.json";
 import fruitIconImgSources from "../assets/fruitIconImgSources";
 import userInfo from "../userInfo.json";
-import allPeople from "../allPeople";
+import allPeople from "../allPeople.json";
+import * as Location from "expo-location";
 
 export const ProfScreen = ({ navigation }) => {
   const [user, setCurrentUser] = useState(null);

@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import theme from "../theme";
 import CustomText from "./helperComponents/CustomText";
 import { pickImage, takePictureAndReturnUri } from "../imagePickerHelper";

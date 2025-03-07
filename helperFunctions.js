@@ -81,7 +81,7 @@ export const getCountryCode = (codeArray, countryName) => {
 };
 
 // first this line creates a dir if it still doesn't exist, if it does, it does nothing
-const downloadFlagAndSaveFlag = async (countryCode) => {
+export const downloadFlagAndSaveFlag = async (countryCode) => {
   try {
     await FileSystem.makeDirectoryAsync(
       FileSystem.documentDirectory + "flags",
@@ -101,4 +101,10 @@ const downloadFlagAndSaveFlag = async (countryCode) => {
     console.log("error in downloadFlagAndSaveFlag", e);
     return null;
   }
+};
+
+// returns a random image from a list of img req. sources
+export const pickRandomImgSource = (reqSourcesArray) => {
+  const index = Math.floor(Math.random() * reqSourcesArray.length);
+  return reqSourcesArray[index];
 };

@@ -14,7 +14,7 @@ import { useBasket } from "./basketFunctionality/BaskProvider";
 import fruitData from "../fruitsList.json";
 import fruitIconImgSources from "../assets/fruitIconImgSources";
 import userInfo from "../userInfo.json";
-import allPeople from "../allPeople";
+import allPeople from "../allPeople.json";
 
 export const FriendProfScreen = ({ navigation, route }) => {
   const friend = route.params.friend;

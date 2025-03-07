@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { getLocalURIforCountryFlag, getCountryCode } from "./helperFunctions";
-import countryCodesList from "./countryCodesList";
+import countryCodesList from "./countryCodesList.json";
 
 // custom hook that will download flag images and store them in the local file system if they're not already there
 // ortherwise just grab them from there

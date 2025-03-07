@@ -16,7 +16,7 @@ const theme = {
     light: "#f5f4ff",
   },
   fontSizes: {
-    small: 16,
+    small: 17,
     body: 22,
     subheading: 18,
     heading: 28,
