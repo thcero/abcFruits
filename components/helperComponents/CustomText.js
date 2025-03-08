@@ -2,14 +2,14 @@ import { Text as NativeTextComponent, StyleSheet } from "react-native";
 import theme from "../../theme";
 
 // customized text component to make styling clean and consistent
-export default function CustomText({
+export const CustomText = ({
   color,
   fontSize,
   fontWeight,
   style,
   padding,
   ...props
-}) {
+}) => {
   const textStyle = [
     styles.text,
     color === "textSecondary" && styles.colorTextSecondary,
@@ -26,7 +26,7 @@ export default function CustomText({
   ];
 
   return <NativeTextComponent style={textStyle} {...props} />;
-}
+};
 
 // stylesheet for customized text component
 const styles = StyleSheet.create({

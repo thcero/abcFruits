@@ -17,7 +17,7 @@
     "age": "43",
     "gender": "M",
     "country": "England",
-    "favouriteFruits": ["apple", "Orange", "Blueberries", "Avocado", "Pear"],
+    "favouriteFruits": ["apple", "orange", "blueberry", "avocado", "pear"],
     "fruitsEatenToday": ["apple", "orange", "avocado"],
     "id": 2
   },
@@ -28,7 +28,7 @@
     "age": "43",
     "gender": "M",
     "country": "England",
-    "favouriteFruits": ["apple", "Orange", "Blueberries", "Avocado", "Pear"],
+    "favouriteFruits": ["apple", "orange", "blueberry", "avocado", "pear"],
     "fruitsEatenToday": ["apple", "orange", "pear"],
     "id": 3
   },

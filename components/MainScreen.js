@@ -3,7 +3,7 @@ import { View } from "react-native";
 import { useEffect, useState } from "react";
 import fruitData from "../fruitsList.json";
 import theme from "../theme";
-import CustomText from "./helperComponents/CustomText";
+import { CustomText } from "./helperComponents/CustomText";
 import { AbcFruitsList } from "./AbcFruitsList";
 
 const fruitsList = fruitData;

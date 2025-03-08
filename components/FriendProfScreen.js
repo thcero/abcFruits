@@ -5,32 +5,26 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  FlatList,
 } from "react-native";
 import theme from "../theme";
-import CustomText from "./helperComponents/CustomText";
+import { CustomText } from "./helperComponents/CustomText";
 import { useEffect, useState } from "react";
-import { useBasket } from "./basketFunctionality/BaskProvider";
-import fruitData from "../fruitsList.json";
 import fruitIconImgSources from "../assets/fruitIconImgSources";
-import userInfo from "../userInfo.json";
-import allPeople from "../allPeople.json";
+import { TinyFruitIcon } from "./UiComponents";
 
 export const FriendProfScreen = ({ navigation, route }) => {
-  const friend = route.params.friend;
-  const myFavFNames = route.params.myFavFNames;
+  const [friend, setCurrentFriend] = useState(null);
 
-  let popFavFruits = [];
-  if (friend && friend.favouriteFruits.length) {
-    popFavFruits = fruitData.filter((fruit) =>
-      friend.favouriteFruits.includes(fruit.name)
-    );
-  }
+  const friendFavFNames = friend?.favouriteFruits || [];
 
-  let fruitsInCommon = [];
-  if (popFavFruits && myFavFNames.length) {
-    fruitsInCommon = popFavFruits.filter((fruit) =>
-      myFavFNames.includes(fruit.name)
+  useEffect(() => {
+    setCurrentFriend(route.params.friend);
+  }, []);
+
+  let commonFNames = [];
+  if (friendFavFNames.length && route.params.favFNames.length) {
+    commonFNames = route.params.favFNames.filter((f) =>
+      friendFavFNames.includes(f)
     );
   }
 
@@ -72,7 +66,7 @@ export const FriendProfScreen = ({ navigation, route }) => {
             </CustomText>
           </View>
           {/* ----- favourite fruits ----- */}
-          {popFavFruits.length ? (
+          {friendFavFNames ? (
             <View
               style={{
                 alignSelf: "flex-start",
@@ -93,18 +87,17 @@ export const FriendProfScreen = ({ navigation, route }) => {
                   justifyContent: "space-evenly",
                 }}
               >
-                {popFavFruits.map((fruit) => (
+                {friendFavFNames.map((f) => (
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("FruitScreen", { fruit })
+                      navigation.navigate("FruitScreen", {
+                        fruitName: f,
+                      })
                     }
                     style={{ padding: theme.paddings.std }}
-                    key={fruit.name}
+                    key={f}
                   >
-                    <Image
-                      source={fruitIconImgSources[fruit.name]}
-                      style={styles.tinyFruitIcon}
-                    />
+                    <TinyFruitIcon f={f} />
                   </TouchableOpacity>
                 ))}
               </View>
@@ -119,7 +112,7 @@ export const FriendProfScreen = ({ navigation, route }) => {
             </CustomText>
           )}
           {/* ----- fruits in common ----- */}
-          {fruitsInCommon.length ? (
+          {commonFNames.length ? (
             <View
               style={{
                 alignSelf: "flex-start",
@@ -140,18 +133,13 @@ export const FriendProfScreen = ({ navigation, route }) => {
                   justifyContent: "space-evenly",
                 }}
               >
-                {fruitsInCommon.map((fruit) => (
+                {commonFNames.map((f, index) => (
                   <TouchableOpacity
-                    onPress={() =>
-                      navigation.navigate("FruitScreen", { fruit })
-                    }
+                    onPress={() => navigation.navigate("FruitScreen", { f })}
                     style={{ padding: theme.paddings.std }}
-                    key={fruit.name}
+                    key={index}
                   >
-                    <Image
-                      source={fruitIconImgSources[fruit.name]}
-                      style={styles.tinyFruitIcon}
-                    />
+                    <TinyFruitIcon f={f} />
                   </TouchableOpacity>
                 ))}
               </View>
@@ -170,32 +158,4 @@ export const FriendProfScreen = ({ navigation, route }) => {
     );
 };
 
-const styles = StyleSheet.create({
-  fruitList: {
-    height: theme.heights.screen * 2.3,
-  },
-  alphabetRow: {
-    flexDirection: "row",
-    alignItems: "center",
-    padding: theme.paddings.std,
-    margin: theme.margins.large,
-    borderWidth: theme.borderWidths.large,
-    borderColor: theme.colors.light,
-    borderRadius: theme.borderRadius.round,
-    borderStyle: "dotted",
-    width: theme.widths.screen * 0.95,
-    backgroundColor: theme.colors.light,
-  },
-  alphabetLetter: {
-    color: theme.colors.textPrimary,
-    marginLeft: theme.margins.std,
-    marginRight: theme.margins.large,
-  },
-  tinyFruitIcon: {
-    width: 33,
-    height: 33,
-    borderWidth: theme.borderWidths.std,
-    borderColor: theme.colors.secGreen,
-    borderRadius: theme.borderRadius.round,
-  },
-});
+const styles = StyleSheet.create({});

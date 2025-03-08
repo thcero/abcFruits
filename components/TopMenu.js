@@ -3,7 +3,7 @@ import { useNavigation } from "@react-navigation/native";
 import { View, TouchableOpacity, StyleSheet } from "react-native";
 import Constants from "expo-constants";
 import theme from "../theme";
-import CustomText from "./helperComponents/CustomText";
+import { CustomText } from "./helperComponents/CustomText";
 
 export const TopMenu = () => {
   const navigation = useNavigation();

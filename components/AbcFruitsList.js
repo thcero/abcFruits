@@ -8,7 +8,7 @@ import {
 import { useNavigation } from "@react-navigation/native";
 import fruitIconImgSources from "../assets/fruitIconImgSources";
 import theme from "../theme";
-import CustomText from "./helperComponents/CustomText";
+import { CustomText } from "./helperComponents/CustomText";
 
 export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
   const navigation = useNavigation();
@@ -41,7 +41,9 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
                 .map((fruit, fIndex) => (
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("FruitScreen", { fruit })
+                      navigation.navigate("FruitScreen", {
+                        fruitName: fruit.name,
+                      })
                     }
                     style={{ padding: theme.paddings.std }}
                     key={fIndex}

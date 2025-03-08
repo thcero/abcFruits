@@ -3,7 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import theme from "../theme";
 import { pickRandomImgSource } from "../helperFunctions";
 import imgSourcesArray from "../assets/farmer_market_pics/imgSourcesArray.js";
-import CustomText from "./helperComponents/CustomText";
+import { CustomText } from "./helperComponents/CustomText";
 import * as Location from "expo-location";
 import axios from "axios";
 import {
@@ -21,6 +21,8 @@ import {
 // farmer markets within 3km, displaying website and address available of farmers market made available by
 // the openstreet.org, using a simple query built with the overpass API
 export const MarketScreen = ({ navigation }) => {
+  // store user coords to help finding markets
+  const [coords, setCoords] = useState(null);
   // stores the an array of current markets
   const [strMarkets, setStrMarkets] = useState([]);
   // if something else happens, like gps services turn unavailable or low battery
@@ -30,8 +32,7 @@ export const MarketScreen = ({ navigation }) => {
   // controls images to display:
   const [marketImgs, setMarkImgs] = useState([]);
 
-  strMarkets.length ? console.log(strMarkets) : console.log("");
-
+  // workin fine
   useEffect(() => {
     //setCurrentUser(userInfo);
 
@@ -43,17 +44,17 @@ export const MarketScreen = ({ navigation }) => {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
           setMsg(
-            "The permission to access your location was denied, if you didn't mean to revoke, you can change this option on the apps settings of your mobile"
+            "Location permission denied, please enable access in app settings if desired "
           );
           return;
-        } else setMsg("Permission granted");
+        } else setMsg("Permission granted, loading..");
 
         let loc = null;
         // first try to grab the users previous location as it's faster
         loc = await Location.getLastKnownPositionAsync();
 
         // if it fails, try to get the currentposition (more expensive, takes longer)
-        if (loc == null) {
+        if (loc === null) {
           loc = await Location.getCurrentPositionAsync({});
         }
 
@@ -63,19 +64,34 @@ export const MarketScreen = ({ navigation }) => {
           return;
         }
 
-        // extract coords from location object
-        const { latitude, longitude } = loc.coords;
+        // --- LOCATION OBJECT AVAILABLE
+        setCoords(loc.coords);
+      } catch (e) {
+        setMsg("There was a problem with location request, contact support");
+        console.log(e);
+      }
+    })();
+  }, []);
 
+  // something wrong with this code here:
+  useEffect(() => {
+    (async () => {
+      if (!coords) return;
+      // start fetching markets only when user's coords are available:
+
+      try {
         const radius = 3000;
+        const { latitude, longitude } = coords;
         // query openstreet servers to get a list of nearby street markets
+        setMsg("starting markets fetch");
         const retMarkets = await getMarketsNearby(radius, latitude, longitude);
-        if (retMarkets === undefined)
+        if (!retMarkets)
           setMsg(
             "Sorry, can't currently get markets recommendations try again later"
           );
         else if (!retMarkets.length) setMsg("No markets nearby found");
-        // success:
         else {
+          // --- MARKETS FOUND:
           // first gets address of all markets as it's not by default offered by the api:
           for (let i = 0; i < retMarkets.length; i++) {
             const { lat, lon } = retMarkets[i];
@@ -84,7 +100,6 @@ export const MarketScreen = ({ navigation }) => {
                 latitude: lat,
                 longitude: lon,
               });
-              console.log(addr);
               // populates with adress info:
               retMarkets[i].addressInfo = {
                 street: addr?.street,
@@ -92,7 +107,7 @@ export const MarketScreen = ({ navigation }) => {
                 postalCode: addr?.postalCode,
               };
             } catch (err) {
-              console.log(err);
+              console.log("reverseGeocodeAsync error", err);
             }
           }
           setStrMarkets(retMarkets);
@@ -100,11 +115,11 @@ export const MarketScreen = ({ navigation }) => {
           setMsg("");
         }
       } catch (e) {
-        setMsg("There was a problem with the request");
         console.log(e);
+        setMsg("There was a problem with markets data fetching.");
       }
     })();
-  }, []);
+  }, [coords]);
 
   // ** build random images source array  ** //
   const populateRandomImgs = (array) => {
@@ -243,11 +258,11 @@ const getMarketsNearby = async (radius, lat, lon) => {
     });
 
     // returns an object with array 'elements' containing with maket data objects
-    console.log("Overpass raw response:", res.data);
 
     return res.data.elements;
-  } catch (error) {
+  } catch (e) {
     // so the error get to the consumer function
+    console.log(e);
     throw error;
   }
 };

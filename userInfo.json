@@ -5,7 +5,7 @@
   "age": "43",
   "gender": "M",
   "country": "England",
-  "favouriteFruits": ["apple", "orange", "blueberries", "avocado", "pear"],
-  "fruitsEatenToday": ["apple", "orange", "blueberries"],
+  "favouriteFruits": ["apple", "orange", "blueberry", "avocado", "pear"],
+  "fruitsEatenToday": ["apple", "orange", "blueberry"],
   "friends": [1, 2, 3, 4]
 }

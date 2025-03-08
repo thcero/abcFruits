@@ -8,14 +8,14 @@ import {
   FlatList,
 } from "react-native";
 import theme from "../theme";
-import CustomText from "./helperComponents/CustomText";
+import { CustomText } from "./helperComponents/CustomText";
 import { useEffect, useState } from "react";
 import { useBasket } from "./basketFunctionality/BaskProvider";
 import fruitData from "../fruitsList.json";
 import fruitIconImgSources from "../assets/fruitIconImgSources";
 import userInfo from "../userInfo.json";
 import allPeople from "../allPeople.json";
-import * as Location from "expo-location";
+import { TinyFruitIcon } from "./UiComponents";
 
 export const ProfScreen = ({ navigation }) => {
   const [user, setCurrentUser] = useState(null);
@@ -25,12 +25,9 @@ export const ProfScreen = ({ navigation }) => {
     setCurrentUser(userInfo);
   }, []);
 
-  let popFavFruits = [];
-  const myFavFNames = user?.favouriteFruits;
-  if (user && myFavFNames.length)
-    popFavFruits = fruitData.filter((fruit) =>
-      myFavFNames.includes(fruit.name)
-    );
+  const favFNames = user?.favouriteFruits;
+
+  console.log(user);
 
   let popFriends = [];
   if (user && user.friends.length)
@@ -76,7 +73,7 @@ export const ProfScreen = ({ navigation }) => {
             </CustomText>
           </View>
           {/* ----- favourite fruits ----- */}
-          {popFavFruits.length ? (
+          {favFNames.length ? (
             <View
               style={{
                 alignSelf: "flex-start",
@@ -95,20 +92,20 @@ export const ProfScreen = ({ navigation }) => {
                   alignSelf: "flex-start",
                   flexDirection: "row",
                   justifyContent: "space-evenly",
+                  padding: theme.paddings.large,
                 }}
               >
-                {popFavFruits.map((fruit) => (
+                {favFNames.map((f, i) => (
                   <TouchableOpacity
                     onPress={() =>
-                      navigation.navigate("FruitScreen", { fruit })
+                      navigation.navigate("FruitScreen", {
+                        fruitName: f,
+                      })
                     }
                     style={{ padding: theme.paddings.std }}
-                    key={fruit.name}
+                    key={i}
                   >
-                    <Image
-                      source={fruitIconImgSources[fruit.name]}
-                      style={styles.tinyFruitIcon}
-                    />
+                    <TinyFruitIcon f={f} />
                   </TouchableOpacity>
                 ))}
               </View>
@@ -122,68 +119,7 @@ export const ProfScreen = ({ navigation }) => {
               You currently don't have any favourite fruits
             </CustomText>
           )}
-          {/* ----- fruits I ate today (current the fruits in the basket, update later)----- */}
-          {items.length ? (
-            <View
-              style={{
-                alignSelf: "flex-start",
-                justifyContent: "space-evenly",
-              }}
-            >
-              <CustomText
-                fontWeight="bold"
-                fontSize="title"
-                style={{ paddingVertical: theme.paddings.large }}
-              >
-                Fruits I ate today:
-              </CustomText>
-              <View
-                style={{
-                  alignSelf: "flex-start",
-                  flexDirection: "row",
-                  justifyContent: "space-evenly",
-                }}
-              >
-                {items.map((fruit) => (
-                  <View style={{ flexDirection: "row" }} key={fruit.name}>
-                    <CustomText
-                      fontWeight="bold"
-                      fontSize="title"
-                      style={{ paddingVertical: theme.paddings.large }}
-                    >
-                      {fruit.quantity} x
-                    </CustomText>
-                    <TouchableOpacity
-                      onPress={() =>
-                        navigation.navigate("FruitScreen", { fruit })
-                      }
-                      style={{ padding: theme.paddings.std }}
-                    >
-                      <Image
-                        source={fruitIconImgSources[fruit.name]}
-                        style={styles.tinyFruitIcon}
-                      />
-                    </TouchableOpacity>
-                  </View>
-                ))}
-              </View>
-            </View>
-          ) : (
-            <CustomText
-              style={
-                ([styles.addIcon],
-                {
-                  alignSelf: "flex-start",
-                  paddingVertical: theme.paddings.large,
-                })
-              }
-              color="textSecondary"
-              fontSize="subheading"
-              fontWeight="bold"
-            >
-              You didn't eat any fruit yet..
-            </CustomText>
-          )}
+
           {/* ----- Friends  ----- */}
           {popFriends.length ? (
             <View
@@ -222,7 +158,7 @@ export const ProfScreen = ({ navigation }) => {
                     onPress={() =>
                       navigation.navigate("FriendProfScreen", {
                         friend,
-                        myFavFNames,
+                        favFNames,
                       })
                     }
                   >

@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import OutsidePressHandler from "react-native-outside-press";
 import theme from "../../theme";
-import CustomText from "../helperComponents/CustomText";
+import { CustomText } from "../helperComponents/CustomText";
 import { Animated, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { useBasket } from "./BaskProvider";
 
