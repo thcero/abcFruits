@@ -1,37 +1,52 @@
-import { SafeAreaView } from "react-native-safe-area-context";
+import { SafeAreaView, useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
-import { View, TouchableOpacity, StyleSheet } from "react-native";
-import Constants from "expo-constants";
+import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
 import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
+import { useAuth } from "./helperComponents/AuthContextProvider";
 
 export const TopMenu = () => {
   const navigation = useNavigation();
+  const { isAuth } = useAuth();
+  const insets = useSafeAreaInsets();
   return (
-    <View style={styles.topMenu}>
+    <View style={[styles.topMenu, { paddingVertical: insets.top * 0.5 }]}>
       <TouchableOpacity onPress={() => navigation.navigate("MainScreen")}>
-        <CustomText fontSize="heading">🍉</CustomText>
-      </TouchableOpacity>
-      <TouchableOpacity onPress={() => navigation.navigate("PeopleScreen")}>
-        <CustomText fontSize="heading" style={{ letterSpacing: -5 }}>
-          🧖‍♀️🧖‍♂️
-        </CustomText>
+        <Image
+          source={require("../assets/genera-ui-icons/watermelon.png")}
+          style={styles.menuIcon}
+        />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("MarketScreen")}>
-        <CustomText fontSize="heading" style={{ letterSpacing: -5 }}>
-          👨‍🌾
-        </CustomText>
+        <Image
+          source={require("../assets/genera-ui-icons/farmersMarket.png")}
+          style={styles.menuIcon}
+        />
       </TouchableOpacity>
-      {/* if user is logged in */}
-      <TouchableOpacity onPress={() => navigation.navigate("ProfScreen")}>
-        <CustomText fontSize="heading">👱‍♂️</CustomText>
+      <TouchableOpacity
+        onPress={() =>
+          isAuth
+            ? navigation.navigate("PeopleScreen")
+            : navigation.navigate("Login")
+        }
+      >
+        <Image
+          source={require("../assets/genera-ui-icons/friends.png")}
+          style={styles.menuIcon}
+        />
       </TouchableOpacity>
-      {/* if user is logged out */}
-      {/* <TouchableOpacity
-            onPress={() => navigation.navigate("RegisterOrLogin")}
-          >
-            <CustomText fontSize="heading">👱‍♂️</CustomText>
-          </TouchableOpacity> */}
+      <TouchableOpacity
+        onPress={() =>
+          isAuth
+            ? navigation.navigate("ProfScreen")
+            : navigation.navigate("Login")
+        }
+      >
+        <Image
+          source={require("../assets/genera-ui-icons/user.png")}
+          style={styles.menuIcon}
+        />
+      </TouchableOpacity>
     </View>
   );
 };
@@ -42,8 +57,8 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "space-between",
     width: "100%",
-    paddingVertical: 0.7 * Constants.statusBarHeight,
     paddingHorizontal: theme.paddings.large,
-    backgroundColor: "lightgrey",
+    backgroundColor: theme.colors.backSeed,
   },
+  menuIcon: { width: 52, height: 52 },
 });

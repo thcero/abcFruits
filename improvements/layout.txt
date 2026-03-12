@@ -1,0 +1,3 @@
+**lineHeight - add to fruitScreen
+How do you calculate line height in React Native?
+The important formula here is that lineHeight = fontSize + (fontSize * multiplier)

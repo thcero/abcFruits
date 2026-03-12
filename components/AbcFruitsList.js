@@ -6,16 +6,21 @@ import {
   TouchableOpacity,
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
-import fruitIconImgSources from "../assets/fruitIconImgSources";
 import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
+import { TinyFruitIcon } from "./TinyFruitIcon";
 
 export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
   const navigation = useNavigation();
   const alphabetRow = ({ letter }) => {};
 
   return (
-    <View style={[theme.container, { width: "100%" }]}>
+    <View
+      style={[
+        theme.container,
+        { width: "100%", backgroundColor: theme.colors.prim },
+      ]}
+    >
       {/* change this to a flatlist for efficiency and write on the report */}
       <ScrollView
         contentContainerStyle={theme.content}
@@ -46,20 +51,9 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
                       })
                     }
                     style={{ padding: theme.paddings.std }}
-                    key={fIndex}
+                    key={fruit.name}
                   >
-                    <Image
-                      key={fIndex}
-                      source={fruitIconImgSources[fruit.name]}
-                      style={styles.smallFruitIcon}
-                    />
-                    <CustomText
-                      style={styles.addIcon}
-                      color="textSecondary"
-                      fontSize="subheading"
-                    >
-                      ➕
-                    </CustomText>
+                    <TinyFruitIcon f={fruit.name} size={55} />
                   </TouchableOpacity>
                 ))
             )}
@@ -79,24 +73,18 @@ const styles = StyleSheet.create({
     alignItems: "center",
     padding: theme.paddings.std,
     margin: theme.margins.large,
-    borderWidth: theme.borderWidths.large,
-    borderColor: theme.colors.light,
+    marginVertical: theme.margins.std,
+    borderWidth: 4,
+    borderColor: theme.colors.prim,
     borderRadius: theme.borderRadius.round,
     borderStyle: "dotted",
     width: theme.widths.screen * 0.95,
-    backgroundColor: theme.colors.light,
+    backgroundColor: theme.colors.backSeed,
   },
   alphabetLetter: {
     color: theme.colors.textPrimary,
     marginLeft: theme.margins.std,
     marginRight: theme.margins.large,
-  },
-  smallFruitIcon: {
-    width: 58,
-    height: 58,
-    borderWidth: theme.borderWidths.std,
-    borderColor: theme.colors.secGreen,
-    borderRadius: theme.borderRadius.round,
   },
   addIcon: {
     position: "absolute",

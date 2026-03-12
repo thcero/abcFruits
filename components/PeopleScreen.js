@@ -6,27 +6,58 @@ import {
   FlatList,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import { CustomText } from "./helperComponents/CustomText";
 import theme from "../theme";
-import { getAllUsers } from "../services";
-import { TinyFruitIcon } from "./UiComponents";
-import userInfo from "../userInfo.json";
+import { getAllUsers, updateUser } from "../services";
+import { TinyFruitIcon } from "./TinyFruitIcon";
+import { useAuth } from "./helperComponents/AuthContextProvider";
+import { printAllErs } from "../helperFunctions";
+import { populateRandomImgs } from "../helperFunctions";
+import imgSourcesArray from "../assets/users_prof_pics/imgSourcesArray.js";
+import { CountryFlag } from "./helperComponents/CountryFlag.js";
 import useFlags from "../useFlags";
 
 export const PeopleScreen = ({ navigation }) => {
   const [people, setPeople] = useState([]);
-  const [user, setUser] = useState(null);
-  const userFavFNames = user?.favouriteFruits || [];
+  const { user, setUser } = useAuth();
+  // controls images to display:
+  const [peopleImgs, setpeopleImgs] = useState([]);
 
   useEffect(() => {
-    setUser(userInfo);
     (async () => {
-      const allUsers = await getAllUsers();
-      allUsers && setPeople(allUsers);
-    })();
-  }, []);
+      if (user) {
+        try {
+          let allUsers = await getAllUsers();
 
+          if (allUsers.length) {
+            setPeople(allUsers.filter((u) => u.username !== user.username));
+            setpeopleImgs(populateRandomImgs(allUsers, imgSourcesArray));
+          }
+        } catch (e) {
+          printAllErs(e);
+        }
+      }
+    })();
+  }, [user]);
+
+  const addFriend = async (person) => {
+    user?.friendsList.push(person.id);
+    if (user)
+      try {
+        const usrUpdt = await updateUser(user);
+        if (usrUpdt) {
+          setUser(usrUpdt);
+          navigation.navigate("ProfScreen");
+        }
+      } catch (e) {
+        printAllErs(e);
+      }
+    else console.log("no user");
+  };
+
+  if (!people.length) return null;
   return (
     <SafeAreaView style={[theme.container]}>
       <CustomText>PeopleScreen</CustomText>
@@ -35,8 +66,10 @@ export const PeopleScreen = ({ navigation }) => {
       ) : (
         <PeopleList
           people={people}
-          userFavFNames={userFavFNames}
+          userFavFNames={user?.favouriteFruits}
           navigation={navigation}
+          addFriend={addFriend}
+          images={peopleImgs}
         />
       )}
       {/* {people.length &&
@@ -45,48 +78,59 @@ export const PeopleScreen = ({ navigation }) => {
   );
 };
 
-const PeopleList = ({ people, userFavFNames, navigation }) => {
+const PeopleList = ({
+  people,
+  navigation,
+  addFriend,
+  userFavFNames,
+  images,
+}) => {
   return (
     <View style={[theme.container, { width: "100%", alignItems: "center" }]}>
-      {/* change this to a flatlist for efficiency and write on the report */}
+      {/* change this to a flatlist for efficiency */}
       <FlatList
         contentContainerStyle={theme.content}
         style={styles.peopleList}
         data={people}
         keyExtractor={(item, index) => index.toString()}
-        renderItem={({ item }) => (
-          // a person
+        renderItem={({ item, index }) => (
+          // ----- A PERSON CONTAINER -----//
           <View style={styles.person}>
-            <View
-              style={{
-                alignItems: "center",
-                justifyContent: "space-evenly",
-                backgroundColor: "red",
-                width: "35%",
-                height: "100%",
-              }}
-            >
+            {/* the left box  */}
+            <View style={styles.personLeftBox}>
+              <TouchableOpacity
+                style={styles.addBtn}
+                onPress={() => {
+                  addFriend(item);
+                }}
+              >
+                <CustomText>➕</CustomText>
+                <CustomText fontSize="small">add friend</CustomText>
+              </TouchableOpacity>
               <CustomText fontSize="title" fontWeight="bold" padding="std">
                 {item.username}
               </CustomText>
-              <CustomText fontSize="huge" fontWeight="bold" padding="std">
-                😎
-              </CustomText>
+              <Image
+                source={images[index]}
+                style={{
+                  width: 60,
+                  height: 60,
+                  borderRadius: 100,
+                  resizeMode: "cover",
+                  borderWidth: 8,
+                  borderColor: "white",
+                }}
+              />
+              <CountryFlag countryName={item.country} size={30} />
             </View>
-            <View
-              style={{
-                width: "65%",
-                alignItems: "flex-start",
-                justifyContent: "flex-start",
-                height: "100%",
-                backgroundColor: "grey",
-              }}
-            >
+            {/* the right box */}
+            <View style={styles.personRightBox}>
+              {/* the fruits in common */}
               <CustomText fontSize="small" fontWeight="bold" padding="std">
                 fruits in common:
               </CustomText>
               {item.favouriteFruits?.length &&
-              userFavFNames?.length &&
+              userFavFNames.length &&
               item.favouriteFruits.some((f) => userFavFNames.includes(f)) ? (
                 <ScrollView
                   horizontal
@@ -105,7 +149,7 @@ const PeopleList = ({ people, userFavFNames, navigation }) => {
                         style={{ padding: theme.paddings.std }}
                         key={f}
                       >
-                        <TinyFruitIcon f={f} />
+                        <TinyFruitIcon f={f} size={28} />
                       </TouchableOpacity>
                     ))}
                 </ScrollView>
@@ -116,6 +160,7 @@ const PeopleList = ({ people, userFavFNames, navigation }) => {
                   </CustomText>
                 </>
               )}
+              {/* the person's favourite fruits */}
               <CustomText fontSize="small" fontWeight="bold" padding="std">
                 fav fruits:
               </CustomText>
@@ -135,14 +180,14 @@ const PeopleList = ({ people, userFavFNames, navigation }) => {
                       style={{ padding: theme.paddings.std }}
                       key={f}
                     >
-                      <TinyFruitIcon f={f} />
+                      <TinyFruitIcon f={f} size={28} />
                     </TouchableOpacity>
                   ))}
                 </ScrollView>
               ) : (
                 <>
                   <CustomText fontSize="title" fontWeight="bold" padding="std">
-                    😎 No fruits in common..
+                    😎 NO favourite fruits
                   </CustomText>
                 </>
               )}
@@ -168,6 +213,20 @@ const styles = StyleSheet.create({
     width: theme.widths.screen * 0.95,
     height: theme.heights.screen * 0.25,
     backgroundColor: theme.colors.light,
+  },
+  personLeftBox: {
+    alignItems: "center",
+    justifyContent: "space-evenly",
+    backgroundColor: "red",
+    width: "35%",
+    height: "100%",
+  },
+  personRightBox: {
+    width: "65%",
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+    height: "100%",
+    backgroundColor: "grey",
   },
   smallFruitIcon: {
     width: 58,

@@ -108,3 +108,21 @@ export const pickRandomImgSource = (reqSourcesArray) => {
   const index = Math.floor(Math.random() * reqSourcesArray.length);
   return reqSourcesArray[index];
 };
+
+// ** build random images source array  ** //
+export const populateRandomImgs = (array, arrayOfImages) => {
+  const randomImgs = [];
+  if (array.length) {
+    for (let i = 0; i < array.length; i++)
+      randomImgs[i] = pickRandomImgSource(arrayOfImages);
+  }
+  return randomImgs;
+};
+
+export const printAllErs = (e) => {
+  console.log(e.response?.status || e.request || e.message);
+  console.log(e.response?.data);
+};
+
+export const capitalizeFirstLetter = (someString) =>
+  `${someString.charAt(0).toUpperCase()}${someString.slice(1)}`;

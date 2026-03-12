@@ -8,6 +8,7 @@ export const CustomText = ({
   fontWeight,
   style,
   padding,
+  fontStyle,
   ...props
 }) => {
   const textStyle = [
@@ -18,6 +19,7 @@ export const CustomText = ({
     fontSize === "small" && styles.fontSizeSmall,
     fontSize === "heading" && styles.fontSizeHeading,
     fontSize === "huge" && styles.fontSizeHuge,
+    fontStyle === "italic" && styles.italic,
     fontWeight === "bold" && styles.bold,
     padding === "large" && styles.paddingLarge,
     padding === "small" && styles.paddingSmall,
@@ -31,7 +33,7 @@ export const CustomText = ({
 // stylesheet for customized text component
 const styles = StyleSheet.create({
   text: {
-    color: theme.colors.textPrimary,
+    color: theme.colors.text,
     fontSize: theme.fontSizes.body,
     fontFamily: theme.fonts.main,
     fontWeight: theme.weights.normal,
@@ -62,5 +64,8 @@ const styles = StyleSheet.create({
   paddingSmall: {
     paddingVertical: theme.paddings.paddingSmall,
     paddingHorizontal: theme.paddings.paddingSmall,
+  },
+  italic: {
+    fontStyle: "italic",
   },
 });

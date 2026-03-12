@@ -1,6 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "./helperComponents/AuthContextProvider";
-import { useState, useEffect } from "react";
 import {
   View,
   StyleSheet,
@@ -10,61 +9,120 @@ import {
 } from "react-native";
 import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
-import fruitIconImgSources from "../assets/fruitIconImgSources";
+import fruitIconImgSources from "../assets/fruit-icons/imgSourcesArray";
 import useFlags from "../useFlags";
 import { useBasket } from "./basketFunctionality/BaskProvider";
 import fruitData from "../fruitsList.json";
+import { updateUser } from "../services";
+import { printAllErs, capitalizeFirstLetter } from "../helperFunctions";
 
 export const FruitScreen = ({ navigation, route }) => {
   //const fruit = route.params.fruit;
+  const { user, setUser } = useAuth();
 
   const fruitName = route.params.fruitName;
-  const fruit = fruitData.find((f) => (f.name = fruitName));
+  const fruit = fruitData.find((f) => f.name === fruitName);
 
   const flagsUris = useFlags(fruit);
 
   const { addFruit } = useBasket();
 
-  return (
-    <SafeAreaView style={theme.container}>
-      {/* main box */}
-      {fruit ? (
-        <View style={styles.fruitBox}>
-          {/* header */}
-          <View style={styles.header}>
-            <View>
-              {/* title and image */}
-              <Image source={fruitIconImgSources[fruit.name]} />
+  const addToFavs = async (f) => {
+    if (user)
+      try {
+        // fruit already there
+        if (user.favouriteFruits.indexOf(f.name) !== -1) return;
+        user.favouriteFruits.push(f.name);
+        const usrUpdt = await updateUser(user);
+        if (usrUpdt) {
+          setUser(usrUpdt);
+        }
+      } catch (e) {
+        printAllErs(e);
+      }
+  };
+  const removeFromFavs = async (f) => {
+    if (user)
+      try {
+        let filterFruits = user.favouriteFruits.filter(
+          (name) => name !== f.name
+        );
+        user.favouriteFruits = filterFruits;
+        const usrUpdt = await updateUser(user);
+        if (usrUpdt) {
+          setUser(usrUpdt);
+        }
+      } catch (e) {
+        printAllErs(e);
+      }
+  };
 
-              <CustomText>{fruit.name}</CustomText>
+  if (!fruit)
+    return (
+      <SafeAreaView style={[theme.container, fruitBox]}>
+        <CustomText>fruit not found</CustomText>
+      </SafeAreaView>
+    );
+  return (
+    <SafeAreaView style={styles.fruitBox}>
+      {/* header */}
+      <View style={styles.header}>
+        <Image
+          source={fruitIconImgSources[fruit.name]}
+          style={styles.fruitImg}
+        />
+        {/* title and add to basket button */}
+        <View
+          style={[
+            {
+              flex: 1,
+            },
+          ]}
+        >
+          <CustomText style={styles.title}>
+            {capitalizeFirstLetter(fruit.name)}
+          </CustomText>
+          {/* add to basket button */}
+          <TouchableOpacity
+            onPress={() => {
+              addFruit(fruit);
+            }}
+          >
+            <View style={styles.addToBasket}>
+              <CustomText style={{ alignSelf: "flex-end" }}>➕</CustomText>
+              <CustomText fontSize="small" style={styles.addToBasket}>
+                to basket
+              </CustomText>
             </View>
-            <TouchableOpacity
-              style={styles.addBtn}
-              onPress={() => {
-                addFruit(fruit);
-              }}
-              // onPress={() => {
-              //   user ? addFruit(fruit) : navigation.navigate("GoogleLogin");
-              // }}
-            >
-              <CustomText>➕</CustomText>
-              <CustomText>(to basket)</CustomText>
-            </TouchableOpacity>
-          </View>
-          {/* info box */}
-          <View style={styles.infoBoxWrapper}>
-            <ScrollView
-              style={styles.infoBox}
-              contentContainerStyle={styles.innerInfoBox}
-            >
-              <CustomText>{fruit.name}</CustomText>
-              {!fruit.richIn ? (
-                <CustomText>no nutrient info available</CustomText>
-              ) : (
-                fruit.richIn.map((nutrient, index) => (
-                  <CustomText key={index}>{nutrient}</CustomText>
-                ))
-              )}
+          </TouchableOpacity>
+        </View>
+      </View>
+      {/* info box */}
+      <View style={styles.infoBoxWrapper}>
+        <ScrollView
+          style={styles.infoBox}
+          contentContainerStyle={styles.innerInfoBox}
+        >
+          {/* main nutrients */}
+          {!fruit.richIn || !fruit.richIn.length ? (
+            <CustomText>no nutrient info available</CustomText>
+          ) : (
+            <View>
+              <CustomText>Main health benefits:</CustomText>
+              {fruit.richIn.map((nutrient, index) => (
+                <CustomText fontStyle="italic" t key={index}>
+                  {nutrient}
+                </CustomText>
+              ))}
+            </View>
+          )}
+          {/* countries of origin */}
+          <View style={{ flexDirection: "row" }}>
+            <CustomText>Native to: </CustomText>
+            {/* country detail box */}
+            <View style={{ alignItems: "center" }}>
+              <CustomText fontStyle="italic">{fruit.nativeTo}</CustomText>
+              {/* flagsUris is a list, see later how to adapt it to one country, or how it's structure looks like */}
               {flagsUris?.map((flagUri, index) => (
                 <Image
                   key={index}
@@ -72,42 +130,42 @@ export const FruitScreen = ({ navigation, route }) => {
                   style={{ width: 32, height: 32 }}
                 />
               ))}
-              <CustomText>Native to: {fruit.nativeTo}</CustomText>
-              <CustomText>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                Pellentesque eget sapien in nisi volutpat fermentum. Fusce
-                euismod, ligula at tristique tincidunt, purus nisi tincidunt
-                lectus, a tempor elit nisi sit amet erat. Curabitur vehicula
-                neque ut magna dictum, sed pharetra lectus tincidunt. Vivamus
-                placerat, risus at scelerisque aliquet, nulla lectus
-                sollicitudin lacus, nec interdum libero mauris id odio.
-                Suspendisse potenti. Integer euismod convallis arcu, a hendrerit
-                lacus molestie in. Proin sed libero risus. Duis bibendum urna at
-                augue cursus, at tincidunt risus eleifend. In hac habitasse
-                platea dictumst. Vestibulum consectetur nisi id ligula
-                venenatis, et bibendum velit gravida. Ut faucibus, metus et
-                interdum gravida, nisl sapien hendrerit felis, id sodales erat
-                erat at elit. Quisque et vestibulum mauris. Aliquam erat
-                volutpat. Donec id orci a justo vehicula bibendum. Curabitur ut
-                turpis sed risus scelerisque vehicula non a est. Maecenas ac
-                felis non orci rhoncus pharetra id eget sapien. Integer
-                ullamcorper lacus sed magna cursus, in maximus lorem interdum.
-                Donec nec nisl at justo ultrices pharetra. Nulla facilisi.
-                Aenean nec dapibus enim, eget tincidunt lectus. Proin convallis,
-                nunc eu sagittis imperdiet, justo turpis fermentum justo, ut
-                dapibus ligula orci ut dui. Nunc non augue nisi. Vivamus tempor
-                nisi a massa viverra, sit amet gravida elit varius.
-              </CustomText>
-            </ScrollView>
+            </View>
           </View>
-          <TouchableOpacity style={styles.addBtn}>
-            <CustomText>➕</CustomText>
-            <CustomText>(to favs)</CustomText>
-          </TouchableOpacity>
-        </View>
-      ) : (
-        <CustomText>fruit not found</CustomText>
-      )}
+          {/* general info */}
+          <View>
+            <CustomText fontStyle="italic">{fruit.healthBenefits}</CustomText>
+          </View>
+          {/* sources */}
+          <CustomText fontSize="subheading" style={{ alignSelf: "flex-end" }}>
+            Fonts: USDA and NIH
+          </CustomText>
+        </ScrollView>
+      </View>
+      <View
+        style={{
+          justifyContent: "space-between",
+          alignContent: "space-between",
+          flexDirection: "row",
+          marginTop: theme.margins.large,
+          width: "100%",
+        }}
+      >
+        <TouchableOpacity style={{}} onPress={() => removeFromFavs(fruit)}>
+          <CustomText>➖</CustomText>
+          <CustomText fontSize="small">(remove from favs)</CustomText>
+        </TouchableOpacity>
+        <TouchableOpacity style={{}} onPress={() => addToFavs(fruit)}>
+          <CustomText
+            style={{
+              alignSelf: "flex-end",
+            }}
+          >
+            ➕
+          </CustomText>
+          <CustomText fontSize="small">(add to favs)</CustomText>
+        </TouchableOpacity>
+      </View>
     </SafeAreaView>
   );
 };
@@ -126,42 +184,50 @@ const styles = StyleSheet.create({
     borderRadius: theme.borderRadius.round,
   },
   fruitBox: {
-    flexDirection: "column",
     alignItems: "center",
     padding: theme.paddings.std,
-    margin: theme.margins.std,
     borderWidth: theme.borderWidths.large,
     borderColor: theme.colors.light,
     borderRadius: theme.borderRadius.round,
-    borderStyle: "dotted",
-    width: theme.widths.screen * 0.95,
+
     height: theme.heights.screen * 0.9,
     flex: 1,
-    backgroundColor: theme.colors.tercBlueFaded,
+    backgroundColor: theme.colors.prim,
   },
   header: {
     flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
     width: "100%",
     padding: theme.paddings.std,
+    justifyContent: "space-between",
+    marginBottom: theme.margins.large,
+  },
+  title: {
+    // trying to make the fontsize responsive, need to test in other screen sizes to test it
+    fontSize: Math.max(
+      theme.fontSizes.heading,
+      Math.min(43, theme.widths.screen * 0.3)
+    ),
+    marginBottom: "auto",
+    fontWeight: "bold",
+    maxWidth: "100%",
   },
   addBtn: {
-    flexDirection: "column",
-    justifyContent: "flex-end",
-    alignItems: "flex-end",
-
     alignSelf: "flex-end",
   },
+  addToBasket: { alignSelf: "flex-end" },
   infoBoxWrapper: { width: "100%", height: "56%" },
   infoBox: {
-    backgroundColor: "lightgrey",
+    backgroundColor: theme.colors.backSeed,
     height: 4,
   },
   innerInfoBox: {
-    flexDirection: "column",
-    justifyContent: "space-around",
-    alignItems: "center",
-    padding: theme.paddings.std,
+    justifyContent: "space-between",
+    padding: theme.paddings.large,
+    height: "100%",
   },
+  fruitImg: {
+    borderRadius: 22,
+    marginRight: theme.margins.large * 2,
+  },
+  borderCheck: { borderWidth: 5, borderColor: "black" },
 });

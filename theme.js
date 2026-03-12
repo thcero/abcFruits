@@ -14,6 +14,20 @@ const theme = {
     greenLogin: "#00b862",
     redDelete: "#fe3844",
     light: "#f5f4ff",
+
+    // green: primary accent guava peel use with white
+    prim: "#6BCB3F",
+    // highlight guafa flesh also with white text
+    sec: "#FF6F70",
+    // beije: guave seed
+    backSeed: "#FFF0D5",
+    // alternative light canvas
+    back: "#F5F3EE",
+    // dark neutral
+    text: "#3A3A3A",
+
+    // white text
+    white: "#FFFFFF",
   },
   fontSizes: {
     small: 17,
@@ -54,6 +68,7 @@ const theme = {
     flex: 1,
     alignItems: "center",
     justifyContent: "spaced-evenly",
+    backgroundColor: "#FFF0D5",
   },
   content: {
     justifyContent: "spaceAround",

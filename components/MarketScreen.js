@@ -1,15 +1,13 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import theme from "../theme";
-import { pickRandomImgSource } from "../helperFunctions";
+import { populateRandomImgs } from "../helperFunctions";
 import imgSourcesArray from "../assets/farmer_market_pics/imgSourcesArray.js";
 import { CustomText } from "./helperComponents/CustomText";
 import * as Location from "expo-location";
 import axios from "axios";
 import {
   View,
-  TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   FlatList,
@@ -93,25 +91,28 @@ export const MarketScreen = ({ navigation }) => {
         else {
           // --- MARKETS FOUND:
           // first gets address of all markets as it's not by default offered by the api:
-          for (let i = 0; i < retMarkets.length; i++) {
-            const { lat, lon } = retMarkets[i];
-            try {
-              const [addr] = await Location.reverseGeocodeAsync({
-                latitude: lat,
-                longitude: lon,
-              });
-              // populates with adress info:
-              retMarkets[i].addressInfo = {
-                street: addr?.street,
-                number: addr?.streetNumber,
-                postalCode: addr?.postalCode,
-              };
-            } catch (err) {
-              console.log("reverseGeocodeAsync error", err);
-            }
-          }
+          // run all geocoding requests at the same time
+          await Promise.all(
+            retMarkets.map(async (market, i) => {
+              try {
+                const { lat, lon } = market;
+                const [addr] = await Location.reverseGeocodeAsync({
+                  latitude: lat,
+                  longitude: lon,
+                });
+                // populates with adress info:
+                retMarkets[i].addressInfo = {
+                  street: addr?.street,
+                  number: addr?.streetNumber,
+                  postalCode: addr?.postalCode,
+                };
+              } catch (err) {
+                console.log("reverseGeocodeAsync error", err);
+              }
+            })
+          );
           setStrMarkets(retMarkets);
-          setMarkImgs(populateRandomImgs(retMarkets));
+          setMarkImgs(populateRandomImgs(retMarkets, imgSourcesArray));
           setMsg("");
         }
       } catch (e) {
@@ -121,26 +122,19 @@ export const MarketScreen = ({ navigation }) => {
     })();
   }, [coords]);
 
-  // ** build random images source array  ** //
-  const populateRandomImgs = (array) => {
-    const randomImgs = [];
-    if (array.length) {
-      for (let i = 0; i < array.length; i++)
-        randomImgs[i] = pickRandomImgSource(imgSourcesArray);
-    }
-    return randomImgs;
-  };
-
   const renderItem = ({ item, index }) => {
-    const backgroundColor = item.id === selectedId ? "white" : "#D2B48C";
-    const textWeight = item.id === selectedId ? "bold" : "normal";
-
+    const backgroundColor =
+      item.id === selectedId ? theme.colors.sec : theme.colors.backSeed;
+    const fontWeight = item.id === selectedId ? "bold" : "normal";
+    const color =
+      item.id === selectedId ? theme.colors.backSeed : theme.colors.text;
     return (
       <Item
         item={item}
         onPress={() => setSelectedId(item.id)}
         backgroundColor={backgroundColor}
-        textWeight={textWeight}
+        fontWeight={fontWeight}
+        color={color}
         source={marketImgs[index]}
       />
     );
@@ -151,8 +145,8 @@ export const MarketScreen = ({ navigation }) => {
       style={[
         theme.container,
         {
-          padding: theme.paddings.std,
-          backgroundColor: "brown",
+          paddingHorizontal: theme.paddings.std,
+          backgroundColor: theme.colors.prim,
         },
       ]}
     >
@@ -161,7 +155,7 @@ export const MarketScreen = ({ navigation }) => {
         fontWeight="bold"
         style={{
           marginBottom: theme.margins.large * 2,
-          color: "white",
+          color: theme.colors.backSeed,
         }}
       >
         Farmer markets near you:
@@ -178,6 +172,7 @@ export const MarketScreen = ({ navigation }) => {
         renderItem={renderItem}
         keyExtractor={(item) => item.id}
         extraData={selectedId}
+        showsVerticalScrollIndicator={false}
       />
     </SafeAreaView>
   );
@@ -187,7 +182,8 @@ const Item = ({
   item,
   onPress,
   backgroundColor,
-  textWeight,
+  fontWeight,
+  color,
   index,
   source,
   ...props
@@ -195,18 +191,15 @@ const Item = ({
   <TouchableOpacity
     onPress={onPress}
     style={[
+      styles.row,
       {
-        height: theme.heights.screen / 3.8,
         backgroundColor,
         padding: theme.paddings.large,
-        marginBottom: theme.margins.std,
-        justifyContent: "space-between",
+        marginVertical: theme.margins.large * 2.3,
       },
     ]}
   >
-    <CustomText style={[{ fontWeight: textWeight }]}>
-      {item.tags?.name}
-    </CustomText>
+    <CustomText style={{ fontWeight, color }}>{item.tags?.name}</CustomText>
 
     <View style={{ flexDirection: "row", justifyContent: "space-between" }}>
       <Image
@@ -214,25 +207,27 @@ const Item = ({
         style={{
           width: theme.heights.screen / 6,
           height: theme.heights.screen / 6,
-          borderRadius: 100,
+          borderRadius: 80,
         }}
         resizeMode="cover"
       />
       <View style={{ width: "50%", justifyContent: "space-between" }}>
-        <CustomText>{item.tags?.opening_hours}</CustomText>
-        <CustomText>
-          Address:{" "}
-          <CustomText fontSize="small">
+        <CustomText style={{ fontWeight, color }} fontSize="small">
+          {item.tags?.opening_hours}
+        </CustomText>
+        <CustomText style={{ fontWeight, color }}>
+          <CustomText style={{ fontWeight, color }} fontSize="small">
             {item.addressInfo?.number}, {item.addressInfo?.street},{" "}
             {item.addressInfo?.postalCode}
           </CustomText>
         </CustomText>
 
         <CustomText
-          color="primary"
+          style={{ fontWeight, color, textDecorationLine: "underline" }}
+          fontSize="small"
           onPress={() => Linking.openURL(item.tags?.website)}
         >
-          Visit webpage
+          visit webpage
         </CustomText>
       </View>
     </View>
@@ -266,3 +261,13 @@ const getMarketsNearby = async (radius, lat, lon) => {
     throw error;
   }
 };
+const styles = StyleSheet.create({
+  row: {
+    marginBottom: theme.margins.std,
+    justifyContent: "space-between",
+    height: theme.heights.screen / 3.8,
+    borderRadius: 25,
+    margin: theme.margins.std,
+    marginVertical: theme.margins.large,
+  },
+});

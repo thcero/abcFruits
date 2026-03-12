@@ -1,116 +1,254 @@
 [
   {
     "name": "apple",
-    "richIn": ["VitC", "Fiber", "Potassium"],
-    "nativeTo": ["Kazakhstan", "China"],
-    "id": "b3f78d93-42bf-4464-a9e2-bee5bc70e9dc"
+    "richIn": ["VitC", "Fiber"],
+    "nativeTo": ["Kazakhstan"],
+    "id": 1,
+    "healthBenefits": "Good source of vitamin C and fiber! Help with digestion and overall metabolic health."
   },
   {
-    "name": "orange",
-    "richIn": ["VitC", "Fiber", "Folate"],
-    "nativeTo": ["China", "India"],
-    "id": "19b23727-29d1-44d4-a41d-82aefd07f163"
+    "name": "apricot",
+    "richIn": ["VitA", "Antioxidants"],
+    "nativeTo": ["Armenia"],
+    "id": 2,
+    "healthBenefits": "They contain beta-carotene and vitamin A, supporting eye health. Rich in antioxidants."
   },
   {
-    "name": "lemon",
-    "richIn": ["VitC", "Fiber", "Vitamin B6"],
-    "nativeTo": ["India", "China"],
-    "id": "bbb48c15-b74f-4b91-bcfe-149fbe4912b2"
+    "name": "avocado",
+    "richIn": ["HealthyFats", "VitE"],
+    "nativeTo": ["Mexico"],
+    "id": 3,
+    "healthBenefits": "Source of monounsaturated fats helps support heart healty and vitamin E to support immune function."
+  },
+  {
+    "name": "bananas",
+    "richIn": ["VitB6", "Potassium"],
+    "nativeTo": ["Malaysia"],
+    "id": 4,
+    "healthBenefits": "Great source of potassium for blood pressure support. According to USDA, they also contain vitamin B6 and fiber."
+  },
+  {
+    "name": "blueberries",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Canada"],
+    "id": 5,
+    "healthBenefits": "High in antioxidant, may help reduce oxidative stress in cells."
+  },
+  {
+    "name": "cherries",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Turkey"],
+    "id": 6,
+    "healthBenefits": "Low callories and provide vitamin C and anthocyanins, linked to reduced inflammation."
+  },
+  {
+    "name": "clementine",
+    "richIn": ["VitC"],
+    "nativeTo": ["Algeria"],
+    "id": 7,
+    "healthBenefits": "High in vitamin C that support immune function and collagen formation."
+  },
+  {
+    "name": "coconut",
+    "richIn": ["Fiber", "Manganese"],
+    "nativeTo": ["India"],
+    "id": 8,
+    "healthBenefits": "Dietary fiber and essential minerals like manganese, provide a lot of energy with fatty meats."
+  },
+  {
+    "name": "custardapple",
+    "richIn": ["VitC", "Fiber"],
+    "nativeTo": ["Peru"],
+    "id": 9,
+    "healthBenefits": "Also known as cherimoya contain vitamin C and dietary fiber, aiding digestion. Very high caloric."
+  },
+  {
+    "name": "dragonfruit",
+    "richIn": ["VitC", "Fiber"],
+    "nativeTo": ["Vietnam"],
+    "id": 10,
+    "healthBenefits": "Vit C and unique antioxidants like betacyanins. Healthy and happy gut!"
+  },
+  {
+    "name": "feijoa",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Brazil"],
+    "id": 11,
+    "healthBenefits": "Rich in vitamin C and phenolic compounds."
+  },
+  {
+    "name": "fig",
+    "richIn": ["Fiber", "Calcium"],
+    "nativeTo": ["Turkey"],
+    "id": 12,
+    "healthBenefits": "Figs contain dietary fiber, which may aid digestion, and small amounts of calcium."
+  },
+  {
+    "name": "granadilla",
+    "richIn": ["VitC", "Fiber"],
+    "nativeTo": ["Bolivia"],
+    "id": 13,
+    "healthBenefits": "Granadilla (a type of passion fruit) is high in vit C."
+  },
+  {
+    "name": "grape",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Iran"],
+    "id": 14,
+    "healthBenefits": "Grapes are known for their resveratrol antioxidant, supports heart health, alhtough very high sugar content"
+  },
+  {
+    "name": "guava",
+    "richIn": ["VitC", "Fiber"],
+    "nativeTo": ["Mexico"],
+    "id": 15,
+    "healthBenefits": "Pretty high in vitamin C, more so than many citrus fruits."
   },
   {
     "name": "kiwi",
-    "richIn": ["VitC", "VitK", "Fiber"],
+    "richIn": ["VitC", "VitK"],
     "nativeTo": ["China"],
-    "id": "29c6a2c1-e5cd-42ed-bee5-62fde6c189ef"
+    "id": 16,
+    "healthBenefits": "Kiwis are really hight in  vitamin C and vitamin K."
   },
   {
-    "name": "grapes-green",
-    "richIn": ["VitC", "VitK", "Antioxidants"],
-    "nativeTo": ["Armenia", "Georgia", "Azerbaijan "],
-    "id": "b45cf661-43f7-47e6-92d6-4872db8f949b"
+    "name": "lemon",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["India"],
+    "id": 17,
+    "healthBenefits": "Provide vitamin C, great for skin and immune health. High in antioxidants, can reduce inflamation"
+  },
+  {
+    "name": "lychee",
+    "richIn": ["VitC", "Polyphenols"],
+    "nativeTo": ["China"],
+    "id": 18,
+    "healthBenefits": "Lychees are rich in vitamin C and unique polyphenols."
+  },
+  {
+    "name": "mandarin",
+    "richIn": ["VitC"],
+    "nativeTo": ["China"],
+    "id": 19,
+    "healthBenefits": "Offer vitamin C and a sweet citrus flavor. Also low caloric."
+  },
+  {
+    "name": "mango",
+    "richIn": ["VitA", "VitC"],
+    "nativeTo": ["India"],
+    "id": 20,
+    "healthBenefits": "Mangos contain beta-carotene, supporting eye health. "
+  },
+  {
+    "name": "mangosteen",
+    "richIn": ["Antioxidants"],
+    "nativeTo": ["Indonesia"],
+    "id": 21,
+    "healthBenefits": "Mangosteens contain xanthones, powerful antioxidants."
+  },
+  {
+    "name": "melon",
+    "richIn": ["VitC", "VitA"],
+    "nativeTo": ["Iran"],
+    "id": 22,
+    "healthBenefits": "Melons like cantaloupe are high in vitamin A and C. According to USDA, they can help maintain healthy vision and tissue growth."
+  },
+  {
+    "name": "orange",
+    "richIn": ["VitC", "Fiber"],
+    "nativeTo": ["China"],
+    "id": 23,
+    "healthBenefits": "Oranges are a great source of vitamin C, crucial for collagen synthesis."
+  },
+  {
+    "name": "papaya",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Mexico"],
+    "id": 24,
+    "healthBenefits": "Papayas are recognized for their papain enzyme and vitamin C. USDA data adds that they may aid digestion and reduce inflammation."
+  },
+  {
+    "name": "passionfruit",
+    "richIn": ["VitC", "Fiber"],
+    "nativeTo": ["Brazil"],
+    "id": 25,
+    "healthBenefits": "Passion fruit is known for its tangy flavor and high vitamin C. NIH suggests its seeds offer beneficial fiber and protein."
+  },
+  {
+    "name": "peach",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["China"],
+    "id": 26,
+    "healthBenefits": "Provide vitamin C, plus beta-carotene. According to USDA, they can support healthy skin and metabolism."
   },
   {
     "name": "pear",
-    "richIn": ["Fiber", "VitC", "Vitamin K"],
-    "nativeTo": ["China", "Asia"],
-    "id": "d7b8bdaf-972e-4e2d-8a97-dbb8646ca92b"
+    "richIn": ["Fiber", "VitC"],
+    "nativeTo": ["China"],
+    "id": 27,
+    "healthBenefits": "Offer soluble fiber, that helps to regulate digestion. NIH indicates their vitamin C content may bolster immune defenses."
+  },
+  {
+    "name": "persimmon",
+    "richIn": ["VitA", "Antioxidants"],
+    "nativeTo": ["China"],
+    "id": 28,
+    "healthBenefits": "Contain beta-carotene, supporting eye health. Also may protect cell integrity according to USDA references show their antioxidants ."
+  },
+  {
+    "name": "pineapple",
+    "richIn": ["VitC", "Manganese"],
+    "nativeTo": ["Paraguay"],
+    "id": 29,
+    "healthBenefits": "Pineapple provides the enzyme bromelain, aiding digestion. Its C and manganese can also support bone health."
+  },
+  {
+    "name": "pomegranate",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Iran"],
+    "id": 30,
+    "healthBenefits": "Pomegranates are famed for their polyphenols. They may help lower inflammation and oxidative stress."
+  },
+  {
+    "name": "sapodilla",
+    "richIn": ["VitC"],
+    "nativeTo": ["Mexico"],
+    "id": 31,
+    "healthBenefits": "Sapodilla is a sweet fruit containing vitamin C and fiber."
+  },
+  {
+    "name": "soursop",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Mexico"],
+    "id": 32,
+    "healthBenefits": "Soursop has a tangy flavor and vitamin C content."
+  },
+  {
+    "name": "starfruit",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Sri Lanka"],
+    "id": 33,
+    "healthBenefits": "Provides vitamin C in a, moderating intake advised if you have kidney issues."
+  },
+  {
+    "name": "strawberry",
+    "richIn": ["VitC", "Manganese"],
+    "nativeTo": ["France"],
+    "id": 34,
+    "healthBenefits": "Strawberries deliver a strong vitamin C punch, aiding tissue repair. Also contain manganese for enzyme function."
+  },
+  {
+    "name": "tomato",
+    "richIn": ["VitC", "Antioxidants"],
+    "nativeTo": ["Mexico"],
+    "id": 35,
+    "healthBenefits": "Tomatoes are famous for lycopene, which may support heart health."
   },
   {
     "name": "watermelon",
     "richIn": ["VitC", "VitA", "Antioxidants"],
-    "nativeTo": ["WestAfrica"],
-    "id": "50d0fe0c-0561-4f69-ba02-93fead88a91d"
-  },
-  {
-    "name": "coconut",
-    "richIn": ["Manganese", "Fiber", "Copper"],
-    "nativeTo": ["India", "Indonesia", "Philippines"],
-    "id": "3dcbb597-5ed7-4d4c-b8c9-0b72ea2d8fa4"
-  },
-  {
-    "name": "strawberry",
-    "richIn": ["VitC", "Manganese", "Folate"],
-    "nativeTo": ["Chile", "USA", "Canada", "France"],
-    "id": "84953ca2-75a7-44eb-8730-2a971f93aaea"
-  },
-  {
-    "name": "peach",
-    "richIn": ["VitC", "VitA", "Fiber"],
-    "nativeTo": ["China", "South Asia"],
-    "id": "4dca37c6-0176-4fb2-9aa3-b655474eb0b6"
-  },
-  {
-    "name": "cherry",
-    "richIn": ["VitC", "Potassium", "Fiber"],
-    "nativeTo": ["Europe", "Western Asia"],
-    "id": "92d7cc12-3ab8-4e15-9859-25131a70868e"
-  },
-  {
-    "name": "banana",
-    "richIn": ["Potassium", "VitB6", "VitC"],
-    "nativeTo": ["Southeast Asia", "PapuaNewGuinea"],
-    "id": "d287a14f-6788-4ab8-8a3d-f51b31bcc681"
-  },
-  {
-    "name": "pineapple",
-    "richIn": ["VitC", "Manganese", "VitB6"],
-    "nativeTo": ["Brazil", "Argentina", "Paraguay"],
-    "id": "7dcc454d-3b30-400e-bf1a-d4e907baaadc"
-  },
-  {
-    "name": "pomegranate",
-    "richIn": ["VitC", "VitK", "Folate"],
-    "nativeTo": ["Iran", "India"],
-    "id": "dbc4528d-287f-41b0-aa75-28a69d4cde20"
-  },
-  {
-    "name": "grapes-red",
-    "richIn": ["VitC", "VitK", "Antioxidants"],
-    "nativeTo": ["Near East"],
-    "id": "cab378b1-a20a-4b5d-925f-e9dc5c56d9f8"
-  },
-  {
-    "name": "raspberry",
-    "richIn": ["VitC", "Fiber", "Manganese"],
-    "nativeTo": ["Turkey", "USA", "Canada"],
-    "id": "561f2730-133d-4dd0-803d-75459248ee16"
-  },
-  {
-    "name": "avocado",
-    "richIn": ["Healthy fats", "Fiber", "Potassium"],
-    "nativeTo": ["Mexico"],
-    "id": "6390d40b-390f-4f07-a701-2701a627557d"
-  },
-  {
-    "name": "cashew",
-    "richIn": ["Magnesium", "Copper", "Zinc"],
-    "nativeTo": ["Brazil"],
-    "id": "3064048e-a23a-4f4f-afe6-95cda7239e92"
-  },
-  {
-    "name": "blueberry",
-    "richIn": ["VitC", "VitK", "Manganese"],
-    "nativeTo": ["USA", "Canada"],
-    "id": "d1554116-a727-4861-a49c-4ca48bba03e2"
+    "nativeTo": ["Egypt"],
+    "id": 36,
+    "healthBenefits": "Watermelon contains lycopene and beta-carotene, supporting skin and vision, and great hydrating properties in hot climates."
   }
 ]

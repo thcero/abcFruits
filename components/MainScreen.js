@@ -7,7 +7,9 @@ import { CustomText } from "./helperComponents/CustomText";
 import { AbcFruitsList } from "./AbcFruitsList";
 
 const fruitsList = fruitData;
-fruitsList.sort((a, b) => a.name.localeCompare(b.name));
+fruitsList.sort((a, b) =>
+  a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+);
 
 export const MainScreen = ({ navigation }) => {
   // checks if it's undefined without throwing an error, if it is, returns an empty array
@@ -25,7 +27,7 @@ export const MainScreen = ({ navigation }) => {
   }, []);
   return (
     <SafeAreaView
-      style={[theme.container, { backgroundColor: theme.colors.secGreen }]}
+      style={[theme.container, { backgroundColor: theme.colors.prim }]}
     >
       <View
         style={{
@@ -37,14 +39,14 @@ export const MainScreen = ({ navigation }) => {
         <CustomText
           fontSize="heading"
           fontWeight="bold"
-          style={{ color: theme.colors.secyPink }}
+          color={theme.colors.back}
         >
           abc
         </CustomText>
         <CustomText
           fontSize="huge"
           fontWeight="bold"
-          style={{ color: theme.colors.secyPink }}
+          style={{ color: theme.colors.backSeed }}
         >
           Fruits
         </CustomText>

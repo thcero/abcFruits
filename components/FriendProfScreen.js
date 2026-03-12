@@ -9,24 +9,29 @@ import {
 import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
 import { useEffect, useState } from "react";
-import fruitIconImgSources from "../assets/fruitIconImgSources";
-import { TinyFruitIcon } from "./UiComponents";
+import { TinyFruitIcon } from "./TinyFruitIcon";
+import { useAuth } from "./helperComponents/AuthContextProvider";
+import imgSourcesArray from "../assets/users_prof_pics/imgSourcesArray.js";
+import { pickRandomImgSource } from "../helperFunctions";
+import { CountryFlag } from "./helperComponents/CountryFlag.js";
 
 export const FriendProfScreen = ({ navigation, route }) => {
-  const [friend, setCurrentFriend] = useState(null);
+  const { user } = useAuth();
+  // const [friend, setCurrentFriend] = useState(null);
+  // const [commonFruits, setCommonFruits] = useState([]);
+  // const [img, setImg] = useState(null);
 
-  const friendFavFNames = friend?.favouriteFruits || [];
-
-  useEffect(() => {
-    setCurrentFriend(route.params.friend);
-  }, []);
-
-  let commonFNames = [];
-  if (friendFavFNames.length && route.params.favFNames.length) {
-    commonFNames = route.params.favFNames.filter((f) =>
-      friendFavFNames.includes(f)
-    );
-  }
+  const friend = route.params.friend;
+  let commonFruits = [];
+  console.log(friend);
+  if (friend.favouriteFruits)
+    commonFruits =
+      friend.favouriteFruits?.length && user?.favouriteFruits?.length
+        ? user?.favouriteFruits.filter((f) =>
+            friend.favouriteFruits.includes(f)
+          )
+        : [];
+  const img = pickRandomImgSource(imgSourcesArray);
 
   if (!friend) return null;
   else
@@ -47,26 +52,31 @@ export const FriendProfScreen = ({ navigation, route }) => {
               width: "100%",
             }}
           >
-            <CustomText fontWeight="bold" fontSize="huge" style={{}}>
+            <CustomText
+              fontWeight="bold"
+              fontSize="huge"
+              style={{ marginBottom: theme.margins.large * 1.5 }}
+            >
               {friend.username}
             </CustomText>
             {/* change to image */}
-            <CustomText
-              fontWeight="bold"
-              padding="large"
-              style={{ fontSize: 100 }}
-            >
-              😎
-            </CustomText>
-            <CustomText fontWeight="bold" padding="large" style={{}}>
-              {friend.username}
-            </CustomText>
-            <CustomText fontWeight="bold" padding="large" style={{}}>
-              ⛳ {friend.country}
-            </CustomText>
           </View>
+
+          <Image
+            source={img}
+            style={{
+              width: 120,
+              height: 120,
+              borderRadius: 100,
+              resizeMode: "cover",
+              borderWidth: 8,
+              borderColor: "white",
+            }}
+          />
+          <CountryFlag countryName={user.country} size={45} />
+
           {/* ----- favourite fruits ----- */}
-          {friendFavFNames ? (
+          {friend.favouriteFruits?.length ? (
             <View
               style={{
                 alignSelf: "flex-start",
@@ -87,7 +97,7 @@ export const FriendProfScreen = ({ navigation, route }) => {
                   justifyContent: "space-evenly",
                 }}
               >
-                {friendFavFNames.map((f) => (
+                {friend.favouriteFruits.map((f) => (
                   <TouchableOpacity
                     onPress={() =>
                       navigation.navigate("FruitScreen", {
@@ -97,7 +107,7 @@ export const FriendProfScreen = ({ navigation, route }) => {
                     style={{ padding: theme.paddings.std }}
                     key={f}
                   >
-                    <TinyFruitIcon f={f} />
+                    <TinyFruitIcon f={f} size={30} />
                   </TouchableOpacity>
                 ))}
               </View>
@@ -112,7 +122,7 @@ export const FriendProfScreen = ({ navigation, route }) => {
             </CustomText>
           )}
           {/* ----- fruits in common ----- */}
-          {commonFNames.length ? (
+          {commonFruits?.length ? (
             <View
               style={{
                 alignSelf: "flex-start",
@@ -133,13 +143,13 @@ export const FriendProfScreen = ({ navigation, route }) => {
                   justifyContent: "space-evenly",
                 }}
               >
-                {commonFNames.map((f, index) => (
+                {commonFruits.map((f, index) => (
                   <TouchableOpacity
                     onPress={() => navigation.navigate("FruitScreen", { f })}
                     style={{ padding: theme.paddings.std }}
                     key={index}
                   >
-                    <TinyFruitIcon f={f} />
+                    <TinyFruitIcon f={f} size={30} />
                   </TouchableOpacity>
                 ))}
               </View>

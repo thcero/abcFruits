@@ -5,13 +5,12 @@
     "username": "Noah",
     "email": "noah.smith@example.com",
     "password": "#####",
-    "age": 13,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": ["apple", "bananas", "mango", "pear"],
     "fruitBasket": ["clementine", "coconut"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "United Kingdom"
   },
   {
     "id": "7531dff3-4b8d-40ed-b9e7-a8f7258bad2e",
@@ -19,8 +18,6 @@
     "username": "Oliver",
     "email": "oliver.jones@example.com",
     "password": "#####",
-    "age": 8,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": [
       "blueberries",
@@ -31,7 +28,8 @@
     ],
     "fruitBasket": ["tomato", "orange", "fig"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Canada"
   },
   {
     "id": "fe0d49f1-d2af-49a6-8542-db225f8dddc1",
@@ -39,13 +37,12 @@
     "username": "George",
     "email": "george.taylor@example.com",
     "password": "#####",
-    "age": 16,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": ["avocado", "kiwi", "watermelon"],
     "fruitBasket": ["grape", "dragonfruit", "orange"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "United States"
   },
   {
     "id": "0a4f6210-4a96-456c-af35-17ac91a9ba3b",
@@ -53,8 +50,6 @@
     "username": "Arthur",
     "email": "arthur.brown@example.com",
     "password": "#####",
-    "age": 14,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": [
       "mango",
@@ -66,7 +61,8 @@
     ],
     "fruitBasket": ["peach", "coconut", "blueberries"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Australia"
   },
   {
     "id": "16146aff-a6ac-4e90-a2e5-7d2f70ba6fcb",
@@ -74,13 +70,12 @@
     "username": "Muhammad",
     "email": "muhammad.khan@example.com",
     "password": "#####",
-    "age": 9,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": ["papaya", "avocado", "blueberries", "grape", "peach"],
     "fruitBasket": ["watermelon", "lemon"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "United Kingdom"
   },
   {
     "id": "5ea5d843-fc26-435e-8fb3-7df51b7cdcbb",
@@ -88,8 +83,6 @@
     "username": "Leo",
     "email": "leo.wilson@example.com",
     "password": "#####",
-    "age": 15,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": [
       "dragonfruit",
@@ -102,7 +95,8 @@
     ],
     "fruitBasket": ["mangosteen", "fig", "cherries"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Canada"
   },
   {
     "id": "9d6a138d-0ff7-437b-adb2-e89e7d524b24",
@@ -110,13 +104,12 @@
     "username": "Harry",
     "email": "harry.johnson@example.com",
     "password": "#####",
-    "age": 12,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": ["clementine", "grape", "lemon"],
     "fruitBasket": ["kiwi", "pineapple"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Germany"
   },
   {
     "id": "fc569afa-f44c-4d64-96b1-b1828ef09887",
@@ -124,8 +117,6 @@
     "username": "Oscar",
     "email": "oscar.davies@example.com",
     "password": "#####",
-    "age": 10,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": [
       "blueberries",
@@ -139,7 +130,8 @@
     ],
     "fruitBasket": ["lemon", "peach", "pineapple"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Brazil"
   },
   {
     "id": "b95bc64a-3250-41c6-a6e9-bf185c76ab4e",
@@ -147,8 +139,6 @@
     "username": "Archie",
     "email": "archie.robinson@example.com",
     "password": "#####",
-    "age": 8,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": [
       "orange",
@@ -159,7 +149,8 @@
     ],
     "fruitBasket": ["mandarin", "lemon"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Japan"
   },
   {
     "id": "715c13a9-b741-4fae-81f7-14f0426bcb42",
@@ -167,13 +158,12 @@
     "username": "Henry",
     "email": "henry.wright@example.com",
     "password": "#####",
-    "age": 14,
-    "gender": "male",
     "picture": "",
     "favouriteFruits": ["avocado", "pear", "apple", "lychee"],
     "fruitBasket": ["bananas", "papaya", "pineapple"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "France"
   },
   {
     "id": "c47054f5-0e50-4900-a897-ca4ce499b874",
@@ -181,13 +171,12 @@
     "username": "Olivia",
     "email": "olivia.thompson@example.com",
     "password": "#####",
-    "age": 16,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": ["apricot", "blueberries", "bananas", "peach", "kiwi"],
     "fruitBasket": ["strawberry", "cherries"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "United States"
   },
   {
     "id": "e90e32d8-eeef-4e91-a8bf-79b683344be7",
@@ -195,13 +184,12 @@
     "username": "Amelia",
     "email": "amelia.evans@example.com",
     "password": "#####",
-    "age": 11,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": ["grape", "mandarin", "watermelon"],
     "fruitBasket": ["avocado", "lemon", "mango"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Australia"
   },
   {
     "id": "30b99aa2-075b-4b84-9c14-7663eca0c970",
@@ -209,8 +197,6 @@
     "username": "Isla",
     "email": "isla.thomas@example.com",
     "password": "#####",
-    "age": 8,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": [
       "clementine",
@@ -222,7 +208,8 @@
     ],
     "fruitBasket": ["blueberries", "cherries", "lychee"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "United Kingdom"
   },
   {
     "id": "6a33a212-b1f5-4651-b315-782d9bb12133",
@@ -230,13 +217,12 @@
     "username": "Ava",
     "email": "ava.roberts@example.com",
     "password": "#####",
-    "age": 9,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": ["melon", "mangosteen", "papaya", "pear"],
     "fruitBasket": ["kiwi", "bananas"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Canada"
   },
   {
     "id": "dc1b4d83-46f3-4fb4-8a1c-707e63b6b78e",
@@ -244,8 +230,6 @@
     "username": "Ivy",
     "email": "ivy.clarke@example.com",
     "password": "#####",
-    "age": 15,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": [
       "orange",
@@ -258,7 +242,8 @@
     ],
     "fruitBasket": ["coconut", "strawberry"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Germany"
   },
   {
     "id": "10dbd49e-d509-4727-b3a3-c7cbe7e426a9",
@@ -266,13 +251,12 @@
     "username": "Freya",
     "email": "freya.brown@example.com",
     "password": "#####",
-    "age": 10,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": ["cherries", "coconut", "kiwi", "strawberry", "mango"],
     "fruitBasket": ["pomegranate", "lemon"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Brazil"
   },
   {
     "id": "fcecd4e5-8e2b-4c20-8c2f-d28d7edadda6",
@@ -280,13 +264,12 @@
     "username": "Lily",
     "email": "lily.smith@example.com",
     "password": "#####",
-    "age": 14,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": ["granadilla", "bananas", "dragonfruit", "persimmon"],
     "fruitBasket": ["coconut", "orange"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Australia"
   },
   {
     "id": "89a0e7a9-0d0f-4de7-b73b-5e95428f542c",
@@ -294,8 +277,6 @@
     "username": "Florence",
     "email": "florence.jones@example.com",
     "password": "#####",
-    "age": 16,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": [
       "blueberries",
@@ -309,7 +290,8 @@
     ],
     "fruitBasket": ["avocado", "fig"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "United States"
   },
   {
     "id": "e7c02a2d-8853-4ae8-b98c-02c049448e18",
@@ -317,8 +299,6 @@
     "username": "Mia",
     "email": "mia.taylor@example.com",
     "password": "#####",
-    "age": 13,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": [
       "lemon",
@@ -331,7 +311,8 @@
     ],
     "fruitBasket": ["kiwi", "mango", "strawberry", "blueberries"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "United Kingdom"
   },
   {
     "id": "32f2a89e-225b-470c-98a7-314b3c39e72d",
@@ -339,8 +320,6 @@
     "username": "Willow",
     "email": "willow.williams@example.com",
     "password": "#####",
-    "age": 9,
-    "gender": "female",
     "picture": "",
     "favouriteFruits": [
       "bananas",
@@ -351,7 +330,8 @@
     ],
     "fruitBasket": ["fig", "papaya"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "France"
   },
   {
     "id": "30fca642-6c7b-4af1-964a-ae2308aaa4b9",
@@ -359,13 +339,12 @@
     "username": "Charlie",
     "email": "charlie.wilson@example.com",
     "password": "#####",
-    "age": 8,
-    "gender": "non-binary",
     "picture": "",
     "favouriteFruits": ["cherries", "coconut", "lychee", "kiwi"],
     "fruitBasket": ["tomato", "pear"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Canada"
   },
   {
     "id": "ce5c740d-908a-4967-8327-c1b124e4b64f",
@@ -373,8 +352,6 @@
     "username": "Riley",
     "email": "riley.johnson@example.com",
     "password": "#####",
-    "age": 12,
-    "gender": "non-binary",
     "picture": "",
     "favouriteFruits": [
       "grape",
@@ -386,6 +363,7 @@
     ],
     "fruitBasket": ["papaya", "lychee", "avocado"],
     "friendsList": [],
-    "sessionToken": ""
+    "sessionToken": "",
+    "country": "Japan"
   }
 ]
