@@ -1,8 +1,7 @@
 import { useState, useRef } from "react";
-import OutsidePressHandler from "react-native-outside-press";
 import theme from "../../theme";
 import { CustomText } from "../helperComponents/CustomText";
-import { Animated, Text, StyleSheet, TouchableOpacity } from "react-native";
+import { Animated, Text, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useBasket } from "./BaskProvider";
 
 const collHeight = 110;
@@ -39,9 +38,7 @@ export default function Basket() {
   };
 
   return (
-    <OutsidePressHandler
-      onOutsidePress={() => (!isExpanded ? null : toggleBasket())}
-    >
+    <View>
       <Animated.View
         style={[
           styles.basketContainer,
@@ -72,7 +69,7 @@ export default function Basket() {
           <CustomText padding="large">Basket is empty</CustomText>
         )}
       </Animated.View>
-    </OutsidePressHandler>
+    </View>
   );
 }
 

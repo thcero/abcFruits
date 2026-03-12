@@ -50,7 +50,7 @@ mock.onPost("/register").reply(async (config) => {
     const users = await getUsersDB();
     // username and email need to be unique
     const userAlreadyExists = users.find(
-      (u) => u.username === username || u.email == email
+      (u) => u.username === username || u.email == email,
     );
 
     if (userAlreadyExists) {
@@ -149,7 +149,7 @@ mock.onPost("/update").reply(async (config) => {
     const prevUserWithSameInfo = users.find(
       (u) =>
         (u.username === user.username || u.email === user.email) &&
-        u.id !== users[uIndex].id
+        u.id !== users[uIndex].id,
     );
     if (prevUserWithSameInfo) {
       return [400, { error: "uname and email must be unique" }];
@@ -248,7 +248,7 @@ export const dbKey = "@usersSimDB";
 // called by App.js
 export const initializeSimDB = async (
   key = dbKey,
-  userData = initialUsersData
+  userData = initialUsersData,
 ) => {
   try {
     const initialized = await AsyncStorage.getItem(key);
