@@ -1,7 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import countryCodesList from "./countryCodesList.json";
-import * as FileSystem from "expo-file-system";
 import fruitData from "./fruitsList.json";
 
 // export const getCountryFlag = async (countryCode) => {
@@ -80,27 +79,9 @@ export const getCountryCode = (codeArray, countryName) => {
   return null;
 };
 
-// first this line creates a dir if it still doesn't exist, if it does, it does nothing
+// returns the flag URL directly (no local caching in Snack environment)
 export const downloadFlagAndSaveFlag = async (countryCode) => {
-  try {
-    await FileSystem.makeDirectoryAsync(
-      FileSystem.documentDirectory + "flags",
-      {
-        intermediates: true,
-      }
-    );
-    // create a new path to the file system for the downloaded flag
-    const localUri = FileSystem.documentDirectory + `flags/${countryCode}.png`;
-    // download the flag
-    await FileSystem.downloadAsync(
-      `https://flagsapi.com/${countryCode}/flat/32.png`,
-      localUri
-    );
-    return localUri;
-  } catch (e) {
-    console.log("error in downloadFlagAndSaveFlag", e);
-    return null;
-  }
+  return `https://flagsapi.com/${countryCode}/flat/32.png`;
 };
 
 // returns a random image from a list of img req. sources
