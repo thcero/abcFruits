@@ -13,13 +13,13 @@ export const TopMenu = () => {
     <View style={[styles.topMenu, { paddingVertical: insets.top * 0.5 }]}>
       <TouchableOpacity onPress={() => navigation.navigate("MainScreen")}>
         <Image
-          source={require("../assets/genera-ui-icons/watermelon.png")}
+          source={{ uri: "https://raw.githubusercontent.com/thcero/abcFruits/main/assets/genera-ui-icons/watermelon.png" }}
           style={styles.menuIcon}
         />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => navigation.navigate("MarketScreen")}>
         <Image
-          source={require("../assets/genera-ui-icons/farmersMarket.png")}
+          source={{ uri: "https://raw.githubusercontent.com/thcero/abcFruits/main/assets/genera-ui-icons/farmersMarket.png" }}
           style={styles.menuIcon}
         />
       </TouchableOpacity>
@@ -31,7 +31,7 @@ export const TopMenu = () => {
         }
       >
         <Image
-          source={require("../assets/genera-ui-icons/friends.png")}
+          source={{ uri: "https://raw.githubusercontent.com/thcero/abcFruits/main/assets/genera-ui-icons/friends.png" }}
           style={styles.menuIcon}
         />
       </TouchableOpacity>
@@ -43,7 +43,7 @@ export const TopMenu = () => {
         }
       >
         <Image
-          source={require("../assets/genera-ui-icons/user.png")}
+          source={{ uri: "https://raw.githubusercontent.com/thcero/abcFruits/main/assets/genera-ui-icons/user.png" }}
           style={styles.menuIcon}
         />
       </TouchableOpacity>

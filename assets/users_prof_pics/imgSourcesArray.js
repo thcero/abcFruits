@@ -1,16 +1,18 @@
+const BASE = "https://raw.githubusercontent.com/thcero/abcFruits/main/assets/users_prof_pics/";
+
 const imgSourcesArray = [
-  require("./avatar_0_0.png"),
-  require("./pic.jpg"),
-  require("./pic1.png"),
-  require("./pic2.png"),
-  require("./pic3.png"),
-  require("./pic4.png"),
-  require("./pic5.png"),
-  require("./pic6.png"),
-  require("./pic7.png"),
-  require("./pic8.png"),
-  require("./pic9.png"),
-  require("./pic10.png"),
-  require("./pic11.png"),
+  { uri: BASE + "avatar_0_0.png" },
+  { uri: BASE + "pic.jpg" },
+  { uri: BASE + "pic1.png" },
+  { uri: BASE + "pic2.png" },
+  { uri: BASE + "pic3.png" },
+  { uri: BASE + "pic4.png" },
+  { uri: BASE + "pic5.png" },
+  { uri: BASE + "pic6.png" },
+  { uri: BASE + "pic7.png" },
+  { uri: BASE + "pic8.png" },
+  { uri: BASE + "pic9.png" },
+  { uri: BASE + "pic10.png" },
+  { uri: BASE + "pic11.png" },
 ];
 export default imgSourcesArray;
