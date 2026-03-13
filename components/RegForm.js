@@ -19,7 +19,6 @@ import { registerUser } from "../services";
 import { printAllErs } from "../helperFunctions";
 import RNPickerSelect from "react-native-picker-select";
 import { countriesForPicker } from "../countriesFormattedList";
-import { collapseTextChangeRangesAcrossMultipleVersions } from "typescript";
 
 export const RegForm = ({ navigation }) => {
   const {
