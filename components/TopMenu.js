@@ -58,7 +58,7 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     width: "100%",
     paddingHorizontal: theme.paddings.large,
-    backgroundColor: theme.colors.backSeed,
+    backgroundColor: theme.colors.coconutBrown,
   },
-  menuIcon: { width: 52, height: 52 },
+  menuIcon: { width: 52, height: 52, borderRadius: 26 },
 });

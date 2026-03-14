@@ -25,6 +25,13 @@ const theme = {
     back: "#F5F3EE",
     // dark neutral
     text: "#3A3A3A",
+    // coconut exterior brown
+    coconutBrown: "#9E7B4B",
+    // fruit accent colors
+    appleRed: "#E8212A",
+    blueberry: "#4F60B8",
+    clementine: "#E8622A",
+    bananaSkin: "#FFBE33",
 
     // white text
     white: "#FFFFFF",
@@ -37,7 +44,9 @@ const theme = {
     huge: 38,
   },
   fonts: {
-    main: "System",
+    main: "Quicksand_500Medium",
+    mainBold: "Quicksand_700Bold",
+    display: "Sniglet_800ExtraBold",
   },
   weights: {
     normal: "500",

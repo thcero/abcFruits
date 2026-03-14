@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
     fontSize: theme.fontSizes.huge,
   },
   bold: {
-    fontWeight: theme.weights.bold,
+    fontFamily: theme.fonts.mainBold,
   },
   paddingLarge: {
     paddingVertical: theme.paddings.large,
