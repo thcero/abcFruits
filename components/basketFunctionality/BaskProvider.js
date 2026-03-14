@@ -1,39 +1,67 @@
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { createContext, useState } from "react";
+import { useAuth } from "../helperComponents/AuthContextProvider";
+import { updateUser } from "../../services";
 
 // Allows the basket functionality to be accessed across any component
 export const BaskContext = createContext();
 
 export const BaskProvider = ({ children }) => {
   const [items, setItems] = useState([]);
-  // const [show, setShow] = useState(true);
+  const { user, setUser } = useAuth();
 
-  // const controlBaskView = (show) => {
-  //   setShow(() => show);
-  //   console.log("from bask provider", show);
-  // };
+  useEffect(() => {
+    if (user?.fruitBasket) {
+      setItems(user.fruitBasket);
+    } else {
+      setItems([]);
+    }
+  }, [user]);
 
   // this is a common pattern of updating an state arrays based on its object props
   // uses functional approach to ensure state is updated properly based on the previous state
-  const addFruit = (fruit) => {
-    setItems((prev) => {
-      //first check if the item is present in the array
-      const itemPresent = prev.some((item) => item.name === fruit.name);
-      // than we use map to generate a new updated array based on the condition
-      if (itemPresent) {
-        return prev.map((item) =>
+  const addFruit = async (fruit) => {
+    const itemPresent = items.some((item) => item.name === fruit.name);
+    const newItems = itemPresent
+      ? items.map((item) =>
           item.name === fruit.name
             ? { ...item, quantity: item.quantity + 1 }
             : item
-        ); // incase the item was not in the array, we destructure the previous array and add the new item
-      } else {
-        return [...prev, { name: fruit.name, quantity: 1 }];
+        )
+      : [...items, { name: fruit.name, quantity: 1 }];
+    setItems(newItems);
+    if (user) {
+      try {
+        const usrUpdt = await updateUser({ ...user, fruitBasket: newItems });
+        if (usrUpdt) setUser(usrUpdt);
+      } catch (e) {
+        console.log(e);
       }
-    });
+    }
+  };
+
+  const removeFruit = async (fruit) => {
+    const item = items.find((item) => item.name === fruit.name);
+    if (!item) return;
+    const newItems =
+      item.quantity > 1
+        ? items.map((i) =>
+            i.name === fruit.name ? { ...i, quantity: i.quantity - 1 } : i
+          )
+        : items.filter((i) => i.name !== fruit.name);
+    setItems(newItems);
+    if (user) {
+      try {
+        const usrUpdt = await updateUser({ ...user, fruitBasket: newItems });
+        if (usrUpdt) setUser(usrUpdt);
+      } catch (e) {
+        console.log(e);
+      }
+    }
   };
 
   return (
-    <BaskContext.Provider value={{ items, addFruit }}>
+    <BaskContext.Provider value={{ items, addFruit, removeFruit }}>
       {children}
     </BaskContext.Provider>
   );

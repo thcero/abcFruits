@@ -1,5 +1,5 @@
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View } from "react-native";
+import { View, Text } from "react-native";
 import { useEffect, useState } from "react";
 import fruitData from "../fruitsList.json";
 import theme from "../theme";
@@ -8,7 +8,7 @@ import { AbcFruitsList } from "./AbcFruitsList";
 
 const fruitsList = fruitData;
 fruitsList.sort((a, b) =>
-  a.name.toLowerCase().localeCompare(b.name.toLowerCase())
+  a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
 );
 
 export const MainScreen = ({ navigation }) => {
@@ -27,7 +27,7 @@ export const MainScreen = ({ navigation }) => {
   }, []);
   return (
     <SafeAreaView
-      style={[theme.container, { backgroundColor: theme.colors.prim }]}
+      style={[theme.container, { backgroundColor: theme.colors.backSeed }]}
     >
       <View
         style={{
@@ -39,14 +39,55 @@ export const MainScreen = ({ navigation }) => {
         <CustomText
           fontSize="heading"
           fontWeight="bold"
-          color={theme.colors.back}
+          style={{
+            fontFamily: theme.fonts.display,
+            fontSize: 37.0,
+            letterSpacing: 0.12,
+          }}
         >
-          abc
+          <Text
+            style={{
+              color: theme.colors.appleRed,
+              textShadowColor: "#000000",
+              textShadowOffset: { width: 2, height: 2 },
+              textShadowRadius: 3,
+            }}
+          >
+            a
+          </Text>
+          <Text
+            style={{
+              color: theme.colors.blueberry,
+              textShadowColor: "#000000",
+              textShadowOffset: { width: 2, height: 2 },
+              textShadowRadius: 3,
+            }}
+          >
+            b
+          </Text>
+          <Text
+            style={{
+              color: theme.colors.coconutBrown,
+              textShadowColor: "#000000",
+              textShadowOffset: { width: 2, height: 2 },
+              textShadowRadius: 3,
+            }}
+          >
+            c
+          </Text>
         </CustomText>
         <CustomText
           fontSize="huge"
           fontWeight="bold"
-          style={{ color: theme.colors.backSeed }}
+          style={{
+            color: theme.colors.bananaSkin,
+            fontFamily: theme.fonts.display,
+            fontSize: 56.4,
+            letterSpacing: 0.12,
+            textShadowColor: "#000000",
+            textShadowOffset: { width: 2, height: 2 },
+            textShadowRadius: 3,
+          }}
         >
           Fruits
         </CustomText>

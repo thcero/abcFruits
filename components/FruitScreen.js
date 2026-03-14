@@ -89,8 +89,8 @@ export const FruitScreen = ({ navigation, route }) => {
             }}
           >
             <View style={styles.addToBasket}>
-              <CustomText style={{ alignSelf: "flex-end" }}>➕</CustomText>
-              <CustomText fontSize="small" style={styles.addToBasket}>
+              <CustomText style={{ alignSelf: "flex-end", fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 14 }}>+</CustomText>
+              <CustomText fontSize="small" style={[styles.addToBasket, { marginTop: -8 }]}>
                 to basket
               </CustomText>
             </View>
@@ -108,20 +108,20 @@ export const FruitScreen = ({ navigation, route }) => {
             <CustomText>no nutrient info available</CustomText>
           ) : (
             <View>
-              <CustomText>Main health benefits:</CustomText>
+              <CustomText fontWeight="bold">Main health benefits:</CustomText>
               {fruit.richIn.map((nutrient, index) => (
-                <CustomText fontStyle="italic" t key={index}>
+                <CustomText key={index}>
                   {nutrient}
                 </CustomText>
               ))}
             </View>
           )}
           {/* countries of origin */}
-          <View style={{ flexDirection: "row" }}>
-            <CustomText>Native to: </CustomText>
+          <View style={{ flexDirection: "row", marginTop: theme.margins.large }}>
+            <CustomText fontWeight="bold">Native to: </CustomText>
             {/* country detail box */}
             <View style={{ alignItems: "center" }}>
-              <CustomText fontStyle="italic">{fruit.nativeTo}</CustomText>
+              <CustomText>{fruit.nativeTo}</CustomText>
               {/* flagsUris is a list, see later how to adapt it to one country, or how it's structure looks like */}
               {flagsUris?.map((flagUri, index) => (
                 <Image
@@ -134,10 +134,10 @@ export const FruitScreen = ({ navigation, route }) => {
           </View>
           {/* general info */}
           <View>
-            <CustomText fontStyle="italic">{fruit.healthBenefits}</CustomText>
+            <CustomText>{fruit.healthBenefits}</CustomText>
           </View>
           {/* sources */}
-          <CustomText fontSize="subheading" style={{ alignSelf: "flex-end" }}>
+          <CustomText fontSize="subheading" style={{ alignSelf: "flex-end", fontSize: 15.2, marginTop: theme.margins.large * 2 }}>
             Fonts: USDA and NIH
           </CustomText>
         </ScrollView>
@@ -152,18 +152,25 @@ export const FruitScreen = ({ navigation, route }) => {
         }}
       >
         <TouchableOpacity style={{}} onPress={() => removeFromFavs(fruit)}>
-          <CustomText>➖</CustomText>
-          <CustomText fontSize="small">(remove from favs)</CustomText>
+          <CustomText style={{ fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 14 }}>-</CustomText>
+          <CustomText fontSize="small" style={{ marginTop: -8 }}>(remove from favs)</CustomText>
         </TouchableOpacity>
         <TouchableOpacity style={{}} onPress={() => addToFavs(fruit)}>
           <CustomText
             style={{
               alignSelf: "flex-end",
+              fontFamily: theme.fonts.display,
+              fontSize: 46.10,
+              lineHeight: 47,
+              color: theme.colors.blueberry,
+              textShadowColor: "#FFFFFF",
+              textShadowOffset: { width: 0, height: 0 },
+              textShadowRadius: 14,
             }}
           >
-            ➕
+            +
           </CustomText>
-          <CustomText fontSize="small">(add to favs)</CustomText>
+          <CustomText fontSize="small" style={{ marginTop: -8 }}>(add to favs)</CustomText>
         </TouchableOpacity>
       </View>
     </SafeAreaView>
@@ -186,8 +193,6 @@ const styles = StyleSheet.create({
   fruitBox: {
     alignItems: "center",
     padding: theme.paddings.std,
-    borderWidth: theme.borderWidths.large,
-    borderColor: theme.colors.light,
     borderRadius: theme.borderRadius.round,
 
     height: theme.heights.screen * 0.9,
@@ -206,19 +211,21 @@ const styles = StyleSheet.create({
     fontSize: Math.max(
       theme.fontSizes.heading,
       Math.min(43, theme.widths.screen * 0.3)
-    ),
+    ) * 0.75,
     marginBottom: "auto",
-    fontWeight: "bold",
+    fontFamily: "Sniglet_400Regular",
     maxWidth: "100%",
   },
   addBtn: {
     alignSelf: "flex-end",
   },
   addToBasket: { alignSelf: "flex-end" },
-  infoBoxWrapper: { width: "100%", height: "56%" },
+  infoBoxWrapper: { width: "100%", height: "56%", borderRadius: theme.borderRadius.round },
   infoBox: {
     backgroundColor: theme.colors.backSeed,
     height: 4,
+    borderRadius: theme.borderRadius.round,
+    overflow: "hidden",
   },
   innerInfoBox: {
     justifyContent: "space-between",
@@ -226,7 +233,11 @@ const styles = StyleSheet.create({
     height: "100%",
   },
   fruitImg: {
+    width: 95,
+    height: 95,
     borderRadius: 22,
+    borderWidth: theme.borderWidths.large,
+    borderColor: theme.colors.coconutBrown,
     marginRight: theme.margins.large * 2,
   },
   borderCheck: { borderWidth: 5, borderColor: "black" },

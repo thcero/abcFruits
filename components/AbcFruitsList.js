@@ -18,7 +18,7 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
     <View
       style={[
         theme.container,
-        { width: "100%", backgroundColor: theme.colors.prim },
+        { width: "100%", backgroundColor: theme.colors.prim, paddingVertical: 16 },
       ]}
     >
       {/* change this to a flatlist for efficiency and write on the report */}
@@ -32,7 +32,7 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
               fontSize="huge"
               fontWeight="bold"
               padding="std"
-              style={styles.alphabetLetter}
+              style={[styles.alphabetLetter, { fontFamily: "Sniglet_400Regular" }]}
             >
               {letter}
             </CustomText>
@@ -75,9 +75,9 @@ const styles = StyleSheet.create({
     margin: theme.margins.large,
     marginVertical: theme.margins.std,
     borderWidth: 4,
-    borderColor: theme.colors.prim,
+    borderColor: theme.colors.coconutBrown,
     borderRadius: theme.borderRadius.round,
-    borderStyle: "dotted",
+    borderStyle: "solid",
     width: theme.widths.screen * 0.95,
     backgroundColor: theme.colors.backSeed,
   },

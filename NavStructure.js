@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
+import theme from "./theme";
 import {
   MainScreen,
   PeopleScreen,
@@ -26,7 +27,7 @@ export const NavStructure = () => {
         <TopMenu />
         <Stack.Navigator screenOptions={{ headerShown: false }}>
           <Stack.Screen name="MainScreen" component={MainScreen} />
-          <Stack.Screen name="FruitScreen" component={FruitScreen} />
+          <Stack.Screen name="FruitScreen" component={FruitScreen} options={{ cardStyle: { backgroundColor: theme.colors.prim } }} />
           <Stack.Screen name="MarketScreen" component={MarketScreen} />
           <Stack.Screen name="PeopleScreen" component={PeopleScreen} />
           <Stack.Screen name="ProfScreen" component={ProfScreen} />
