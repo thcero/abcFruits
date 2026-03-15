@@ -119,7 +119,7 @@ export const FruitScreen = ({ navigation, route }) => {
             <View style={{ alignItems: "center" }}>
               <CustomText>{fruit.nativeTo}</CustomText>
               {/* flagsUris is a list, see later how to adapt it to one country, or how it's structure looks like */}
-              {flagsUris?.map((flagUri, index) => (
+              {flagsUris?.filter(Boolean).map((flagUri, index) => (
                 <Image
                   key={index}
                   source={{ uri: flagUri }}
@@ -138,21 +138,23 @@ export const FruitScreen = ({ navigation, route }) => {
           </CustomText>
         </ScrollView>
       </View>
-      <View
-        style={{ marginTop: theme.margins.large, width: "100%" }}
-      >
-        {isFav ? (
-          <TouchableOpacity style={{ alignSelf: "flex-start" }} onPress={() => removeFromFavs(fruit)}>
-            <CustomText style={{ fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 6 }}>-</CustomText>
-            <CustomText fontSize="small" style={{ marginTop: -8 }}>remove from favs</CustomText>
-          </TouchableOpacity>
-        ) : (
-          <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={() => addToFavs(fruit)}>
-            <CustomText style={{ alignSelf: "flex-end", fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 6 }}>+</CustomText>
-            <CustomText fontSize="small" style={{ marginTop: -8 }}>add to favs</CustomText>
-          </TouchableOpacity>
-        )}
-      </View>
+      {user && (
+        <View
+          style={{ marginTop: theme.margins.large, width: "100%" }}
+        >
+          {isFav ? (
+            <TouchableOpacity style={{ alignSelf: "flex-start" }} onPress={() => removeFromFavs(fruit)}>
+              <CustomText style={{ fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 6 }}>-</CustomText>
+              <CustomText fontSize="small" style={{ marginTop: -8 }}>remove from favs</CustomText>
+            </TouchableOpacity>
+          ) : (
+            <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={() => addToFavs(fruit)}>
+              <CustomText style={{ alignSelf: "flex-end", fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 6 }}>+</CustomText>
+              <CustomText fontSize="small" style={{ marginTop: -8 }}>add to favs</CustomText>
+            </TouchableOpacity>
+          )}
+        </View>
+      )}
     </SafeAreaView>
   );
 };

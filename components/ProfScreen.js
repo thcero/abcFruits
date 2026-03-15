@@ -95,11 +95,13 @@ export const ProfScreen = ({ navigation }) => {
 
         {/* ----- profile picture + country ----- */}
         <View style={{ flexDirection: "row", alignItems: "center", marginBottom: theme.margins.large * 2.4 }}>
-          <Image
-            style={styles.userImge}
-            source={{ uri: user.picture }}
-            resizeMode="cover"
-          />
+          {user.picture ? (
+            <Image
+              style={styles.userImge}
+              source={{ uri: user.picture }}
+              resizeMode="cover"
+            />
+          ) : null}
           <View style={{ marginLeft: theme.margins.large * 4 }}>
             <CustomText fontWeight="bold">{user.country}</CustomText>
             <CountryFlag countryName={user.country} size={65} />
