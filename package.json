@@ -47,6 +47,7 @@
   },
   "devDependencies": {
     "@babel/core": "^7.20.0",
+    "babel-preset-expo": "~13.0.0",
     "@babel/preset-env": "^7.29.0",
     "@types/react": "~19.1.10",
     "babel-jest": "^30.3.0",
