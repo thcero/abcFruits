@@ -35,6 +35,7 @@ const theme = {
 
     // white text
     white: "#FFFFFF",
+    grey: "#B0B0B0",
   },
   fontSizes: {
     small: 17,

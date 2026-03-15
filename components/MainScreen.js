@@ -27,13 +27,14 @@ export const MainScreen = ({ navigation }) => {
   }, []);
   return (
     <SafeAreaView
-      style={[theme.container, { backgroundColor: theme.colors.backSeed }]}
+      style={[theme.container, { backgroundColor: theme.colors.prim }]}
     >
       <View
         style={{
           flexDirection: "row",
           alignItems: "baseline",
           padding: theme.paddings.large,
+          paddingTop: theme.paddings.large * 0.5,
         }}
       >
         <CustomText

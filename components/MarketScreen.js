@@ -151,14 +151,17 @@ export const MarketScreen = ({ navigation }) => {
       ]}
     >
       <CustomText
-        fontSize="heading"
         fontWeight="bold"
         style={{
+          fontSize: 28 * 1.1,
           marginBottom: theme.margins.large * 2,
           color: theme.colors.backSeed,
+          textShadowColor: theme.colors.coconutBrown,
+          textShadowOffset: { width: 3, height: 3 },
+          textShadowRadius: 8,
         }}
       >
-        Farmer markets near you:
+        Farmer markets nearby
       </CustomText>
       {msg && <CustomText>{msg}</CustomText>}
 
@@ -258,15 +261,17 @@ const getMarketsNearby = async (radius, lat, lon) => {
   } catch (e) {
     // so the error get to the consumer function
     console.log(e);
-    throw error;
+    throw e;
   }
 };
 const styles = StyleSheet.create({
   row: {
     marginBottom: theme.margins.std,
     justifyContent: "space-between",
-    height: theme.heights.screen / 3.8,
-    borderRadius: 25,
+    height: theme.heights.screen / 3.2,
+    borderRadius: 28,
+    borderWidth: theme.borderWidths.large,
+    borderColor: theme.colors.sec,
     margin: theme.margins.std,
     marginVertical: theme.margins.large,
   },

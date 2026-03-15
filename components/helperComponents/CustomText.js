@@ -19,6 +19,7 @@ export const CustomText = ({
     fontSize === "small" && styles.fontSizeSmall,
     fontSize === "heading" && styles.fontSizeHeading,
     fontSize === "huge" && styles.fontSizeHuge,
+    fontSize === "subtitle" && styles.fontSizeSubtitle,
     fontStyle === "italic" && styles.italic,
     fontWeight === "bold" && styles.bold,
     padding === "large" && styles.paddingLarge,
@@ -53,6 +54,9 @@ const styles = StyleSheet.create({
   },
   fontSizeHuge: {
     fontSize: theme.fontSizes.huge,
+  },
+  fontSizeSubtitle: {
+    fontSize: 24,
   },
   bold: {
     fontFamily: theme.fonts.mainBold,
