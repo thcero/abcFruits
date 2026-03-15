@@ -4,7 +4,7 @@ import initialUsersData from "./users.json"; // directly importing the JSON file
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 // build adapter setting delay
-const mock = new MockAdapter(axios, { delayResponse: 500 });
+const mock = new MockAdapter(axios, { delayResponse: 500, onNoMatch: "passthrough" });
 // hashing pswd demo step
 const hashedPswd = (pswd) => `hash_${pswd}`;
 
