@@ -215,21 +215,14 @@ export const AlterInfo = ({ navigation }) => {
                   onBlur={onBlur}
                   value={value}
                   style={{
-                    inputAndroid: {
-                      color: "#000",
-                    },
-                    inputIOS: {
-                      color: "#000",
-                    },
+                    inputAndroid: { color: "#000" },
+                    inputIOS: { color: "#000" },
                   }}
-                />
-                {value ? (
-                  <CustomText style={{ marginLeft: 8 }}>{value}</CustomText>
-                ) : (
-                  <CustomText style={{ marginLeft: 8 }}>
-                    (Nothing selected yet)
-                  </CustomText>
-                )}
+                >
+                  <View style={styles.pickerButton}>
+                    <CustomText>{value || "Select country..."}</CustomText>
+                  </View>
+                </RNPickerSelect>
               </View>
             )}
           />
@@ -341,5 +334,13 @@ const styles = StyleSheet.create({
   errorText: {
     color: "red",
     marginBottom: theme.margins.std,
+  },
+  pickerButton: {
+    borderWidth: theme.borderWidths.std,
+    borderColor: theme.colors.coconutBrown,
+    borderRadius: theme.borderRadius.round,
+    padding: theme.paddings.std,
+    backgroundColor: theme.colors.back,
+    width: theme.widths.screen * 0.86,
   },
 });

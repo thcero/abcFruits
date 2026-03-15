@@ -110,7 +110,7 @@ export const RegForm = ({ navigation }) => {
               },
               minLength: {
                 value: 6,
-                message: "Your username must be at least 5 characters.",
+                message: "Your fullname must be at least 6 characters.",
               },
             }}
             render={({ field: { onChange, onBlur, value } }) => (
@@ -221,23 +221,14 @@ export const RegForm = ({ navigation }) => {
                   onBlur={onBlur}
                   value={value}
                   style={{
-                    inputAndroid: {
-                      color: "#000",
-                      // any other Android style
-                    },
-                    inputIOS: {
-                      color: "#000",
-                      // any other iOS style
-                    },
+                    inputAndroid: { color: "#000" },
+                    inputIOS: { color: "#000" },
                   }}
-                />
-                {value ? (
-                  <CustomText style={{ marginLeft: 8 }}>{value}</CustomText>
-                ) : (
-                  <CustomText style={{ marginLeft: 8 }}>
-                    (Nothing selected yet)
-                  </CustomText>
-                )}
+                >
+                  <View style={styles.pickerButton}>
+                    <CustomText>{value || "Select country..."}</CustomText>
+                  </View>
+                </RNPickerSelect>
               </View>
             )}
           />
@@ -359,9 +350,12 @@ const styles = StyleSheet.create({
     color: "red",
     marginBottom: theme.margins.std,
   },
-  dropBox: {
+  pickerButton: {
     borderWidth: theme.borderWidths.std,
-    borderColor: "#ccc",
+    borderColor: theme.colors.coconutBrown,
     borderRadius: theme.borderRadius.round,
+    padding: theme.paddings.std,
+    backgroundColor: theme.colors.back,
+    width: theme.widths.screen * 0.86,
   },
 });
