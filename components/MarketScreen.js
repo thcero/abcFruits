@@ -249,10 +249,8 @@ const getMarketsNearby = async (radius, lat, lon) => {
       out;`;
 
     // send request - req is a simple 'get' with no api key required thanks to overpass api functionality
-    const res = await axios.get(baseUrl, {
-      params: {
-        data: query,
-      },
+    const res = await axios.post(baseUrl, `data=${encodeURIComponent(query)}`, {
+      headers: { "Content-Type": "application/x-www-form-urlencoded" },
     });
 
     // returns an object with array 'elements' containing with maket data objects
