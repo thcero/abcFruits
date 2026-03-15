@@ -5,34 +5,24 @@ import {
   TouchableOpacity,
   Image,
   ScrollView,
-  FlatList,
+  Alert,
 } from "react-native";
 import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
 import { useEffect, useState } from "react";
-import { useBasket } from "./basketFunctionality/BaskProvider";
-import fruitData from "../fruitsList.json";
-import userInfo from "../userInfo.json";
-import useFlags from "../useFlags";
 import { TinyFruitIcon } from "./TinyFruitIcon";
 import { useAuth } from "./helperComponents/AuthContextProvider";
 import { CountryFlag } from "./helperComponents/CountryFlag.js";
 import { getAllUsers, deleteUser, logoutUser } from "../services";
-import countryCodesList from "../countryCodesList.json";
-
-import {
-  getCountryCode,
-  getLocalURIforCountryFlag,
-  printAllErs,
-} from "../helperFunctions.js";
+import { printAllErs, populateRandomImgs } from "../helperFunctions.js";
+import imgSourcesArray from "../assets/users_prof_pics/imgSourcesArray.js";
+import { SecondaryButton } from "./helperComponents/SecondaryButton";
 
 //----- USER PROFILE SCREEN -----//
 export const ProfScreen = ({ navigation }) => {
-  const { setUser, setIsAuth } = useAuth();
-  const { items } = useBasket();
-  const { user } = useAuth();
+  const { setUser, setIsAuth, user } = useAuth();
   const [popFriends, setPopFriends] = useState([]);
-  const [countryFlag, setCountryFlag] = useState(null);
+  const [friendImgs, setFriendImgs] = useState([]);
 
   // make a list of friends with full features
   useEffect(() => {
@@ -40,14 +30,10 @@ export const ProfScreen = ({ navigation }) => {
       try {
         const allUsers = await getAllUsers();
         if (allUsers?.length && user?.friendsList?.length) {
-          setPopFriends(
-            allUsers.filter((u) => user.friendsList.includes(u.id))
-          );
+          const friends = allUsers.filter((u) => user.friendsList.includes(u.id));
+          setPopFriends(friends);
+          setFriendImgs(populateRandomImgs(friends, imgSourcesArray));
         }
-        const flag = await getLocalURIforCountryFlag(
-          getCountryCode(countryCodesList, user.country)
-        );
-        flag && setCountryFlag(flag);
       } catch (e) {
         printAllErs(e);
       }
@@ -94,41 +80,30 @@ export const ProfScreen = ({ navigation }) => {
       style={[theme.container, { paddingHorizontal: theme.paddings.large }]}
     >
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
-        {/* ----- settings icon ----- */}
-        <TouchableOpacity
-          style={{
-            alignSelf: "flex-end",
-            paddingRight: theme.paddings.large,
-          }}
-        >
-          <CustomText fontSize="subtitle" fontWeight="bold" style={{}}>
-            Update info:
-            <CustomText fontSize="huge" fontWeight="bold" style={{}}>
-              💿
-            </CustomText>
+        {/* ----- username left, update info top right ----- */}
+        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: theme.margins.large * 3 }}>
+          <CustomText
+            fontWeight="bold"
+            style={{ fontSize: theme.fontSizes.body * 1.75 }}
+          >
+            {user.username}
           </CustomText>
-        </TouchableOpacity>
-        {/* ----- user prof img username and country later----- */}
-        <View
-          style={{
-            alignSelf: "fleStart",
-            justifyContent: "space-evenly",
-            maxWidth: theme.widths.screen / 2.7,
-            height: theme.heights.screen / 3.5,
-          }}
-        >
+          <SecondaryButton onPress={() => navigation.navigate("AlterInfo")}>
+            update info
+          </SecondaryButton>
+        </View>
+
+        {/* ----- profile picture + country ----- */}
+        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: theme.margins.large * 2.4 }}>
           <Image
             style={styles.userImge}
             source={{ uri: user.picture }}
             resizeMode="cover"
           />
-          <CustomText fontWeight="bold" style={{}}>
-            {user.username}
-          </CustomText>
-          <CustomText fontWeight="bold" style={{}}>
-            {user.country}
-          </CustomText>
-          <CountryFlag countryName={user.country} size={45} />
+          <View style={{ marginLeft: theme.margins.large * 4 }}>
+            <CustomText fontWeight="bold">{user.country}</CustomText>
+            <CountryFlag countryName={user.country} size={65} />
+          </View>
         </View>
         {/* ----- favourite fruits ----- */}
         {user?.favouriteFruits?.length ? (
@@ -140,8 +115,8 @@ export const ProfScreen = ({ navigation }) => {
           >
             <CustomText
               fontWeight="bold"
-              fontSize="title"
-              style={{ paddingVertical: theme.paddings.large }}
+              fontSize="subheading"
+              style={{ paddingVertical: 4 }}
             >
               My fav fruits:
             </CustomText>
@@ -150,12 +125,12 @@ export const ProfScreen = ({ navigation }) => {
                 alignSelf: "flex-start",
                 flexDirection: "row",
                 justifyContent: "space-evenly",
-                padding: theme.paddings.large,
+                padding: 4,
               }}
             >
               <ScrollView
                 horizontal
-                style={{ width: "100%", backgroundColor: "yellow" }}
+                style={{ width: "100%" }}
                 showsHorizontalScrollIndicator={false}
               >
                 {user.favouriteFruits.map((f) => (
@@ -189,111 +164,64 @@ export const ProfScreen = ({ navigation }) => {
           <View
             style={{
               alignSelf: "flex-start",
-              justifyContent: "space-evenly",
-              backgroundColor: "lightblue",
+              justifyContent: "flex-start",
+              marginTop: theme.margins.large * 2.4,
             }}
           >
             <CustomText
               fontWeight="bold"
-              fontSize="title"
-              style={{ padding: theme.paddings.large }}
+              fontSize="subheading"
+              style={{ paddingBottom: 0 }}
             >
               Friends:
             </CustomText>
-            <View
-              style={{
-                alignSelf: "flex-start",
-                flexDirection: "row",
-                flexWrap: "wrap",
-                justifyContent: "space-evenly",
-                backgroundColor: "lightgreen",
-              }}
-            >
-              {popFriends.map((friend) => (
+            <ScrollView horizontal style={{ width: "100%" }} showsHorizontalScrollIndicator={false}>
+              {popFriends.map((friend, index) => (
                 <TouchableOpacity
-                  style={{
-                    flexDirection: "column",
-                    padding: theme.paddings.std,
-                    borderColor: "lightblue",
-                    borderWidth: 5,
-                    width: "33%",
-                  }}
                   key={friend.id}
-                  onPress={() =>
-                    navigation.navigate("FriendProfScreen", {
-                      friend,
-                    })
-                  }
+                  style={{ alignItems: "center", padding: theme.paddings.std }}
+                  onPress={() => navigation.navigate("FriendProfScreen", { friend })}
                 >
-                  <CustomText style={{}}>{friend.username}</CustomText>
-                  <CustomText style={{}}>{friend.country}</CustomText>
-                  {/* <Image
-                      source={friends.image source here}
-                      style={styles.tinyFruitIcon}
-                    /> */}
+                  <CustomText style={{ fontSize: 13, marginBottom: 4 }}>{friend.username}</CustomText>
+                  <Image source={friendImgs[index]} style={{ width: 35, height: 35, borderRadius: 35 }} resizeMode="cover" />
                 </TouchableOpacity>
               ))}
-            </View>
+            </ScrollView>
           </View>
         ) : (
           <CustomText
-            style={
-              ([styles.addIcon],
-              {
-                alignSelf: "flex-start",
-                paddingVertical: theme.paddings.large,
-              })
-            }
+            style={[styles.addIcon, {
+              alignSelf: "flex-start",
+              paddingVertical: theme.paddings.large,
+            }]}
             color="textSecondary"
             fontSize="subheading"
-            fontWeight="bold"
           >
-            You don't have any friends yet.
+            You still haven't added any friend
           </CustomText>
         )}
 
-        {/* logout button */}
-        <TouchableOpacity
-          style={{
-            alignSelf: "flex-end",
-            paddingRight: theme.paddings.large,
-            alignSelf: "flex-end",
-          }}
-        >
-          <CustomText
-            fontSize="subtitle"
-            fontWeight="bold"
-            style={{}}
-            onPress={logOut}
-          >
-            Logout:
-            <CustomText fontSize="huge" fontWeight="bold" style={{}}>
-              💿
-            </CustomText>
-          </CustomText>
-        </TouchableOpacity>
-
-        {/* del account button */}
-        <TouchableOpacity
-          style={{
-            alignSelf: "flex-end",
-            paddingRight: theme.paddings.large,
-            alignSelf: "flex-end",
-          }}
-        >
-          <CustomText
-            fontSize="subtitle"
-            fontWeight="bold"
-            style={{}}
-            onPress={delAccount}
-          >
-            Del account:
-            <CustomText fontSize="huge" fontWeight="bold" style={{}}>
-              💿
-            </CustomText>
-          </CustomText>
-        </TouchableOpacity>
       </ScrollView>
+      {/* ----- bottom action buttons ----- */}
+      <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", marginTop: theme.margins.large, marginBottom: theme.margins.large }}>
+        <SecondaryButton onPress={logOut}>
+          logout
+        </SecondaryButton>
+        <SecondaryButton
+          onPress={() =>
+            Alert.alert(
+              "Delete account",
+              "Are you sure? You'll loose your info.",
+              [
+                { text: "Cancel", style: "cancel" },
+                { text: "Delete", style: "destructive", onPress: delAccount },
+              ]
+            )
+          }
+        >
+          delete account
+        </SecondaryButton>
+      </View>
     </SafeAreaView>
   );
 };

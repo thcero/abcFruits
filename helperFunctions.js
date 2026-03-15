@@ -1,7 +1,6 @@
 import axios from "axios";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import countryCodesList from "./countryCodesList.json";
-import * as FileSystem from "expo-file-system";
 import fruitData from "./fruitsList.json";
 
 // export const getCountryFlag = async (countryCode) => {
@@ -40,7 +39,7 @@ export const getLocalURIforCountryFlag = async (countryCode) => {
   // the dict exists so we can search for the flag file path
   if (flagDict != null) {
     // the flag is found, reutrn its path
-    if (countryCode in flagDict) {
+    if (countryCode in flagDict && flagDict[countryCode] != null) {
       return flagDict[countryCode];
       // the flag is not in dict yet, we need to add it
     } else {
@@ -80,27 +79,8 @@ export const getCountryCode = (codeArray, countryName) => {
   return null;
 };
 
-// first this line creates a dir if it still doesn't exist, if it does, it does nothing
 export const downloadFlagAndSaveFlag = async (countryCode) => {
-  try {
-    await FileSystem.makeDirectoryAsync(
-      FileSystem.documentDirectory + "flags",
-      {
-        intermediates: true,
-      }
-    );
-    // create a new path to the file system for the downloaded flag
-    const localUri = FileSystem.documentDirectory + `flags/${countryCode}.png`;
-    // download the flag
-    await FileSystem.downloadAsync(
-      `https://flagsapi.com/${countryCode}/flat/32.png`,
-      localUri
-    );
-    return localUri;
-  } catch (e) {
-    console.log("error in downloadFlagAndSaveFlag", e);
-    return null;
-  }
+  return `https://flagsapi.com/${countryCode}/flat/32.png`;
 };
 
 // returns a random image from a list of img req. sources

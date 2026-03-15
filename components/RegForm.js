@@ -4,17 +4,16 @@ import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
 import { pickImage, takePictureAndReturnUri } from "../imagePickerHelper";
 import { useForm, Controller } from "react-hook-form";
-import { Picker } from "@react-native-picker/picker";
 import {
-  Text,
   View,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
   ScrollView,
+  Image,
 } from "react-native";
 import { useAuth } from "./helperComponents/AuthContextProvider";
+import { PrimaryButton } from "./helperComponents/PrimaryButton";
 import { registerUser } from "../services";
 import { printAllErs } from "../helperFunctions";
 import RNPickerSelect from "react-native-picker-select";
@@ -60,7 +59,7 @@ export const RegForm = ({ navigation }) => {
       <ScrollView>
         {/* form title */}
         <CustomText style={styles.title}>Register Here</CustomText>
-        <CustomText style={styles.subtitle}>
+        <CustomText fontSize="small" style={styles.subtitle}>
           to start saving your fav fruits and to make fruity friends
         </CustomText>
 
@@ -93,7 +92,7 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.username && (
-            <Text style={styles.errorText}>{errors.username.message}</Text>
+            <CustomText style={styles.errorText}>{errors.username.message}</CustomText>
           )}
         </View>
         {/* fullname input */}
@@ -125,7 +124,7 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.fullname && (
-            <Text style={styles.errorText}>{errors.fullname.message}</Text>
+            <CustomText style={styles.errorText}>{errors.fullname.message}</CustomText>
           )}
         </View>
         {/* email input */}
@@ -163,7 +162,7 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.email && (
-            <Text style={styles.errorText}>{errors.email.message}</Text>
+            <CustomText style={styles.errorText}>{errors.email.message}</CustomText>
           )}
         </View>
         {/* password input */}
@@ -196,7 +195,7 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.password && (
-            <Text style={styles.errorText}>{errors.password.message}</Text>
+            <CustomText style={styles.errorText}>{errors.password.message}</CustomText>
           )}
         </View>
 
@@ -243,7 +242,7 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.country && (
-            <Text style={styles.errorText}>{errors.country.message}</Text>
+            <CustomText style={styles.errorText}>{errors.country.message}</CustomText>
           )}
         </View>
 
@@ -280,15 +279,16 @@ export const RegForm = ({ navigation }) => {
               </View>
             )}
           />
-          {/* submit form btn */}
+          {image && (
+            <Image
+              source={{ uri: image }}
+              style={styles.picPreview}
+            />
+          )}
         </View>
-        <View style={styles.buttonContainer}>
-          <Button
-            title="Register"
-            onPress={handleSubmit(onSubmit)}
-            style={{ margin: 0 }}
-          />
-        </View>
+        <PrimaryButton onPress={handleSubmit(onSubmit)} style={{ alignSelf: "flex-end", marginBottom: 50 }}>
+          Register
+        </PrimaryButton>
       </ScrollView>
     </SafeAreaView>
   );
@@ -298,8 +298,8 @@ const styles = StyleSheet.create({
   formContainer: {
     padding: theme.paddings.large,
     flex: 1,
-
     marginBottom: theme.margins.large,
+    backgroundColor: theme.colors.prim,
   },
   formField: {
     alignSelf: "flex-start",
@@ -311,22 +311,23 @@ const styles = StyleSheet.create({
   title: {
     alignSelf: "flex-start",
     fontSize: theme.fontSizes.heading,
-    fontWeight: theme.weights.bold,
+    fontFamily: theme.fonts.mainBold,
     marginBottom: theme.margins.std,
   },
   subtitle: {
     alignSelf: "flex-end",
     maxWidth: theme.widths.screen / 2,
-    margin: theme.margins.large,
+    marginBottom: theme.margins.large,
   },
   label: {
-    fontWeight: theme.weights.bold,
+    fontFamily: theme.fonts.mainBold,
   },
   inputField: {
     borderWidth: theme.borderWidths.std,
-    borderColor: "#ccc",
+    borderColor: theme.colors.coconutBrown,
     borderRadius: theme.borderRadius.round,
     padding: theme.paddings.std,
+    backgroundColor: theme.colors.back,
   },
   normalInput: { width: theme.widths.screen * 0.86 },
   smallInput: { width: theme.widths.screen * 0.28 },
@@ -346,10 +347,13 @@ const styles = StyleSheet.create({
     padding: theme.paddings.std,
     marginTop: theme.margins.large,
   },
-  buttonContainer: {
-    marginBottom: theme.margins.large,
-    alignSelf: "flex-end",
-    marginBottom: 50,
+  picPreview: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    marginTop: theme.margins.large,
+    borderWidth: theme.borderWidths.std,
+    borderColor: theme.colors.coconutBrown,
   },
   errorText: {
     color: "red",

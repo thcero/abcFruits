@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "./helperComponents/AuthContextProvider";
 import {
@@ -21,6 +22,7 @@ export const FruitScreen = ({ navigation, route }) => {
   const { user, setUser } = useAuth();
 
   const fruitName = route.params.fruitName;
+  const [isFav, setIsFav] = useState(user?.favouriteFruits?.includes(fruitName));
   const fruit = fruitData.find((f) => f.name === fruitName);
 
   const flagsUris = useFlags(fruit);
@@ -28,30 +30,24 @@ export const FruitScreen = ({ navigation, route }) => {
   const { addFruit } = useBasket();
 
   const addToFavs = async (f) => {
+    setIsFav(true);
     if (user)
       try {
-        // fruit already there
         if (user.favouriteFruits.indexOf(f.name) !== -1) return;
         user.favouriteFruits.push(f.name);
         const usrUpdt = await updateUser(user);
-        if (usrUpdt) {
-          setUser(usrUpdt);
-        }
+        if (usrUpdt) setUser(usrUpdt);
       } catch (e) {
         printAllErs(e);
       }
   };
   const removeFromFavs = async (f) => {
+    setIsFav(false);
     if (user)
       try {
-        let filterFruits = user.favouriteFruits.filter(
-          (name) => name !== f.name
-        );
-        user.favouriteFruits = filterFruits;
+        user.favouriteFruits = user.favouriteFruits.filter((name) => name !== f.name);
         const usrUpdt = await updateUser(user);
-        if (usrUpdt) {
-          setUser(usrUpdt);
-        }
+        if (usrUpdt) setUser(usrUpdt);
       } catch (e) {
         printAllErs(e);
       }
@@ -59,7 +55,7 @@ export const FruitScreen = ({ navigation, route }) => {
 
   if (!fruit)
     return (
-      <SafeAreaView style={[theme.container, fruitBox]}>
+      <SafeAreaView style={[theme.container, styles.fruitBox]}>
         <CustomText>fruit not found</CustomText>
       </SafeAreaView>
     );
@@ -89,9 +85,9 @@ export const FruitScreen = ({ navigation, route }) => {
             }}
           >
             <View style={styles.addToBasket}>
-              <CustomText style={{ alignSelf: "flex-end", fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 14 }}>+</CustomText>
+              <CustomText style={{ alignSelf: "flex-end", fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 6 }}>+</CustomText>
               <CustomText fontSize="small" style={[styles.addToBasket, { marginTop: -8 }]}>
-                to basket
+                add to basket
               </CustomText>
             </View>
           </TouchableOpacity>
@@ -117,7 +113,7 @@ export const FruitScreen = ({ navigation, route }) => {
             </View>
           )}
           {/* countries of origin */}
-          <View style={{ flexDirection: "row", marginTop: theme.margins.large }}>
+          <View style={{ flexDirection: "row", marginTop: theme.margins.large, marginBottom: theme.margins.large }}>
             <CustomText fontWeight="bold">Native to: </CustomText>
             {/* country detail box */}
             <View style={{ alignItems: "center" }}>
@@ -143,35 +139,19 @@ export const FruitScreen = ({ navigation, route }) => {
         </ScrollView>
       </View>
       <View
-        style={{
-          justifyContent: "space-between",
-          alignContent: "space-between",
-          flexDirection: "row",
-          marginTop: theme.margins.large,
-          width: "100%",
-        }}
+        style={{ marginTop: theme.margins.large, width: "100%" }}
       >
-        <TouchableOpacity style={{}} onPress={() => removeFromFavs(fruit)}>
-          <CustomText style={{ fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 14 }}>-</CustomText>
-          <CustomText fontSize="small" style={{ marginTop: -8 }}>(remove from favs)</CustomText>
-        </TouchableOpacity>
-        <TouchableOpacity style={{}} onPress={() => addToFavs(fruit)}>
-          <CustomText
-            style={{
-              alignSelf: "flex-end",
-              fontFamily: theme.fonts.display,
-              fontSize: 46.10,
-              lineHeight: 47,
-              color: theme.colors.blueberry,
-              textShadowColor: "#FFFFFF",
-              textShadowOffset: { width: 0, height: 0 },
-              textShadowRadius: 14,
-            }}
-          >
-            +
-          </CustomText>
-          <CustomText fontSize="small" style={{ marginTop: -8 }}>(add to favs)</CustomText>
-        </TouchableOpacity>
+        {isFav ? (
+          <TouchableOpacity style={{ alignSelf: "flex-start" }} onPress={() => removeFromFavs(fruit)}>
+            <CustomText style={{ fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 6 }}>-</CustomText>
+            <CustomText fontSize="small" style={{ marginTop: -8 }}>remove from favs</CustomText>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={{ alignSelf: "flex-end" }} onPress={() => addToFavs(fruit)}>
+            <CustomText style={{ alignSelf: "flex-end", fontFamily: theme.fonts.display, fontSize: 46.10, lineHeight: 47, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 6 }}>+</CustomText>
+            <CustomText fontSize="small" style={{ marginTop: -8 }}>add to favs</CustomText>
+          </TouchableOpacity>
+        )}
       </View>
     </SafeAreaView>
   );
@@ -230,7 +210,7 @@ const styles = StyleSheet.create({
   innerInfoBox: {
     justifyContent: "space-between",
     padding: theme.paddings.large,
-    height: "100%",
+    flexGrow: 1,
   },
   fruitImg: {
     width: 95,

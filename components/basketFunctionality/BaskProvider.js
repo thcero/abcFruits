@@ -11,11 +11,7 @@ export const BaskProvider = ({ children }) => {
   const { user, setUser } = useAuth();
 
   useEffect(() => {
-    if (user?.fruitBasket) {
-      setItems(user.fruitBasket);
-    } else {
-      setItems([]);
-    }
+    setItems(user?.fruitBasket || []);
   }, [user]);
 
   // this is a common pattern of updating an state arrays based on its object props

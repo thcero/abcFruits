@@ -1,7 +1,7 @@
 import { useState, useRef } from "react";
 import theme from "../../theme";
 import { CustomText } from "../helperComponents/CustomText";
-import { Animated, Text, Image, PanResponder, StyleSheet, TouchableOpacity, View } from "react-native";
+import { Animated, Image, PanResponder, StyleSheet, TouchableOpacity, View } from "react-native";
 import { useBasket } from "./BaskProvider";
 import fruitIconImgSources from "../../assets/fruit-icons/imgSourcesArray";
 import { useNavigation } from "@react-navigation/native";
@@ -67,8 +67,13 @@ export default function Basket() {
         ]}
       >
         <TouchableOpacity onPress={toggleBasket} style={[styles.handle, isExpanded && { marginLeft: 20 }]}>
-          <Ionicons name={isExpanded ? "arrow-down" : "arrow-up"} size={22} color="#fff" />
+          <Ionicons name={isExpanded ? "arrow-down" : "arrow-up"} size={18} color="#fff" />
         </TouchableOpacity>
+        {isExpanded && (
+          <CustomText style={{ color: theme.colors.backSeed, fontSize: 22, marginTop: 19, marginBottom: 2, alignSelf: "flex-start", marginLeft: 14, fontFamily: "Sniglet_400Regular" }}>
+            Today's Fruits Basket
+          </CustomText>
+        )}
         {isExpanded && (items.length ? (
           items.map((fruit, index) => (
             <View key={index} style={styles.itemRow}>
@@ -104,11 +109,11 @@ const styles = StyleSheet.create({
     // the basket z index needs to be the highest as it's always visible
     zIndex: 99,
     alignItems: "center",
-    borderWidth: 4,
-    borderColor: theme.colors.backSeed,
+    borderWidth: 7,
+    borderColor: "rgba(255, 190, 51, 0.36)",
   },
   handle: {
-    marginTop: theme.margins.marginStd,
+    marginTop: theme.margins.std,
     justifyContent: "center",
     alignItems: "center",
     alignSelf: "flex-start",

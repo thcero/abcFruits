@@ -1,16 +1,15 @@
-import React from "react";
+import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
-  Image,
   View,
   TextInput,
-  Button,
   StyleSheet,
   TouchableOpacity,
 } from "react-native";
 import { useForm, Controller } from "react-hook-form";
-import { CustomText } from "./helperComponents/CustomText"; // If you have a custom text component
+import { CustomText } from "./helperComponents/CustomText";
+import { PrimaryButton } from "./helperComponents/PrimaryButton";
 import { loginUser } from "../services";
 import { useAuth } from "./helperComponents/AuthContextProvider";
 import { printAllErs } from "../helperFunctions";
@@ -18,6 +17,7 @@ import theme from "../theme";
 
 export const Login = ({ navigation }) => {
   const { setUser, setIsAuth, key } = useAuth();
+  const [loginError, setLoginError] = useState(null);
 
   const {
     control,
@@ -31,6 +31,7 @@ export const Login = ({ navigation }) => {
   });
 
   const onSubmit = async (data) => {
+    setLoginError(null);
     try {
       const usrLgd = await loginUser(data);
       if (usrLgd) {
@@ -41,30 +42,12 @@ export const Login = ({ navigation }) => {
       }
     } catch (e) {
       printAllErs(e);
+      setLoginError("Invalid username or password.");
     }
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      {/* Placeholder image at the top */}
-      <TouchableOpacity
-        style={{
-          alignSelf: "flex-end",
-          paddingRight: theme.paddings.large,
-        }}
-        onPress={() => navigation.navigate("RegForm")}
-      >
-        <CustomText fontSize="subtitle" fontWeight="bold" style={{}}>
-          Register here:
-          <CustomText fontSize="huge" fontWeight="bold" style={{}}>
-            💿
-          </CustomText>
-        </CustomText>
-      </TouchableOpacity>
-      <CustomText fontSize="subtitle" fontWeight="bold" style={{}}>
-        Or login below:
-      </CustomText>
-
       <View style={styles.formField}>
         <CustomText style={styles.label}>Username</CustomText>
         <Controller
@@ -116,9 +99,19 @@ export const Login = ({ navigation }) => {
         )}
       </View>
 
-      <View style={styles.buttonContainer}>
-        <Button title="Log In" onPress={handleSubmit(onSubmit)} />
-      </View>
+      {loginError && (
+        <CustomText style={styles.errorText}>{loginError}</CustomText>
+      )}
+
+      <PrimaryButton onPress={handleSubmit(onSubmit)} style={{ marginTop: 20 }}>
+        Log In
+      </PrimaryButton>
+
+      {/* Register link — bottom left */}
+      <TouchableOpacity style={styles.registerLink} onPress={() => navigation.navigate("RegForm")}>
+        <CustomText fontSize="small" style={{ color: theme.colors.backSeed }}>Don't have an account? </CustomText>
+        <CustomText fontSize="small" fontWeight="bold" style={{ color: theme.colors.bananaSkin }}>Register here</CustomText>
+      </TouchableOpacity>
     </SafeAreaView>
   );
 };
@@ -126,10 +119,10 @@ export const Login = ({ navigation }) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-
     justifyContent: "center",
     alignItems: "center",
     padding: 24,
+    backgroundColor: theme.colors.prim,
   },
   topImage: {
     width: 150,
@@ -142,20 +135,24 @@ const styles = StyleSheet.create({
     marginVertical: 10,
   },
   label: {
-    fontWeight: "bold",
+    fontFamily: theme.fonts.mainBold,
     marginBottom: 5,
   },
   inputField: {
     borderWidth: 1,
-    borderColor: "#ccc",
+    borderColor: theme.colors.coconutBrown,
     borderRadius: 6,
     padding: 10,
+    backgroundColor: theme.colors.back,
   },
   errorText: {
     color: "red",
     marginTop: 5,
   },
-  buttonContainer: {
-    marginTop: 20,
+  registerLink: {
+    position: "absolute",
+    bottom: theme.paddings.large * 2,
+    left: theme.paddings.large,
+    flexDirection: "row",
   },
 });
