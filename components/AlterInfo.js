@@ -57,7 +57,7 @@ export const AlterInfo = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.formContainer}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         {/* form title */}
         <CustomText style={styles.title}>Update Info</CustomText>
         <CustomText fontSize="small" style={styles.subtitle}>
