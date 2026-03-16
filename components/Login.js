@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
+import { View, TextInput, StyleSheet, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { CustomText } from "./helperComponents/CustomText";
 import { PrimaryButton } from "./helperComponents/PrimaryButton";
@@ -46,6 +46,7 @@ export const Login = ({ navigation }) => {
   };
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <SafeAreaView style={styles.container}>
       <View style={styles.formField}>
         <CustomText style={styles.label}>Username</CustomText>
@@ -123,6 +124,7 @@ export const Login = ({ navigation }) => {
         </CustomText>
       </TouchableOpacity>
     </SafeAreaView>
+    </TouchableWithoutFeedback>
   );
 };
 
