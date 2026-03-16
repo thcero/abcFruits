@@ -1,3 +1,5 @@
+// ProfScreen.js — user profile screen: displays user info, favourite fruits, friends, and account actions
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   StyleSheet,
@@ -24,13 +26,15 @@ export const ProfScreen = ({ navigation }) => {
   const [popFriends, setPopFriends] = useState([]);
   const [friendImgs, setFriendImgs] = useState([]);
 
-  // make a list of friends with full features
+  // fetch all users and filter down to this user's friends, then assign random profile pictures
   useEffect(() => {
     (async () => {
       try {
         const allUsers = await getAllUsers();
         if (allUsers?.length && user?.friendsList?.length) {
-          const friends = allUsers.filter((u) => user.friendsList.includes(u.id));
+          const friends = allUsers.filter((u) =>
+            user.friendsList.includes(u.id),
+          );
           setPopFriends(friends);
           setFriendImgs(populateRandomImgs(friends, imgSourcesArray));
         }
@@ -81,7 +85,14 @@ export const ProfScreen = ({ navigation }) => {
     >
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         {/* ----- username left, update info top right ----- */}
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: theme.margins.large * 3 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: theme.margins.large * 3,
+          }}
+        >
           <CustomText
             fontWeight="bold"
             style={{ fontSize: theme.fontSizes.body * 1.75 }}
@@ -94,7 +105,13 @@ export const ProfScreen = ({ navigation }) => {
         </View>
 
         {/* ----- profile picture + country ----- */}
-        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: theme.margins.large * 2.4 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: theme.margins.large * 2.4,
+          }}
+        >
           {user.picture ? (
             <Image
               style={styles.userImge}
@@ -177,38 +194,58 @@ export const ProfScreen = ({ navigation }) => {
             >
               Friends:
             </CustomText>
-            <ScrollView horizontal style={{ width: "100%" }} showsHorizontalScrollIndicator={false}>
+            <ScrollView
+              horizontal
+              style={{ width: "100%" }}
+              showsHorizontalScrollIndicator={false}
+            >
               {popFriends.map((friend, index) => (
                 <TouchableOpacity
                   key={friend.id}
                   style={{ alignItems: "center", padding: theme.paddings.std }}
-                  onPress={() => navigation.navigate("FriendProfScreen", { friend })}
+                  onPress={() =>
+                    navigation.navigate("FriendProfScreen", { friend })
+                  }
                 >
-                  <CustomText style={{ fontSize: 13, marginBottom: 4 }}>{friend.username}</CustomText>
-                  <Image source={friendImgs[index]} style={{ width: 35, height: 35, borderRadius: 35 }} resizeMode="cover" />
+                  <CustomText style={{ fontSize: 13, marginBottom: 4 }}>
+                    {friend.username}
+                  </CustomText>
+                  <Image
+                    source={friendImgs[index]}
+                    style={{ width: 35, height: 35, borderRadius: 35 }}
+                    resizeMode="cover"
+                  />
                 </TouchableOpacity>
               ))}
             </ScrollView>
           </View>
         ) : (
           <CustomText
-            style={[styles.addIcon, {
-              alignSelf: "flex-start",
-              paddingVertical: theme.paddings.large,
-            }]}
+            style={[
+              styles.addIcon,
+              {
+                alignSelf: "flex-start",
+                paddingVertical: theme.paddings.large,
+              },
+            ]}
             color="textSecondary"
             fontSize="subheading"
           >
             You still haven't added any friend
           </CustomText>
         )}
-
       </ScrollView>
       {/* ----- bottom action buttons ----- */}
-      <View style={{ flexDirection: "row", justifyContent: "space-between", width: "100%", marginTop: theme.margins.large, marginBottom: theme.margins.large }}>
-        <SecondaryButton onPress={logOut}>
-          logout
-        </SecondaryButton>
+      <View
+        style={{
+          flexDirection: "row",
+          justifyContent: "space-between",
+          width: "100%",
+          marginTop: theme.margins.large,
+          marginBottom: theme.margins.large,
+        }}
+      >
+        <SecondaryButton onPress={logOut}>logout</SecondaryButton>
         <SecondaryButton
           onPress={() =>
             Alert.alert(
@@ -217,7 +254,7 @@ export const ProfScreen = ({ navigation }) => {
               [
                 { text: "Cancel", style: "cancel" },
                 { text: "Delete", style: "destructive", onPress: delAccount },
-              ]
+              ],
             )
           }
         >

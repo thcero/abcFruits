@@ -1,3 +1,5 @@
+// SecondaryButton.js — smaller secondary button, used for actions like logout, delete, and update info
+
 import { TouchableOpacity, StyleSheet } from "react-native";
 import { CustomText } from "./CustomText";
 import theme from "../../theme";
@@ -8,7 +10,10 @@ export const SecondaryButton = ({ onPress, style, children }) => {
     <TouchableOpacity style={[styles.button, style]} onPress={onPress}>
       <CustomText
         fontWeight="bold"
-        style={{ color: theme.colors.coconutBrown, fontSize: theme.fontSizes.small * 0.85 }}
+        style={{
+          color: theme.colors.coconutBrown,
+          fontSize: theme.fontSizes.small * 0.85,
+        }}
       >
         {children}
       </CustomText>

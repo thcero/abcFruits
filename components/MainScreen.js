@@ -1,3 +1,5 @@
+// MainScreen.js — home screen: home for abc fruit list
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text } from "react-native";
 import { useEffect, useState } from "react";
@@ -6,18 +8,18 @@ import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
 import { AbcFruitsList } from "./AbcFruitsList";
 
+// sort fruits alphabetically once at module load, not on every render
 const fruitsList = fruitData;
 fruitsList.sort((a, b) =>
   a.name.toLowerCase().localeCompare(b.name.toLowerCase()),
 );
 
 export const MainScreen = ({ navigation }) => {
-  // checks if it's undefined without throwing an error, if it is, returns an empty array
-  // const currentLetters = route.params?.currentLetters ?? [];
+  // list of unique first letters used to build the alphabet index
   const [currentLetters, setCurrentLetters] = useState([]);
 
   useEffect(() => {
-    // create array of initial letters of available fruits with no repetition
+    // collect unique first letters from the sorted fruit list
     let initialLetters = [];
     fruitsList.forEach((fruit) => {
       initialLetters.push(fruit.name[0].toUpperCase());

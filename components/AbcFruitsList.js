@@ -1,10 +1,6 @@
-import {
-  View,
-  StyleSheet,
-  ScrollView,
-  Image,
-  TouchableOpacity,
-} from "react-native";
+// AbcFruitsList.js — renders the alphabetical fruit list grouped by letter, each fruit navigates to FruitScreen component
+
+import { View, StyleSheet, ScrollView, TouchableOpacity } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import theme from "../theme";
 import { CustomText } from "./helperComponents/CustomText";
@@ -12,16 +8,18 @@ import { TinyFruitIcon } from "./TinyFruitIcon";
 
 export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
   const navigation = useNavigation();
-  const alphabetRow = ({ letter }) => {};
 
   return (
     <View
       style={[
         theme.container,
-        { width: "100%", backgroundColor: theme.colors.prim, paddingVertical: 16 },
+        {
+          width: "100%",
+          backgroundColor: theme.colors.prim,
+          paddingVertical: 16,
+        },
       ]}
     >
-      {/* change this to a flatlist for efficiency and write on the report */}
       <ScrollView
         contentContainerStyle={theme.content}
         style={styles.fruitList}
@@ -32,7 +30,10 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
               fontSize="huge"
               fontWeight="bold"
               padding="std"
-              style={[styles.alphabetLetter, { fontFamily: "Sniglet_400Regular" }]}
+              style={[
+                styles.alphabetLetter,
+                { fontFamily: "Sniglet_400Regular" },
+              ]}
             >
               {letter}
             </CustomText>
@@ -41,7 +42,7 @@ export const AbcFruitsList = ({ currentLetters, fruitsList }) => {
             ) : (
               fruitsList
                 .filter((lFruit) =>
-                  lFruit.name.toUpperCase().startsWith(letter)
+                  lFruit.name.toUpperCase().startsWith(letter),
                 )
                 .map((fruit, fIndex) => (
                   <TouchableOpacity

@@ -1,3 +1,5 @@
+// RegForm.js — registration form: collects user details, supports photo upload/capture, and creates a new account
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import theme from "../theme";
@@ -44,6 +46,7 @@ export const RegForm = ({ navigation }) => {
       if (newUser) {
         setUser(newUser);
         reset();
+        // after successful registration navigate to Login so the user can sign in
         navigation.navigate("Login");
       }
     } catch (e) {
@@ -92,7 +95,9 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.username && (
-            <CustomText style={styles.errorText}>{errors.username.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.username.message}
+            </CustomText>
           )}
         </View>
         {/* fullname input */}
@@ -124,7 +129,9 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.fullname && (
-            <CustomText style={styles.errorText}>{errors.fullname.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.fullname.message}
+            </CustomText>
           )}
         </View>
         {/* email input */}
@@ -162,7 +169,9 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.email && (
-            <CustomText style={styles.errorText}>{errors.email.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.email.message}
+            </CustomText>
           )}
         </View>
         {/* password input */}
@@ -195,7 +204,9 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.password && (
-            <CustomText style={styles.errorText}>{errors.password.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.password.message}
+            </CustomText>
           )}
         </View>
 
@@ -233,7 +244,9 @@ export const RegForm = ({ navigation }) => {
             )}
           />
           {errors.country && (
-            <CustomText style={styles.errorText}>{errors.country.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.country.message}
+            </CustomText>
           )}
         </View>
 
@@ -270,14 +283,12 @@ export const RegForm = ({ navigation }) => {
               </View>
             )}
           />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={styles.picPreview}
-            />
-          )}
+          {image && <Image source={{ uri: image }} style={styles.picPreview} />}
         </View>
-        <PrimaryButton onPress={handleSubmit(onSubmit)} style={{ alignSelf: "flex-end", marginBottom: 50 }}>
+        <PrimaryButton
+          onPress={handleSubmit(onSubmit)}
+          style={{ alignSelf: "flex-end", marginBottom: 50 }}
+        >
           Register
         </PrimaryButton>
       </ScrollView>

@@ -1,9 +1,13 @@
+// theme.js — centralizes design options for app: colours, fonts, sizes, spacing..
+
 import { Dimensions } from "react-native";
+// capture device dimensions once at load time for use in layout calculations
 const SCREEN_WIDTH = Dimensions.get("window").width;
 const SCREEN_HEIGHT = Dimensions.get("window").height;
 
 const theme = {
   colors: {
+    // legacy palette from early development
     textPrimary: "#1d2026",
     textSecondary: "#312b45",
     primBlue: "#3e37ff",
@@ -37,6 +41,7 @@ const theme = {
     white: "#FFFFFF",
     grey: "#B0B0B0",
   },
+  // type scale
   fontSizes: {
     small: 17,
     body: 22,
@@ -44,6 +49,7 @@ const theme = {
     heading: 28,
     huge: 38,
   },
+  // quicksand for body/UI text, Sniglet for display headings
   fonts: {
     main: "Quicksand_500Medium",
     mainBold: "Quicksand_700Bold",
@@ -53,6 +59,7 @@ const theme = {
     normal: "500",
     bold: "900",
   },
+  // spacing scale used for padding and margin throughout the app
   paddings: {
     std: 8,
     large: 16,
@@ -68,12 +75,14 @@ const theme = {
   borderRadius: {
     round: 10,
   },
+  // device screen dimensions for responsive sizing
   widths: {
     screen: SCREEN_WIDTH,
   },
   heights: {
     screen: SCREEN_HEIGHT,
   },
+  // reusable base layout styles
   container: {
     flex: 1,
     alignItems: "center",

@@ -1,17 +1,22 @@
+// controllers.js — simulated backend: intercepts axios calls with MockAdapter and stores data in AsyncStorage
+
 import axios from "axios";
 import MockAdapter from "axios-mock-adapter";
 import initialUsersData from "./users.json"; // directly importing the JSON file
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
-// build adapter setting delay
-const mock = new MockAdapter(axios, { delayResponse: 500, onNoMatch: "passthrough" });
-// hashing pswd demo step
+// set up mock adapter with a 500ms delay to simulate real network latency
+const mock = new MockAdapter(axios, {
+  delayResponse: 500,
+  onNoMatch: "passthrough",
+});
+// simple hash demo — not cryptographically secure, used for illustration only
 const hashedPswd = (pswd) => `hash_${pswd}`;
 
-// should make it stop interfeering with other axios calls by default...
+// let the Overpass API (farmers market map) calls pass through to the real network
 mock.onAny("https://overpass-api.de/api/interpreter").passThrough();
 
-// --- GET ALL USERS
+// --- GET ALL USERS — removes password and token before returning
 mock.onGet("/users").reply(async () => {
   const users = await getUsersDB();
   const cleanUsers = users?.map((u) => {
@@ -20,7 +25,7 @@ mock.onGet("/users").reply(async () => {
   return [200, cleanUsers];
 });
 
-// --- GET USER BY ID
+// --- GET USER BY ID — matches any GET to /users/:id
 mock.onGet().reply(async (config) => {
   if (config.url.startsWith("/users/")) {
     // splits url and grabs last segment as the id
@@ -243,9 +248,9 @@ mock.onPost("/authenticate").reply(async (config) => {
 });
 
 //-----------------------SIM DB ------------------------//
+// key used to store the users array in AsyncStorage
 export const dbKey = "@usersSimDB";
-// a simulated database initialization function, stores all data in a single json file to the local memory
-// called by App.js
+// seeds AsyncStorage with the initial sample users on first launch — called by App.js
 export const initializeSimDB = async (
   key = dbKey,
   userData = initialUsersData,
@@ -262,7 +267,7 @@ export const initializeSimDB = async (
 };
 
 // grab json file from asyncStorage:
-// 1) Read the current users from AsyncStorage
+// read the current users from AsyncStorage
 const getUsersDB = async (key = dbKey) => {
   try {
     const usJson = await AsyncStorage.getItem(key);

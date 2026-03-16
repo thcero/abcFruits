@@ -1,3 +1,5 @@
+// MyFavFruitsList.js — placeholder screen, not implemented at this stage
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, StyleSheet } from "react-native";
 import theme from "../theme";

@@ -1,3 +1,5 @@
+// FriendProfScreen.js — shows a person profile: their favourite fruits, fruits in common, and add/remove friend button
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import {
   StyleSheet,
@@ -19,7 +21,9 @@ import { updateUser } from "../services";
 export const FriendProfScreen = ({ navigation, route }) => {
   const { user, setUser } = useAuth();
   const friend = route.params.friend;
-  const [isFriend, setIsFriend] = useState(user?.friendsList?.includes(friend.id));
+  const [isFriend, setIsFriend] = useState(
+    user?.friendsList?.includes(friend.id),
+  );
 
   const addFriend = async () => {
     setIsFriend(true);
@@ -44,41 +48,80 @@ export const FriendProfScreen = ({ navigation, route }) => {
         printAllErs(e);
       }
   };
+  // calculate fruits in common between the logged-in user and this friend
   let commonFruits = [];
   if (friend.favouriteFruits)
     commonFruits =
       friend.favouriteFruits?.length && user?.favouriteFruits?.length
         ? user?.favouriteFruits.filter((f) =>
-            friend.favouriteFruits.includes(f)
+            friend.favouriteFruits.includes(f),
           )
         : [];
 
-  const [img] = useState(friend.picture ? { uri: friend.picture } : pickRandomImgSource(imgSourcesArray));
+  const [img] = useState(
+    friend.picture
+      ? { uri: friend.picture }
+      : pickRandomImgSource(imgSourcesArray),
+  );
 
   if (!friend) return null;
   return (
-    <SafeAreaView style={[theme.container, { paddingHorizontal: theme.paddings.large }]}>
+    <SafeAreaView
+      style={[theme.container, { paddingHorizontal: theme.paddings.large }]}
+    >
       <ScrollView style={{ flex: 1 }} showsVerticalScrollIndicator={false}>
         {/* ----- username + add friend ----- */}
-        <View style={{ flexDirection: "row", justifyContent: "space-between", alignItems: "center", marginBottom: theme.margins.large * 3 }}>
-          <CustomText fontWeight="bold" style={{ fontSize: theme.fontSizes.body * 1.75 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            justifyContent: "space-between",
+            alignItems: "center",
+            marginBottom: theme.margins.large * 3,
+          }}
+        >
+          <CustomText
+            fontWeight="bold"
+            style={{ fontSize: theme.fontSizes.body * 1.75 }}
+          >
             {friend.username}
           </CustomText>
           {!isFriend && (
-            <TouchableOpacity onPress={addFriend} style={{ flexDirection: "row", alignItems: "center" }}>
-              <CustomText style={{ fontFamily: theme.fonts.display, fontSize: 45, lineHeight: 46, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 0, height: 0 }, textShadowRadius: 8 }}>+</CustomText>
-              <CustomText fontWeight="bold" style={{ color: theme.colors.blueberry, marginLeft: 4 }}>add as friend</CustomText>
+            <TouchableOpacity
+              onPress={addFriend}
+              style={{ flexDirection: "row", alignItems: "center" }}
+            >
+              <CustomText
+                style={{
+                  fontFamily: theme.fonts.display,
+                  fontSize: 45,
+                  lineHeight: 46,
+                  color: theme.colors.blueberry,
+                  textShadowColor: "#FFFFFF",
+                  textShadowOffset: { width: 0, height: 0 },
+                  textShadowRadius: 8,
+                }}
+              >
+                +
+              </CustomText>
+              <CustomText
+                fontWeight="bold"
+                style={{ color: theme.colors.blueberry, marginLeft: 4 }}
+              >
+                add as friend
+              </CustomText>
             </TouchableOpacity>
           )}
         </View>
 
         {/* ----- profile picture + country ----- */}
-        <View style={{ flexDirection: "row", alignItems: "center", marginBottom: theme.margins.large * 2 }}>
-          <Image
-            style={styles.userImge}
-            source={img}
-            resizeMode="cover"
-          />
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            marginBottom: theme.margins.large * 2,
+          }}
+        >
+          <Image style={styles.userImge} source={img} resizeMode="cover" />
           <View style={{ marginLeft: theme.margins.large * 4 }}>
             <CustomText fontWeight="bold">{friend.country}</CustomText>
             <CountryFlag countryName={friend.country} size={65} />
@@ -87,15 +130,34 @@ export const FriendProfScreen = ({ navigation, route }) => {
 
         {/* ----- favourite fruits ----- */}
         {friend.favouriteFruits?.length ? (
-          <View style={{ alignSelf: "flex-start", justifyContent: "space-evenly" }}>
-            <CustomText fontWeight="bold" fontSize="title" style={{ paddingVertical: 4 }}>
+          <View
+            style={{ alignSelf: "flex-start", justifyContent: "space-evenly" }}
+          >
+            <CustomText
+              fontWeight="bold"
+              fontSize="title"
+              style={{ paddingVertical: 4 }}
+            >
               {friend.username}'s fav fruits:
             </CustomText>
-            <View style={{ alignSelf: "flex-start", flexDirection: "row", justifyContent: "space-evenly", padding: 4 }}>
-              <ScrollView horizontal style={{ width: "100%" }} showsHorizontalScrollIndicator={false}>
+            <View
+              style={{
+                alignSelf: "flex-start",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                padding: 4,
+              }}
+            >
+              <ScrollView
+                horizontal
+                style={{ width: "100%" }}
+                showsHorizontalScrollIndicator={false}
+              >
                 {friend.favouriteFruits.map((f) => (
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("FruitScreen", { fruitName: f })}
+                    onPress={() =>
+                      navigation.navigate("FruitScreen", { fruitName: f })
+                    }
                     style={{ padding: theme.paddings.std }}
                     key={f}
                   >
@@ -113,15 +175,34 @@ export const FriendProfScreen = ({ navigation, route }) => {
 
         {/* ----- fruits in common ----- */}
         {commonFruits?.length ? (
-          <View style={{ alignSelf: "flex-start", justifyContent: "space-evenly" }}>
-            <CustomText fontWeight="bold" fontSize="title" style={{ paddingVertical: 4 }}>
+          <View
+            style={{ alignSelf: "flex-start", justifyContent: "space-evenly" }}
+          >
+            <CustomText
+              fontWeight="bold"
+              fontSize="title"
+              style={{ paddingVertical: 4 }}
+            >
               Fruits in common:
             </CustomText>
-            <View style={{ alignSelf: "flex-start", flexDirection: "row", justifyContent: "space-evenly", padding: 4 }}>
-              <ScrollView horizontal style={{ width: "100%" }} showsHorizontalScrollIndicator={false}>
+            <View
+              style={{
+                alignSelf: "flex-start",
+                flexDirection: "row",
+                justifyContent: "space-evenly",
+                padding: 4,
+              }}
+            >
+              <ScrollView
+                horizontal
+                style={{ width: "100%" }}
+                showsHorizontalScrollIndicator={false}
+              >
                 {commonFruits.map((f, index) => (
                   <TouchableOpacity
-                    onPress={() => navigation.navigate("FruitScreen", { fruitName: f })}
+                    onPress={() =>
+                      navigation.navigate("FruitScreen", { fruitName: f })
+                    }
                     style={{ padding: theme.paddings.std }}
                     key={index}
                   >
@@ -138,9 +219,31 @@ export const FriendProfScreen = ({ navigation, route }) => {
         )}
         {/* ----- remove friend ----- */}
         {isFriend && (
-          <TouchableOpacity onPress={removeFriend} style={{ flexDirection: "row", alignItems: "center", alignSelf: "flex-end", marginTop: theme.margins.large * 3 }}>
-            <CustomText fontWeight="bold" style={{ color: theme.colors.redDelete, marginRight: 4 }}>remove as friend</CustomText>
-            <CustomText style={{ fontFamily: theme.fonts.display, fontSize: 45, lineHeight: 46, color: theme.colors.redDelete }}>−</CustomText>
+          <TouchableOpacity
+            onPress={removeFriend}
+            style={{
+              flexDirection: "row",
+              alignItems: "center",
+              alignSelf: "flex-end",
+              marginTop: theme.margins.large * 3,
+            }}
+          >
+            <CustomText
+              fontWeight="bold"
+              style={{ color: theme.colors.redDelete, marginRight: 4 }}
+            >
+              remove as friend
+            </CustomText>
+            <CustomText
+              style={{
+                fontFamily: theme.fonts.display,
+                fontSize: 45,
+                lineHeight: 46,
+                color: theme.colors.redDelete,
+              }}
+            >
+              −
+            </CustomText>
           </TouchableOpacity>
         )}
       </ScrollView>

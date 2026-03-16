@@ -1,28 +1,10 @@
-import axios from "axios";
+// helperFunctions.js — general utility functions: country flags, image helpers, and string formatting
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import countryCodesList from "./countryCodesList.json";
-import fruitData from "./fruitsList.json";
 
-// export const getCountryFlag = async (countryCode) => {
-//   try {
-//     const response = await axios.get(
-//       `https://flagsapi.com/${countryCode}/flat/16.png`
-//     );
-//     return response.data[0].flags[0];
-//   } catch (error) {
-//     return null;
-//   }
-// };
-
-/* file location in local file system stored in local storage as such:
-{
-
-    "BR": "file://some/path/br.png",
-    "BE": "file://some/path/be.png"
- }
-*/
-
-// takes a country code and returns the location of its flag in the local file system
+// country flags are fetched from flagsapi.com by country code and cached in AsyncStorage
+// to avoid repeated network requests. The cache is a dictionary { "BR": "url", ... }
+// then takes a country code and returns the location of its flag in the local file system
 const key = "countryFlagDictionary"; // the key for the local storage
 export const getLocalURIforCountryFlag = async (countryCode) => {
   if (countryCode == null || !countryCode.length) {
@@ -79,6 +61,7 @@ export const getCountryCode = (codeArray, countryName) => {
   return null;
 };
 
+// returns the remote flag URL for a given country code (flagsapi.com)
 export const downloadFlagAndSaveFlag = async (countryCode) => {
   return `https://flagsapi.com/${countryCode}/flat/32.png`;
 };
@@ -99,10 +82,12 @@ export const populateRandomImgs = (array, arrayOfImages) => {
   return randomImgs;
 };
 
+// logs all available error info — useful for debugging axios errors
 export const printAllErs = (e) => {
   console.log(e.response?.status || e.request || e.message);
   console.log(e.response?.data);
 };
 
+// capitalises the first letter of a string
 export const capitalizeFirstLetter = (someString) =>
   `${someString.charAt(0).toUpperCase()}${someString.slice(1)}`;

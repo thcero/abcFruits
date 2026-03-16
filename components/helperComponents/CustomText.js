@@ -1,7 +1,8 @@
+// CustomText.js — to make styling clean and consistent,  maps prop shortcuts (fontSize, fontWeight, color) to theme styles
+
 import { Text as NativeTextComponent, StyleSheet } from "react-native";
 import theme from "../../theme";
 
-// customized text component to make styling clean and consistent
 export const CustomText = ({
   color,
   fontSize,

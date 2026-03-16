@@ -1,3 +1,5 @@
+// index.js — re-exports all screen and component modules for cleaner imports elsewhere
+
 export * from "./AbcFruitsList";
 export * from "./AlterInfo";
 export * from "./FriendProfScreen";
