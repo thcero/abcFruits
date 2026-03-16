@@ -59,7 +59,7 @@ export const RegForm = ({ navigation }) => {
 
   return (
     <SafeAreaView style={styles.formContainer}>
-      <ScrollView>
+      <ScrollView keyboardShouldPersistTaps="handled">
         {/* form title */}
         <CustomText style={styles.title}>Register Here</CustomText>
         <CustomText fontSize="small" style={styles.subtitle}>
