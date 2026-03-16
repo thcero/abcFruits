@@ -1,3 +1,5 @@
+// AuthContextProvider.js — provides global auth state (user, isAuth), providing auto-authenticates on app launch
+
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { createContext, useState, useContext, useEffect } from "react";
 import { authenticateUser } from "../../services";
@@ -8,14 +10,16 @@ export const AuthContextProvider = ({ children }) => {
   const [user, setUser] = useState(null);
   const [isAuth, setIsAuth] = useState(false);
 
+  // key used to store the session token in AsyncStorage
   const key = "bearerTkn";
+
+  // on mount: check if a session token exists and re-authenticate the user automatically
   useEffect(() => {
-    // performs the check: is there a valid token in local storage?
     (async () => {
       try {
         const tokenStored = await AsyncStorage.getItem(key);
         if (!tokenStored) return;
-        // the token is valid: refresh user state
+        // token found — validate it against the backend and restore user state
         const usr = await authenticateUser({ sessionToken: tokenStored });
         if (!usr) return;
         setUser(usr);

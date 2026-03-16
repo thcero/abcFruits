@@ -1,3 +1,5 @@
+// PeopleScreen.js — lists all users with basic info and their favourite fruits, also shows fruits in common with the logged-in user
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useEffect, useState } from "react";
 import {
@@ -43,25 +45,49 @@ export const PeopleScreen = ({ navigation }) => {
     })();
   }, [user]);
 
-
   if (!people.length) return null;
   return (
-    <SafeAreaView style={[theme.container, { backgroundColor: theme.colors.prim }]}>
+    <SafeAreaView
+      style={[theme.container, { backgroundColor: theme.colors.prim }]}
+    >
       <CustomText
         fontSize="heading"
         fontWeight="bold"
-        style={{ fontFamily: theme.fonts.display, fontSize: 41.4, letterSpacing: 0.12, color: theme.colors.blueberry, textShadowColor: "#FFFFFF", textShadowOffset: { width: 2, height: 2 }, textShadowRadius: 3, marginTop: 30, marginBottom: theme.margins.large * 3 }}
+        style={{
+          fontFamily: theme.fonts.display,
+          fontSize: 41.4,
+          letterSpacing: 0.12,
+          color: theme.colors.blueberry,
+          textShadowColor: "#FFFFFF",
+          textShadowOffset: { width: 2, height: 2 },
+          textShadowRadius: 3,
+          marginTop: 30,
+          marginBottom: theme.margins.large * 3,
+        }}
       >
         Fruity People
       </CustomText>
       <View style={{ position: "absolute", top: 3, right: 3, marginBottom: 5 }}>
-        <View style={{ flexDirection: "row", alignItems: "center", backgroundColor: theme.colors.backSeed, borderRadius: 12, paddingHorizontal: 6, paddingVertical: 3 }}>
+        <View
+          style={{
+            flexDirection: "row",
+            alignItems: "center",
+            backgroundColor: theme.colors.backSeed,
+            borderRadius: 12,
+            paddingHorizontal: 6,
+            paddingVertical: 3,
+          }}
+        >
           <CustomText style={{ fontSize: 37 * 0.33 }}>🔍</CustomText>
           <TextInput
             value={searchText}
             onChangeText={setSearchText}
             placeholder="search"
-            style={{ fontSize: 37 * 0.33, fontFamily: theme.fonts.main, width: 75 }}
+            style={{
+              fontSize: 37 * 0.33,
+              fontFamily: theme.fonts.main,
+              width: 75,
+            }}
           />
         </View>
       </View>
@@ -69,7 +95,9 @@ export const PeopleScreen = ({ navigation }) => {
         <CustomText fontSize="subtitle">Fetching users</CustomText>
       ) : (
         <PeopleList
-          people={people.filter((p) => p.username.toLowerCase().startsWith(searchText.toLowerCase()))}
+          people={people.filter((p) =>
+            p.username.toLowerCase().startsWith(searchText.toLowerCase()),
+          )}
           userFavFNames={user?.favouriteFruits}
           navigation={navigation}
           images={peopleImgs}
@@ -81,14 +109,18 @@ export const PeopleScreen = ({ navigation }) => {
   );
 };
 
-const PeopleList = ({
-  people,
-  navigation,
-  userFavFNames,
-  images,
-}) => {
+const PeopleList = ({ people, navigation, userFavFNames, images }) => {
   return (
-    <View style={[theme.container, { width: "100%", alignItems: "center", backgroundColor: theme.colors.prim }]}>
+    <View
+      style={[
+        theme.container,
+        {
+          width: "100%",
+          alignItems: "center",
+          backgroundColor: theme.colors.prim,
+        },
+      ]}
+    >
       {/* change this to a flatlist for efficiency */}
       <FlatList
         contentContainerStyle={theme.content}
@@ -97,11 +129,21 @@ const PeopleList = ({
         keyExtractor={(item, index) => index.toString()}
         renderItem={({ item, index }) => (
           // ----- A PERSON CONTAINER -----//
-          <TouchableOpacity style={styles.person} onPress={() => navigation.navigate("FriendProfScreen", { friend: item })}>
+          <TouchableOpacity
+            style={styles.person}
+            onPress={() =>
+              navigation.navigate("FriendProfScreen", { friend: item })
+            }
+          >
             {/* the left box  */}
             <View style={styles.personLeftBox}>
               {/* top row: name centered */}
-              <CustomText fontSize="title" fontWeight="bold" numberOfLines={1} style={{ flexShrink: 1, textAlign: "center" }}>
+              <CustomText
+                fontSize="title"
+                fontWeight="bold"
+                numberOfLines={1}
+                style={{ flexShrink: 1, textAlign: "center" }}
+              >
                 {item.username}
               </CustomText>
               {/* middle: photo */}
@@ -122,13 +164,21 @@ const PeopleList = ({
             {/* the right box */}
             <View style={styles.personRightBox}>
               {/* the person's favourite fruits */}
-              <CustomText fontSize="small" fontWeight="bold" padding="std" style={{ paddingHorizontal: 5, marginTop: 3 }}>
+              <CustomText
+                fontSize="small"
+                fontWeight="bold"
+                padding="std"
+                style={{ paddingHorizontal: 5, marginTop: 3 }}
+              >
                 fav fruits:
               </CustomText>
               {item.favouriteFruits?.length ? (
                 <ScrollView
                   horizontal
-                  style={{ width: "100%", backgroundColor: theme.colors.backSeed }}
+                  style={{
+                    width: "100%",
+                    backgroundColor: theme.colors.backSeed,
+                  }}
                   showsHorizontalScrollIndicator={false}
                 >
                   {item.favouriteFruits.map((f) => (
@@ -153,16 +203,43 @@ const PeopleList = ({
                 </>
               )}
               {/* the fruits in common */}
-              <View style={{ width: "100%", height: 0.9, backgroundColor: theme.colors.sec }} />
-              <CustomText fontSize="small" fontWeight="bold" padding="std" style={{ paddingHorizontal: 5, marginTop: 3, color: item.favouriteFruits?.length && userFavFNames?.length && item.favouriteFruits.some((f) => userFavFNames.includes(f)) ? undefined : theme.colors.grey }}>
-                {item.favouriteFruits?.length && userFavFNames?.length && item.favouriteFruits.some((f) => userFavFNames.includes(f)) ? "fruits in common:" : "no fruits in common"}
+              <View
+                style={{
+                  width: "100%",
+                  height: 0.9,
+                  backgroundColor: theme.colors.sec,
+                }}
+              />
+              <CustomText
+                fontSize="small"
+                fontWeight="bold"
+                padding="std"
+                style={{
+                  paddingHorizontal: 5,
+                  marginTop: 3,
+                  color:
+                    item.favouriteFruits?.length &&
+                    userFavFNames?.length &&
+                    item.favouriteFruits.some((f) => userFavFNames.includes(f))
+                      ? undefined
+                      : theme.colors.grey,
+                }}
+              >
+                {item.favouriteFruits?.length &&
+                userFavFNames?.length &&
+                item.favouriteFruits.some((f) => userFavFNames.includes(f))
+                  ? "fruits in common:"
+                  : "no fruits in common"}
               </CustomText>
               {item.favouriteFruits?.length &&
               userFavFNames?.length &&
               item.favouriteFruits.some((f) => userFavFNames.includes(f)) ? (
                 <ScrollView
                   horizontal
-                  style={{ width: "100%", backgroundColor: theme.colors.backSeed }}
+                  style={{
+                    width: "100%",
+                    backgroundColor: theme.colors.backSeed,
+                  }}
                   showsHorizontalScrollIndicator={false}
                 >
                   {item.favouriteFruits
@@ -182,7 +259,12 @@ const PeopleList = ({
                     ))}
                 </ScrollView>
               ) : (
-                <View style={{ width: "100%", backgroundColor: theme.colors.backSeed }} />
+                <View
+                  style={{
+                    width: "100%",
+                    backgroundColor: theme.colors.backSeed,
+                  }}
+                />
               )}
             </View>
           </TouchableOpacity>

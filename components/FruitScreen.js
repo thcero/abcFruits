@@ -1,3 +1,5 @@
+// FruitScreen.js — detail screen for a single fruit: shows nutrients, origin flags, add to basket, and add/remove from favourites
+
 import { useState } from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useAuth } from "./helperComponents/AuthContextProvider";
@@ -22,6 +24,7 @@ export const FruitScreen = ({ navigation, route }) => {
   const { user, setUser } = useAuth();
 
   const fruitName = route.params.fruitName;
+  // isFav is initialised from the user's saved favourites list
   const [isFav, setIsFav] = useState(user?.favouriteFruits?.includes(fruitName));
   const fruit = fruitData.find((f) => f.name === fruitName);
 

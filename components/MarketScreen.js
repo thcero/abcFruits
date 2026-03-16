@@ -1,3 +1,5 @@
+// MarketScreen.js — finds the user's location and fetches nearby farmers markets using the Overpass API (OpenStreetMap)
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState, useEffect } from "react";
 import theme from "../theme";
@@ -42,7 +44,7 @@ export const MarketScreen = ({ navigation }) => {
         let { status } = await Location.requestForegroundPermissionsAsync();
         if (status !== "granted") {
           setMsg(
-            "Location permission denied, please enable access in app settings if desired "
+            "Location permission denied, please enable access in app settings if desired ",
           );
           return;
         } else setMsg("Permission granted, loading..");
@@ -71,7 +73,7 @@ export const MarketScreen = ({ navigation }) => {
     })();
   }, []);
 
-  // something wrong with this code here:
+  // fetch and process markets once coords are available
   useEffect(() => {
     (async () => {
       if (!coords) return;
@@ -85,7 +87,7 @@ export const MarketScreen = ({ navigation }) => {
         const retMarkets = await getMarketsNearby(radius, latitude, longitude);
         if (!retMarkets)
           setMsg(
-            "Sorry, can't currently get markets recommendations try again later"
+            "Sorry, can't currently get markets recommendations try again later",
           );
         else if (!retMarkets.length) setMsg("No markets nearby found");
         else {
@@ -109,7 +111,7 @@ export const MarketScreen = ({ navigation }) => {
               } catch (err) {
                 console.log("reverseGeocodeAsync error", err);
               }
-            })
+            }),
           );
           setStrMarkets(retMarkets);
           setMarkImgs(populateRandomImgs(retMarkets, imgSourcesArray));

@@ -1,8 +1,10 @@
+// TinyFruitIcon.js — tiny fruit icon used in lists and profile screens across the app
+
 import { StyleSheet, Image, View } from "react-native";
 import theme from "../theme";
 import fruitIconImgSources from "../assets/fruit-icons/imgSourcesArray";
 
-// takes a fruit name
+// renders the fruit icon image for the given fruit name at the specified size
 export const TinyFruitIcon = ({ f, size }) => {
   return (
     <View style={[styles.tinyFruitIcon, { width: size, height: size }]}>

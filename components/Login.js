@@ -1,12 +1,9 @@
+// Login.js — login form: validates credentials, stores session token in AsyncStorage and updates global auth state
+
 import React, { useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { SafeAreaView } from "react-native-safe-area-context";
-import {
-  View,
-  TextInput,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { View, TextInput, StyleSheet, TouchableOpacity } from "react-native";
 import { useForm, Controller } from "react-hook-form";
 import { CustomText } from "./helperComponents/CustomText";
 import { PrimaryButton } from "./helperComponents/PrimaryButton";
@@ -30,11 +27,13 @@ export const Login = ({ navigation }) => {
     },
   });
 
+  // submits login credentials, updates auth state, navigates to user profile if successful
   const onSubmit = async (data) => {
     setLoginError(null);
     try {
       const usrLgd = await loginUser(data);
       if (usrLgd) {
+        // save token to AsyncStorage so the user stays logged in on next app launch
         await AsyncStorage.setItem(key, usrLgd.sessionToken);
         setUser(usrLgd);
         setIsAuth(true);
@@ -108,9 +107,20 @@ export const Login = ({ navigation }) => {
       </PrimaryButton>
 
       {/* Register link — bottom left */}
-      <TouchableOpacity style={styles.registerLink} onPress={() => navigation.navigate("RegForm")}>
-        <CustomText fontSize="small" style={{ color: theme.colors.backSeed }}>Don't have an account? </CustomText>
-        <CustomText fontSize="small" fontWeight="bold" style={{ color: theme.colors.bananaSkin }}>Register here</CustomText>
+      <TouchableOpacity
+        style={styles.registerLink}
+        onPress={() => navigation.navigate("RegForm")}
+      >
+        <CustomText fontSize="small" style={{ color: theme.colors.backSeed }}>
+          Don't have an account?{" "}
+        </CustomText>
+        <CustomText
+          fontSize="small"
+          fontWeight="bold"
+          style={{ color: theme.colors.bananaSkin }}
+        >
+          Register here
+        </CustomText>
       </TouchableOpacity>
     </SafeAreaView>
   );

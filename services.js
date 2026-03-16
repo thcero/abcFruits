@@ -1,5 +1,5 @@
-// these functions are the requests to our controllers, implemented in this file for cleaner code with the interaction with
-// separation of concearns
+// services.js — API layer: all requests to the backend go through here, keep app highly modular and easily readable
+// importing controllers.js activates the axios-mock-adapter, intercepting all axios calls
 import "./backend/controllers.js";
 import axios from "axios";
 
@@ -64,18 +64,14 @@ export const authenticateUser = async (userData) => {
   return response.data;
 };
 
-// This part of the code is not in use as it requires API key,
-// there it only servers as an example of how it'd be implemented if
-// users were to make a request by clicking on a fruit icon or searching for a fruit,
-// as the info is not large, or sensitive time sensitive, I decided to access the API
-// myself and post the json info list with the app as an example
-// Replace with your actual USDA API key
+// --- USDA API (not in use) ---
+// instead of fetching live, fruit data is bundled locally as fruitsList.json
+// searchFruit shows how a live search would work if an API key were provided
 const apiKey = "MY_API_KEY";
 
-// function to seach for fruits, like so:GET
-//api.nal.usda.gov/fdc/v1/foods/search?api_key=YOUR_API_KEY&query=banana&dataType=Foundation
+// example: search USDA FoodData Central for a fruit by name
 export const searchFruit = async (fruitName) => {
-  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=YOUR_API_KEY&query=${fruitName}&dataType=Foundation`;
+  const url = `https://api.nal.usda.gov/fdc/v1/foods/search?api_key=${apiKey}&query=${fruitName}&dataType=Foundation`;
   const response = await axios.get(url);
   return response.data;
 };

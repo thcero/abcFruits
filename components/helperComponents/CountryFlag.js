@@ -1,3 +1,5 @@
+// CountryFlag.js — fetches and displays a country flag image, using the cache from helperFunctions
+
 import { useState, useEffect } from "react";
 import { Image } from "react-native";
 import {

@@ -1,3 +1,5 @@
+// AlterInfo.js — edit profile form: pre-filled with current user data, allows updating all account fields
+
 import { SafeAreaView } from "react-native-safe-area-context";
 import { useState } from "react";
 import theme from "../theme";
@@ -39,6 +41,7 @@ export const AlterInfo = ({ navigation }) => {
 
   const onSubmit = async (data) => {
     try {
+      // merge existing user data with form values so unchanged fields are preserved
       const updatedUser = await updateUser({ ...user, ...data });
       if (updatedUser) {
         setUser(updatedUser);
@@ -90,7 +93,9 @@ export const AlterInfo = ({ navigation }) => {
             )}
           />
           {errors.username && (
-            <CustomText style={styles.errorText}>{errors.username.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.username.message}
+            </CustomText>
           )}
         </View>
 
@@ -123,7 +128,9 @@ export const AlterInfo = ({ navigation }) => {
             )}
           />
           {errors.fullname && (
-            <CustomText style={styles.errorText}>{errors.fullname.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.fullname.message}
+            </CustomText>
           )}
         </View>
 
@@ -161,7 +168,9 @@ export const AlterInfo = ({ navigation }) => {
             )}
           />
           {errors.email && (
-            <CustomText style={styles.errorText}>{errors.email.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.email.message}
+            </CustomText>
           )}
         </View>
 
@@ -189,7 +198,9 @@ export const AlterInfo = ({ navigation }) => {
             )}
           />
           {errors.password && (
-            <CustomText style={styles.errorText}>{errors.password.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.password.message}
+            </CustomText>
           )}
         </View>
 
@@ -227,7 +238,9 @@ export const AlterInfo = ({ navigation }) => {
             )}
           />
           {errors.country && (
-            <CustomText style={styles.errorText}>{errors.country.message}</CustomText>
+            <CustomText style={styles.errorText}>
+              {errors.country.message}
+            </CustomText>
           )}
         </View>
 
@@ -264,15 +277,13 @@ export const AlterInfo = ({ navigation }) => {
               </View>
             )}
           />
-          {image && (
-            <Image
-              source={{ uri: image }}
-              style={styles.picPreview}
-            />
-          )}
+          {image && <Image source={{ uri: image }} style={styles.picPreview} />}
         </View>
 
-        <PrimaryButton onPress={handleSubmit(onSubmit)} style={{ alignSelf: "flex-end", marginBottom: 50 }}>
+        <PrimaryButton
+          onPress={handleSubmit(onSubmit)}
+          style={{ alignSelf: "flex-end", marginBottom: 50 }}
+        >
           Update
         </PrimaryButton>
       </ScrollView>

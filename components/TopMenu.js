@@ -1,3 +1,6 @@
+// TopMenu.js — persistent top navigation bar: home, market, people, profile
+// guards people and profile navigation — redirects to Login if user is not authenticated
+
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 import { useNavigation } from "@react-navigation/native";
 import { View, TouchableOpacity, StyleSheet, Image } from "react-native";
@@ -7,6 +10,7 @@ import { useAuth } from "./helperComponents/AuthContextProvider";
 export const TopMenu = () => {
   const navigation = useNavigation();
   const { isAuth } = useAuth();
+  // use insets instead of Constants.statusBarHeight for correct padding on all devices
   const insets = useSafeAreaInsets();
   return (
     <View style={[styles.topMenu, { paddingVertical: insets.top * 0.5 }]}>
